@@ -6,193 +6,143 @@
 <title>Home Run Derby Challenge 2026</title>
 <style>
 :root {
-  --bg: #0d1520;
-  --surface: #162030;
-  --surface2: #1e2d42;
-  --border: #263545;
-  --text: #e2e8f0;
-  --muted: #6b8099;
-  --gold: #f5c518;
-  --gold-dim: rgba(245,197,24,0.12);
-  --green: #22c55e;
-  --red: #ef4444;
-  --blue: #3b82f6;
-  --radius: 10px;
+  --bg:#0d1520; --surface:#162030; --surface2:#1e2d42; --border:#263545;
+  --text:#e2e8f0; --muted:#6b8099; --gold:#f5c518; --gold-dim:rgba(245,197,24,.12);
+  --green:#22c55e; --red:#ef4444; --radius:10px;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
-/* ── HEADER ── */
-header {
-  background: linear-gradient(135deg, #091525 0%, #0f2240 100%);
-  border-bottom: 2px solid var(--gold);
-  padding: 20px 40px;
-  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-}
-.hdr-icon { font-size: 32px; line-height: 1; }
-.hdr-text h1 { font-size: 22px; font-weight: 800; color: var(--gold); letter-spacing: -0.3px; }
-.hdr-text .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
-.hdr-right { margin-left: auto; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.live-pill {
-  display: flex; align-items: center; gap: 6px;
-  background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3);
-  border-radius: 20px; padding: 4px 12px; font-size: 11px; font-weight: 700; color: var(--green);
-}
-.live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: blink 2s infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-#last-updated { font-size: 11px; color: var(--muted); }
-#refresh-btn {
-  background: var(--surface2); border: 1px solid var(--border); color: var(--text);
-  padding: 7px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;
-  transition: background 0.15s;
-}
-#refresh-btn:hover { background: var(--border); }
-#refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+/* HEADER */
+header{background:linear-gradient(135deg,#091525,#0f2240);border-bottom:2px solid var(--gold);padding:20px 40px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.hdr-text h1{font-size:22px;font-weight:800;color:var(--gold)}
+.hdr-text .sub{font-size:12px;color:var(--muted);margin-top:2px}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.live-pill{display:flex;align-items:center;gap:6px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--green)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+#last-updated{font-size:11px;color:var(--muted)}
+#refresh-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:7px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:background .15s}
+#refresh-btn:hover{background:var(--border)}
+#refresh-btn:disabled{opacity:.5;cursor:not-allowed}
 
-/* ── MAIN ── */
-main { max-width: 1400px; margin: 0 auto; padding: 28px 40px 60px; }
+/* MAIN */
+main{max-width:1400px;margin:0 auto;padding:28px 40px 60px}
 
-/* ── RULES CARD ── */
-.rules-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-  padding: 16px 22px; margin-bottom: 24px;
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px;
-}
-.rule { display: flex; gap: 10px; align-items: flex-start; }
-.rule-ico { font-size: 18px; line-height: 1.3; flex-shrink: 0; }
-.rule-txt { font-size: 12px; color: var(--muted); line-height: 1.5; }
-.rule-txt strong { color: var(--text); display: block; margin-bottom: 2px; }
+/* RULES */
+.rules-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 22px;margin-bottom:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.rule{display:flex;gap:10px;align-items:flex-start}
+.rule-ico{font-size:18px;line-height:1.3;flex-shrink:0}
+.rule-txt{font-size:12px;color:var(--muted);line-height:1.5}
+.rule-txt strong{color:var(--text);display:block;margin-bottom:2px}
+.rule-highlight{background:var(--gold-dim);border:1px solid rgba(245,197,24,.3);border-radius:6px}
 
-/* ── MONTH CHIPS ── */
-.month-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
-.mc {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
-  padding: 4px 12px; font-size: 11px; color: var(--muted);
-}
-.mc b { color: var(--gold); margin-right: 4px; }
+/* MONTH CHIPS */
+.month-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.mc{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--muted)}
+.mc b{color:var(--gold);margin-right:4px}
 
-/* ── SECTION HEADER ── */
-.sec-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.sec-hdr h2 { font-size: 18px; font-weight: 700; }
-.badge-live {
-  background: var(--gold-dim); border: 1px solid var(--gold); color: var(--gold);
-  font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
-  padding: 2px 8px; border-radius: 3px;
-}
+/* SECTION HEADER */
+.sec-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sec-hdr h2{font-size:18px;font-weight:700}
+.badge-live{background:var(--gold-dim);border:1px solid var(--gold);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
 
-/* ── STANDINGS TABLE ── */
-.tbl-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
-table { width: 100%; border-collapse: collapse; }
-thead { background: var(--surface2); }
-th {
-  padding: 11px 14px; text-align: left;
-  font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-  color: var(--muted); border-bottom: 1px solid var(--border); white-space: nowrap;
-  cursor: pointer; user-select: none;
-}
-th:hover { color: var(--text); }
-th.sort-active { color: var(--gold); }
-th.num, td.num { text-align: right; }
-td {
-  padding: 12px 14px; border-bottom: 1px solid rgba(38,53,69,0.6);
-  font-size: 13px; vertical-align: middle;
-}
-tbody tr:last-child td { border-bottom: none; }
-tbody tr.data-row { cursor: pointer; transition: background 0.12s; }
-tbody tr.data-row:hover { background: rgba(255,255,255,0.03); }
-tbody tr.data-row.open { background: var(--gold-dim); }
+/* STANDINGS TABLE */
+.tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--surface2)}
+th{padding:11px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap}
+th.num,td.num{text-align:right}
+td{padding:12px 14px;border-bottom:1px solid rgba(38,53,69,.6);font-size:13px;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr.data-row{cursor:pointer;transition:background .12s}
+tbody tr.data-row:hover{background:rgba(255,255,255,.03)}
+tbody tr.data-row.open{background:var(--gold-dim)}
+.rank-cell{text-align:center;font-weight:700;width:44px}
+.rank-1{color:#FFD700}.rank-2{color:#b0b8c4}.rank-3{color:#cd7f32}.rank-rest{color:var(--muted);font-size:12px}
+.team-cell{font-weight:600;font-size:14px}
+.month-cell{color:var(--muted);font-weight:600;min-width:54px}
+.month-cell.nz{color:var(--text)}
+.total-cell{font-weight:800;font-size:17px;color:var(--gold);min-width:60px}
+.expand-icon{color:var(--muted);font-size:11px;margin-left:6px;transition:transform .2s;display:inline-block}
+tbody tr.data-row.open .expand-icon{transform:rotate(90deg)}
 
-.rank-cell { text-align: center; font-weight: 700; width: 44px; }
-.rank-1 { color: #FFD700; }
-.rank-2 { color: #b0b8c4; }
-.rank-3 { color: #cd7f32; }
-.rank-rest { color: var(--muted); font-size: 12px; }
+/* DETAIL ROW */
+tr.detail-row td{padding:0;background:rgba(9,21,37,.7)}
+.detail-inner{padding:16px 20px;border-top:1px solid var(--border)}
 
-.team-cell { font-weight: 600; font-size: 14px; }
-.month-cell { color: var(--muted); font-weight: 600; min-width: 54px; }
-.month-cell.nonzero { color: var(--text); }
-.total-cell { font-weight: 800; font-size: 17px; color: var(--gold); min-width: 60px; }
-.expand-icon { color: var(--muted); font-size: 11px; margin-left: 6px; transition: transform 0.2s; display: inline-block; }
-tbody tr.data-row.open .expand-icon { transform: rotate(90deg); }
+/* MONTH TABS */
+.mtabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap}
+.mtab{padding:5px 14px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;background:var(--surface2);color:var(--muted);border:1px solid var(--border);transition:all .12s}
+.mtab.active{background:var(--gold-dim);color:var(--gold);border-color:var(--gold)}
 
-/* ── DETAIL ROW ── */
-tr.detail-row td { padding: 0; background: rgba(9,21,37,0.7); }
-.detail-inner { padding: 18px 20px; border-top: 1px solid var(--border); }
+/* MONTH SCORE HEADER */
+.msh{display:flex;align-items:center;justify-content:space-between;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 16px;margin-bottom:12px}
+.msh-label{font-size:12px;color:var(--muted);font-weight:600}
+.msh-score{font-size:20px;font-weight:800;color:var(--gold)}
+.msh-note{font-size:11px;color:var(--muted)}
 
-/* Month toggle */
-.mtabs { display: flex; gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
-.mtab {
-  padding: 5px 14px; border-radius: 6px; font-size: 11px; font-weight: 700;
-  cursor: pointer; background: var(--surface2); color: var(--muted);
-  border: 1px solid var(--border); transition: all 0.12s;
-}
-.mtab.active { background: var(--gold-dim); color: var(--gold); border-color: var(--gold); }
-.mtab-all { }
+/* PLAYER GRID */
+.player-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:7px}
+.pc{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:9px 13px;display:flex;align-items:center;gap:10px;transition:border-color .12s}
+.pc.counting{border-color:var(--gold);background:var(--gold-dim)}
+.pc-rank{font-size:11px;font-weight:700;color:var(--muted);min-width:18px;text-align:center}
+.pc.counting .pc-rank{color:var(--gold)}
+.pc-name{font-size:12px;font-weight:500;color:var(--muted);flex:1}
+.pc.counting .pc-name{color:var(--gold);font-weight:600}
+.pc-right{display:flex;align-items:center;gap:5px;margin-left:auto}
+.pc-hr{font-size:18px;font-weight:800;color:var(--text)}
+.pc.counting .pc-hr{color:var(--gold)}
+.top10-tag{font-size:8px;background:var(--gold);color:var(--bg);padding:1px 4px;border-radius:2px;font-weight:800}
 
-/* Player grid */
-.player-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px,1fr)); gap: 7px; }
-.pc {
-  background: var(--surface); border: 1px solid var(--border); border-radius: 7px;
-  padding: 9px 13px; display: flex; justify-content: space-between; align-items: center;
-  transition: border-color 0.12s;
-}
-.pc.counting { border-color: var(--gold); background: var(--gold-dim); }
-.pc-name { font-size: 12px; font-weight: 500; color: var(--muted); }
-.pc.counting .pc-name { color: var(--gold); font-weight: 600; }
-.pc-right { display: flex; align-items: center; gap: 5px; }
-.pc-hr { font-size: 20px; font-weight: 800; color: var(--text); }
-.pc.counting .pc-hr { color: var(--gold); }
-.top10-tag {
-  font-size: 8px; background: var(--gold); color: var(--bg);
-  padding: 1px 4px; border-radius: 2px; font-weight: 800; letter-spacing: .03em;
-}
+/* SEASON TABLE */
+.stbl{width:100%;border-collapse:collapse;font-size:12px}
+.stbl th{padding:7px 10px;background:var(--surface2);color:var(--muted);font-size:10px;letter-spacing:.04em;text-transform:uppercase;text-align:center;white-space:nowrap}
+.stbl th:first-child{text-align:left}
+.stbl td{padding:7px 10px;border-bottom:1px solid rgba(38,53,69,.5);text-align:center;color:var(--muted)}
+.stbl td.pn{text-align:left;color:var(--text);font-weight:500}
+.stbl tr.score-row td{background:rgba(245,197,24,.08);color:var(--gold);font-weight:700;border-top:1px solid rgba(245,197,24,.2)}
+.cell-counts{background:rgba(245,197,24,.12);color:var(--gold);font-weight:700;border-radius:3px;padding:1px 4px}
+.cell-zero{color:rgba(107,128,153,.4)}
 
-/* season total table in detail */
-.season-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
-.season-tbl th { padding: 6px 10px; background: var(--surface2); color: var(--muted); font-size: 10px; text-align: center; }
-.season-tbl td { padding: 7px 10px; border-bottom: 1px solid rgba(38,53,69,0.5); text-align: center; color: var(--muted); }
-.season-tbl td.p-name { text-align: left; color: var(--text); font-weight: 500; }
-.season-tbl tr.counting-row td { color: var(--gold); }
-.season-tbl tr.counting-row td.p-name { font-weight: 600; }
-.season-tbl .dot-yes { color: var(--gold); font-weight: 800; }
-.season-tbl .dot-no { color: var(--border); }
+/* STATES */
+.loading-box{padding:60px;text-align:center}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-label{color:var(--muted);font-size:13px}
+#load-detail{font-size:11px;color:rgba(38,53,69,1);margin-top:6px}
+.error-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);border-radius:var(--radius);padding:20px;color:var(--red);text-align:center;font-size:13px}
 
-/* ── STATES ── */
-.loading-box { padding: 60px; text-align: center; }
-.spinner {
-  width: 36px; height: 36px; border: 3px solid var(--border);
-  border-top-color: var(--gold); border-radius: 50%;
-  animation: spin 0.75s linear infinite; margin: 0 auto 14px;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-.loading-label { color: var(--muted); font-size: 13px; }
-#load-detail { font-size: 11px; color: var(--border); margin-top: 6px; }
+/* PLAYER REGISTRY PANEL */
+.reg-panel{margin-top:32px}
+.reg-summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;list-style:none;transition:color .15s}
+.reg-summary:hover{color:var(--text)}
+details[open] .reg-summary{border-radius:8px 8px 0 0;border-bottom-color:transparent}
+.reg-content{background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 8px 8px;padding:16px}
+.reg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px;margin-top:10px}
+.reg-item{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:5px;font-size:11px}
+.reg-roster{font-weight:700;color:var(--text);min-width:90px}
+.reg-full{color:var(--muted);flex:1}
+.src-badge{font-size:9px;font-weight:700;padding:2px 5px;border-radius:2px;white-space:nowrap}
+.src-registry{background:rgba(34,197,94,.15);color:var(--green)}
+.src-api{background:rgba(59,130,246,.15);color:#60a5fa}
+.src-notfound{background:rgba(239,68,68,.15);color:var(--red)}
 
-.error-box {
-  background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3);
-  border-radius: var(--radius); padding: 20px; color: var(--red); text-align: center; font-size: 13px;
-}
-.unmatched-warn {
-  font-size: 11px; color: var(--muted); background: var(--surface);
-  border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; margin-top: 16px;
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 800px) {
-  header { padding: 14px 16px; }
-  main { padding: 16px 14px 40px; }
-  .month-cell { display: none; }
-  .month-cell.show-mobile { display: table-cell; }
+/* RESPONSIVE */
+@media(max-width:800px){
+  header,main{padding:14px 16px}
+  .month-cell{display:none}
+  .month-cell:last-of-type{display:table-cell}
 }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="hdr-icon">⚾</div>
+  <div style="font-size:32px">⚾</div>
   <div class="hdr-text">
     <h1>Home Run Derby Challenge</h1>
-    <div class="sub">2026 MLB Season &nbsp;·&nbsp; 30 Teams &nbsp;·&nbsp; Live Standings</div>
+    <div class="sub">2026 MLB Season · 30 Teams · Live Standings</div>
   </div>
   <div class="hdr-right">
     <div class="live-pill"><div class="live-dot"></div>LIVE</div>
@@ -202,27 +152,20 @@ tr.detail-row td { padding: 0; background: rgba(9,21,37,0.7); }
 </header>
 
 <main>
-
   <div class="rules-card">
-    <div class="rule"><span class="rule-ico">🏆</span><div class="rule-txt"><strong>Top 10 Players Count</strong>Only the top 10 HR hitters on each roster count per month</div></div>
-    <div class="rule"><span class="rule-ico">📅</span><div class="rule-txt"><strong>6 Scoring Periods</strong>Mar/Apr · May · Jun · Jul · Aug · Sep</div></div>
-    <div class="rule"><span class="rule-ico">📊</span><div class="rule-txt"><strong>Overall Score</strong>Sum of each month's top-10 HR total</div></div>
-    <div class="rule"><span class="rule-ico">👥</span><div class="rule-txt"><strong>30 Teams · 13 Players Each</strong>Click any team row to expand roster detail</div></div>
+    <div class="rule"><span class="rule-ico">👥</span><div class="rule-txt"><strong>30 Teams · 13 Players Each</strong>Click any row to expand the full roster breakdown</div></div>
+    <div class="rule rule-highlight"><span class="rule-ico">🏆</span><div class="rule-txt"><strong>Top 10 Per Month (Independent)</strong>Each month, the 10 players with the MOST HRs that month count. Your #11 player in April might be your #3 in May — the top 10 resets every month.</div></div>
+    <div class="rule"><span class="rule-ico">📅</span><div class="rule-txt"><strong>6 Scoring Periods</strong>M1 Mar/Apr · M2 May · M3 Jun · M4 Jul · M5 Aug · M6 Sep</div></div>
+    <div class="rule"><span class="rule-ico">📊</span><div class="rule-txt"><strong>Season Score</strong>Sum of your top-10 HR totals across all 6 months</div></div>
   </div>
 
   <div class="month-chips">
-    <span class="mc"><b>M1</b>Mar/Apr</span>
-    <span class="mc"><b>M2</b>May</span>
-    <span class="mc"><b>M3</b>Jun</span>
-    <span class="mc"><b>M4</b>Jul</span>
-    <span class="mc"><b>M5</b>Aug</span>
-    <span class="mc"><b>M6</b>Sep</span>
+    <span class="mc"><b>M1</b>Mar/Apr</span><span class="mc"><b>M2</b>May</span>
+    <span class="mc"><b>M3</b>Jun</span><span class="mc"><b>M4</b>Jul</span>
+    <span class="mc"><b>M5</b>Aug</span><span class="mc"><b>M6</b>Sep</span>
   </div>
 
-  <div class="sec-hdr">
-    <h2>Standings</h2>
-    <span class="badge-live">Live</span>
-  </div>
+  <div class="sec-hdr"><h2>Standings</h2><span class="badge-live">Live</span></div>
 
   <div class="tbl-wrap">
     <div id="standings-mount">
@@ -234,31 +177,45 @@ tr.detail-row td { padding: 0; background: rgba(9,21,37,0.7); }
     </div>
   </div>
 
+  <div class="reg-panel" id="reg-panel" style="display:none">
+    <details>
+      <summary class="reg-summary">🔍 Player Registry — Click to verify all player matches</summary>
+      <div class="reg-content">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px">
+          <span style="background:rgba(34,197,94,.15);color:#22c55e;padding:2px 6px;border-radius:2px;font-weight:700;margin-right:8px">Hardcoded</span> Pre-verified MLB player ID &nbsp;
+          <span style="background:rgba(59,130,246,.15);color:#60a5fa;padding:2px 6px;border-radius:2px;font-weight:700;margin-right:8px">API Match</span> Matched via MLB Stats API &nbsp;
+          <span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 6px;border-radius:2px;font-weight:700">Not Found</span> Could not resolve — stats will be 0
+        </div>
+        <div class="reg-grid" id="reg-grid"></div>
+      </div>
+    </details>
+  </div>
 </main>
 
 <script>
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 // CONFIG
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
 const SEASON = 2026;
 const TOP_N  = 10;
-const CACHE_KEY_IDS   = `hrd_${SEASON}_ids`;
-const CACHE_KEY_STATS = `hrd_${SEASON}_stats`;
-const CACHE_IDS_TTL   = 7  * 24 * 60 * 60 * 1000; // 7 days
-const CACHE_STATS_TTL = 30 * 60 * 1000;            // 30 min
+const CACHE_IDS   = `hrd_${SEASON}_res_v3`;
+const CACHE_STATS = `hrd_${SEASON}_stats_v3`;
+const TTL_IDS     = 7  * 24 * 60 * 60 * 1000;
+const TTL_STATS   = 30 * 60 * 1000;
+const API = 'https://statsapi.mlb.com/api/v1';
 
 const MONTHS = [
-  { id:1, label:'Mar/Apr', col:'M1', months:[3,4] },
-  { id:2, label:'May',     col:'M2', months:[5]   },
-  { id:3, label:'Jun',     col:'M3', months:[6]   },
-  { id:4, label:'Jul',     col:'M4', months:[7]   },
-  { id:5, label:'Aug',     col:'M5', months:[8]   },
-  { id:6, label:'Sep',     col:'M6', months:[9]   },
+  {id:1, label:'Mar/Apr', col:'M1', months:[3,4]},
+  {id:2, label:'May',     col:'M2', months:[5]},
+  {id:3, label:'Jun',     col:'M3', months:[6]},
+  {id:4, label:'Jul',     col:'M4', months:[7]},
+  {id:5, label:'Aug',     col:'M5', months:[8]},
+  {id:6, label:'Sep',     col:'M6', months:[9]},
 ];
 
-// ═══════════════════════════════════════════
-// ROSTERS  (30 teams × 13 players)
-// ═══════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// ROSTERS — 30 teams × 13 players
+// ═══════════════════════════════════════════════════════
 const ROSTERS = {
   "Team Stein":        ["Ohtani","Suarez","Caminero","Devers","Busch","Wood","Olson","Tatis","Witt","Wallner","Acuna","Chourio","Henderson"],
   "Team Rose":         ["Judge","Caminero","Alonso","Buxton","Springer","Pasquantino","Langeliers","Marte","Machado","Tatis","De La Cruz","Cruz","Acuna"],
@@ -292,372 +249,457 @@ const ROSTERS = {
   "Team Weinbrum":     ["Judge","Soto","Kurtz","Devers","Rodriguez","Ramirez","Rooker","Marte","Tatis","Guerrero","Witt","Acuna","Alvarez"],
 };
 
-// ═══════════════════════════════════════════
-// DISAMBIGUATION — for ambiguous last names
-// ═══════════════════════════════════════════
-const DISAMBIG = {
-  "Rodriguez":   { first:"Julio",     teamAbbr:"SEA" },
-  "Cruz":        { first:"Oneil",     teamAbbr:"PIT" },
-  "De La Cruz":  { first:"Elly",      teamAbbr:"CIN" },
-  "Walker":      { first:"Christian", teamAbbr:"ARI" },
-  "Carroll":     { first:"Corbin",    teamAbbr:"ARI" },
-  "Henderson":   { first:"Gunnar",    teamAbbr:"BAL" },
-  "Marte":       { first:"Ketel",     teamAbbr:"ARI" },
-  "Ramirez":     { first:"Jose",      teamAbbr:"CLE" },
-  "Hernandez":   { first:"Teoscar"                   },
-  "Guerrero":    { first:"Vladimir"                  },
-  "Tatis":       { first:"Fernando"                  },
-  "Witt":        { first:"Bobby"                     },
-  "Acuna":       { first:"Ronald"                    },
-  "Alonso":      { first:"Pete",      teamAbbr:"NYM" },
-  "Olson":       { first:"Matt",      teamAbbr:"ATL" },
-  "Tucker":      { first:"Kyle"                      },
-  "Wood":        { first:"James",     teamAbbr:"WSH" },
-  "Busch":       { first:"Michael",   teamAbbr:"CHC" },
-  "Lowe":        { first:"Nathaniel", teamAbbr:"TEX" },
-  "Polanco":     { first:"Jorge"                     },
-  "Robert":      { first:"Luis"                      },
-  "Jones":       { first:"Nolan"                     },
-  "Montgomery":  { first:"Colton"                    },
-  "Rice":        { first:"Ben",       teamAbbr:"NYY" },
-  "Stowers":     { first:"Kyle"                      },
-  "Pages":       { first:"Andy",      teamAbbr:"LAD" },
-  "Anthony":     { first:"Roman",     teamAbbr:"BOS" },
-  "Ramos":       { first:"Heliot",    teamAbbr:"SF"  },
-  "Carpenter":   { first:"Kerry",     teamAbbr:"DET" },
-  "Goodman":     { first:"Hunter",    teamAbbr:"COL" },
-  "Barger":      { first:"Colt"                      },
+// ═══════════════════════════════════════════════════════
+// PLAYER REGISTRY — hardcoded MLB IDs for known players
+// These are pre-verified so the right player is always used.
+// For players NOT listed here, the app falls back to MLB API search.
+// ═══════════════════════════════════════════════════════
+const PLAYER_REGISTRY = {
+  // --- Power Tier 1 ---
+  "Ohtani":      {id:660271, full:"Shohei Ohtani",        team:"LAD"},
+  "Judge":       {id:592450, full:"Aaron Judge",           team:"NYY"},
+  "Soto":        {id:665742, full:"Juan Soto",             team:"NYM"},
+  "Alonso":      {id:624413, full:"Pete Alonso",           team:"NYM"},
+  "Devers":      {id:646240, full:"Rafael Devers",         team:"BOS"},
+  "Tatis":       {id:665487, full:"Fernando Tatis Jr.",    team:"SD"},
+  "Witt":        {id:677951, full:"Bobby Witt Jr.",        team:"KC"},
+  "Acuna":       {id:660670, full:"Ronald Acuña Jr.",      team:"ATL"},
+  "Guerrero":    {id:665489, full:"Vlad Guerrero Jr.",     team:"TOR"},
+  "Tucker":      {id:663656, full:"Kyle Tucker",           team:"CHC"},
+  // --- Established Stars ---
+  "Machado":     {id:592518, full:"Manny Machado",         team:"SD"},
+  "Harper":      {id:547180, full:"Bryce Harper",          team:"PHI"},
+  "Olson":       {id:641355, full:"Matt Olson",            team:"ATL"},
+  "Henderson":   {id:683002, full:"Gunnar Henderson",      team:"BAL"},
+  "Rodriguez":   {id:677594, full:"Julio Rodríguez",       team:"SEA"},  // NOT Grayson Rodriguez
+  "Caminero":    {id:701538, full:"Junior Caminero",       team:"TB"},
+  "Pasquantino": {id:680757, full:"Vinnie Pasquantino",    team:"KC"},
+  "Schwarber":   {id:656941, full:"Kyle Schwarber",        team:"PHI"},
+  "Marte":       {id:641820, full:"Ketel Marte",           team:"ARI"},  // NOT Starling Marte
+  "Ramirez":     {id:608566, full:"José Ramírez",          team:"CLE"},  // NOT Elias Díaz etc.
+  "Alvarez":     {id:670541, full:"Yordan Alvarez",        team:"HOU"},
+  "Seager":      {id:608369, full:"Corey Seager",          team:"TEX"},
+  "Trout":       {id:545361, full:"Mike Trout",            team:"LAA"},
+  "Stanton":     {id:519317, full:"Giancarlo Stanton",     team:"NYY"},
+  "Altuve":      {id:514888, full:"José Altuve",           team:"HOU"},
+  "Springer":    {id:543807, full:"George Springer",       team:"TOR"},
+  "Arozarena":   {id:668227, full:"Randy Arozarena",       team:"SEA"},
+  "Nimmo":       {id:607043, full:"Brandon Nimmo",         team:"NYM"},
+  "Polanco":     {id:638678, full:"Jorge Polanco",         team:"SEA"},
+  "Robert":      {id:673357, full:"Luis Robert Jr.",       team:"CWS"},
+  "Adell":       {id:672284, full:"Jo Adell",              team:"LAA"},
+  "Raleigh":     {id:663728, full:"Cal Raleigh",           team:"SEA"},
+  "Suzuki":      {id:673548, full:"Seiya Suzuki",          team:"CHC"},
+  "Story":       {id:596115, full:"Trevor Story",          team:"BOS"},
+  "Suarez":      {id:553993, full:"Eugenio Suárez",        team:"ARI"},  // NOT Robert Suarez (pitcher)
+  "Lowe":        {id:663993, full:"Nathaniel Lowe",        team:"TEX"}, // NOT Josh Lowe
+  "Rooker":      {id:667670, full:"Brent Rooker",          team:"OAK"},
+  "Walker":      {id:572816, full:"Christian Walker",      team:"ARI"},  // NOT Jordan Walker
+  "De La Cruz":  {id:682829, full:"Elly De La Cruz",       team:"CIN"},
+  "Cruz":        {id:665862, full:"Oneil Cruz",            team:"PIT"},  // NOT Nelson Cruz (retired)
+  "Hernandez":   {id:606192, full:"Teoscar Hernández",     team:"LAD"}, // NOT Kiké Hernández etc.
+  "Buxton":      {id:621439, full:"Byron Buxton",          team:"MIN"},
 };
 
-// ═══════════════════════════════════════════
-// CACHE HELPERS
-// ═══════════════════════════════════════════
-function cacheGet(key, ttl) {
-  try {
-    const raw = localStorage.getItem(key);
-    if (!raw) return null;
-    const { ts, data } = JSON.parse(raw);
-    if (Date.now() - ts > ttl) return null;
-    return data;
-  } catch { return null; }
-}
-function cacheSet(key, data) {
-  try { localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data })); } catch {}
-}
+// Disambiguation rules for players resolved via API (not in registry)
+const DISAMBIG = {
+  "Chisholm":      {first:"Jazz"},
+  "Carroll":       {first:"Corbin",    team:"ARI"},
+  "Langford":      {first:"Wyatt",     team:"TEX"},
+  "Wood":          {first:"James",     team:"WSH"},
+  "Busch":         {first:"Michael",   team:"CHC"},
+  "Rice":          {first:"Ben",       team:"NYY"},
+  "Langeliers":    {first:"Shea"},
+  "Kurtz":         {first:"Nick",      team:"OAK"},
+  "Chourio":       {first:"Jackson",   team:"MIL"},
+  "Wallner":       {first:"Matt",      team:"MIN"},
+  "Steer":         {first:"Spencer",   team:"CIN"},
+  "Burleson":      {first:"Alec"},
+  "Varsho":        {first:"Daulton"},
+  "Greene":        {first:"Riley",     team:"DET"},
+  "Crow-Armstrong":{first:"Pete",      team:"CHC"},
+  "Torkelson":     {first:"Spencer",   team:"DET"},
+  "Moniak":        {first:"Mickey"},
+  "Soderstrom":    {first:"Tyler",     team:"OAK"},
+  "Goodman":       {first:"Hunter",    team:"COL"},
+  "Neto":          {first:"Zach",      team:"LAA"},
+  "Pages":         {first:"Andy",      team:"LAD"},
+  "Anthony":       {first:"Roman",     team:"BOS"},
+  "Ramos":         {first:"Heliot",    team:"SF"},
+  "Carpenter":     {first:"Kerry",     team:"DET"},
+  "Jones":         {first:"Nolan",     team:"COL"},
+  "Stowers":       {first:"Kyle"},
+  "Montgomery":    {first:"Colton"},
+  "Barger":        {first:"Colt"},
+};
 
-// ═══════════════════════════════════════════
-// MLB API HELPERS
-// ═══════════════════════════════════════════
-const API = `https://statsapi.mlb.com/api/v1`;
+// ═══════════════════════════════════════════════════════
+// CACHE
+// ═══════════════════════════════════════════════════════
+function cGet(k,ttl){try{const r=localStorage.getItem(k);if(!r)return null;const{ts,d}=JSON.parse(r);return Date.now()-ts>ttl?null:d}catch{return null}}
+function cSet(k,d){try{localStorage.setItem(k,JSON.stringify({ts:Date.now(),d}))}catch{}}
 
-async function fetchJSON(url) {
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(`HTTP ${r.status}: ${url}`);
-  return r.json();
-}
+// ═══════════════════════════════════════════════════════
+// MLB API
+// ═══════════════════════════════════════════════════════
+async function jFetch(url){const r=await fetch(url);if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}
 
-async function fetchAllPlayers() {
-  setLoadDetail('Loading player roster…');
-  const data = await fetchJSON(`${API}/sports/1/players?season=${SEASON}&fields=people,id,firstName,lastName,fullName,currentTeam`);
-  return data.people || [];
-}
+async function resolveAllPlayers(forceRefresh){
+  if(!forceRefresh){const c=cGet(CACHE_IDS,TTL_IDS);if(c)return c}
 
-async function fetchMonthlyStats(playerId) {
-  const data = await fetchJSON(`${API}/people/${playerId}/stats?stats=byMonth&group=hitting&season=${SEASON}`);
-  const monthly = {};
-  const splits = data.stats?.[0]?.splits || [];
-  splits.forEach(s => {
-    const m = parseInt(s.month || s.stat?.month || 0);
-    if (m) monthly[m] = (monthly[m] || 0) + (s.stat?.homeRuns || 0);
-  });
-  return monthly;
-}
+  const result={};
+  const uniqueNames=[...new Set(Object.values(ROSTERS).flat())];
+  const needApi=[];
 
-// ═══════════════════════════════════════════
-// PLAYER RESOLUTION
-// ═══════════════════════════════════════════
-function buildNameMap(people) {
-  const map = {};
-  people.forEach(p => {
-    const last = (p.lastName || '').toLowerCase().trim();
-    if (!map[last]) map[last] = [];
-    map[last].push(p);
-  });
-  return map;
-}
-
-function resolvePlayer(rosterName, nameMap) {
-  const key = rosterName.toLowerCase().trim();
-  const candidates = nameMap[key] || [];
-  if (candidates.length === 0) return null;
-  if (candidates.length === 1) return candidates[0];
-
-  const d = DISAMBIG[rosterName];
-  if (d) {
-    // Try first name match
-    if (d.first) {
-      const m = candidates.find(p =>
-        (p.firstName || '').toLowerCase().startsWith(d.first.toLowerCase())
-      );
-      if (m) return m;
-    }
-    // Try team match
-    if (d.teamAbbr) {
-      const m = candidates.find(p =>
-        (p.currentTeam?.abbreviation || '').toUpperCase() === d.teamAbbr.toUpperCase()
-      );
-      if (m) return m;
-    }
+  // Step 1: Use hardcoded registry
+  for(const name of uniqueNames){
+    if(PLAYER_REGISTRY[name]) result[name]={...PLAYER_REGISTRY[name],source:'registry'};
+    else needApi.push(name);
   }
-  // Default: first candidate
-  return candidates[0];
-}
 
-// ═══════════════════════════════════════════
-// SCORE CALCULATION
-// ═══════════════════════════════════════════
-function calcPeriod(players, pidMap, monthlyStats, monthNums) {
-  const entries = players.map(name => {
-    const pid = pidMap[name];
-    const hrs = pid
-      ? monthNums.reduce((s, m) => s + (monthlyStats[pid]?.[m] || 0), 0)
-      : 0;
-    return { name, hrs, pid };
-  });
-  entries.sort((a, b) => b.hrs - a.hrs);
-  const top10 = new Set(entries.slice(0, TOP_N).map(e => e.name));
-  const score = entries.slice(0, TOP_N).reduce((s, e) => s + e.hrs, 0);
-  return { score, entries, top10 };
-}
+  // Step 2: API lookup for remaining
+  if(needApi.length){
+    setDetail(`Looking up ${needApi.length} players via MLB API…`);
+    let people=[];
+    try{
+      const data=await jFetch(`${API}/sports/1/players?season=${SEASON}&fields=people,id,firstName,lastName,fullName,currentTeam`);
+      people=data.people||[];
+    }catch(e){console.warn('Player list fetch failed',e)}
 
-function calcStandings(pidMap, monthlyStats) {
-  return Object.entries(ROSTERS).map(([team, players]) => {
-    const periods = MONTHS.map(mo => calcPeriod(players, pidMap, monthlyStats, mo.months));
-    const total = periods.reduce((s, p) => s + p.score, 0);
-    return { team, periods, total };
-  }).sort((a, b) => b.total - a.total || a.team.localeCompare(b.team));
-}
-
-// ═══════════════════════════════════════════
-// MAIN LOAD
-// ═══════════════════════════════════════════
-let currentStandings = [];
-let currentPidMap = {};
-
-async function loadData(forceRefresh = false) {
-  const btn = document.getElementById('refresh-btn');
-  btn.disabled = true;
-  btn.textContent = '↻ Loading…';
-
-  try {
-    // ── Step 1: Resolve player IDs ──
-    let pidMap = forceRefresh ? null : cacheGet(CACHE_KEY_IDS, CACHE_IDS_TTL);
-    const unmatched = [];
-
-    if (!pidMap) {
-      const people = await fetchAllPlayers();
-      const nameMap = buildNameMap(people);
-      pidMap = {};
-
-      const uniqueNames = [...new Set(Object.values(ROSTERS).flat())];
-      uniqueNames.forEach(name => {
-        const p = resolvePlayer(name, nameMap);
-        if (p) pidMap[name] = p.id;
-        else unmatched.push(name);
-      });
-      cacheSet(CACHE_KEY_IDS, pidMap);
-    }
-
-    currentPidMap = pidMap;
-
-    // ── Step 2: Fetch monthly stats ──
-    let monthlyStats = forceRefresh ? null : cacheGet(CACHE_KEY_STATS, CACHE_STATS_TTL);
-
-    if (!monthlyStats) {
-      const uniqueIds = [...new Set(Object.values(pidMap))];
-      monthlyStats = {};
-      let done = 0;
-
-      const BATCH = 10;
-      for (let i = 0; i < uniqueIds.length; i += BATCH) {
-        const batch = uniqueIds.slice(i, i + BATCH);
-        await Promise.all(batch.map(async pid => {
-          try {
-            monthlyStats[pid] = await fetchMonthlyStats(pid);
-          } catch {
-            monthlyStats[pid] = {};
-          }
-          done++;
-          setLoadDetail(`Fetching stats… ${done}/${uniqueIds.length} players`);
-        }));
-      }
-      cacheSet(CACHE_KEY_STATS, monthlyStats);
-    }
-
-    // ── Step 3: Calculate & render ──
-    currentStandings = calcStandings(pidMap, monthlyStats);
-
-    const now = new Date();
-    document.getElementById('last-updated').textContent =
-      `Updated ${now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
-
-    renderStandings(currentStandings, pidMap, monthlyStats);
-
-    if (unmatched?.length) {
-      const warn = document.createElement('div');
-      warn.className = 'unmatched-warn';
-      warn.textContent = `⚠ Could not match ${unmatched.length} player name(s) to MLB IDs: ${unmatched.join(', ')}. Their stats will show as 0.`;
-      document.querySelector('.tbl-wrap').appendChild(warn);
-    }
-
-  } catch (err) {
-    document.getElementById('standings-mount').innerHTML =
-      `<div class="error-box">⚠ Failed to load stats: ${err.message}<br><br><button onclick="loadData(true)" style="margin-top:10px;padding:8px 16px;background:#162030;border:1px solid #ef4444;color:#ef4444;border-radius:6px;cursor:pointer">Try Again</button></div>`;
-    console.error(err);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = '↻ Refresh';
-  }
-}
-
-function setLoadDetail(msg) {
-  const el = document.getElementById('load-detail');
-  if (el) el.textContent = msg;
-}
-
-// ═══════════════════════════════════════════
-// RENDERING
-// ═══════════════════════════════════════════
-function renderStandings(standings, pidMap, monthlyStats) {
-  const mount = document.getElementById('standings-mount');
-
-  const html = `
-  <table>
-    <thead>
-      <tr>
-        <th class="rank-cell">#</th>
-        <th>Team</th>
-        ${MONTHS.map(m => `<th class="num month-col" data-mid="${m.id}">${m.col}<br><span style="font-weight:400;font-size:9px;color:#4a6070">${m.label}</span></th>`).join('')}
-        <th class="num">Total</th>
-      </tr>
-    </thead>
-    <tbody id="standings-body"></tbody>
-  </table>`;
-
-  mount.innerHTML = html;
-
-  const tbody = document.getElementById('standings-body');
-  standings.forEach((row, idx) => {
-    const rank = idx + 1;
-    const rankClass = rank === 1 ? 'rank-1' : rank === 2 ? 'rank-2' : rank === 3 ? 'rank-3' : 'rank-rest';
-
-    const dataRow = document.createElement('tr');
-    dataRow.className = 'data-row';
-    dataRow.dataset.team = row.team;
-    dataRow.innerHTML = `
-      <td class="rank-cell"><span class="${rankClass}">${rank}</span></td>
-      <td class="team-cell">${row.team}<span class="expand-icon">›</span></td>
-      ${row.periods.map(p => `<td class="num month-cell ${p.score > 0 ? 'nonzero' : ''}">${p.score}</td>`).join('')}
-      <td class="num total-cell">${row.total}</td>`;
-
-    const detailRow = document.createElement('tr');
-    detailRow.className = 'detail-row';
-    detailRow.style.display = 'none';
-    detailRow.innerHTML = `<td colspan="${MONTHS.length + 3}"></td>`;
-
-    dataRow.addEventListener('click', () => {
-      const isOpen = dataRow.classList.toggle('open');
-      detailRow.style.display = isOpen ? '' : 'none';
-      if (isOpen && !detailRow.querySelector('.detail-inner')) {
-        renderTeamDetail(detailRow.querySelector('td'), row, pidMap, monthlyStats);
+    // Build last-name map; also build fullName map for multi-word last names
+    const byLast={};
+    people.forEach(p=>{
+      const last=(p.lastName||'').toLowerCase().trim();
+      if(!byLast[last])byLast[last]=[];
+      byLast[last].push(p);
+      // Also index by full last name for compound names
+      const parts=(p.fullName||'').split(' ');
+      if(parts.length>2){
+        const compound=parts.slice(1).join(' ').toLowerCase();
+        if(compound!==last){
+          if(!byLast[compound])byLast[compound]=[];
+          byLast[compound].push(p);
+        }
       }
     });
 
-    tbody.appendChild(dataRow);
-    tbody.appendChild(detailRow);
+    for(const name of needApi){
+      const key=name.toLowerCase().trim();
+      const cands=byLast[key]||[];
+      const d=DISAMBIG[name];
+      let matched=null;
+
+      if(cands.length===1){
+        matched=cands[0];
+      } else if(cands.length>1 && d){
+        // Try first name
+        if(d.first) matched=cands.find(p=>(p.firstName||'').toLowerCase().startsWith(d.first.toLowerCase()));
+        // Try team name (since abbreviation might not be in response)
+        if(!matched && d.team){
+          matched=cands.find(p=>{
+            const tn=(p.currentTeam?.name||'').toLowerCase();
+            const ta=(p.currentTeam?.abbreviation||'').toLowerCase();
+            return ta===d.team.toLowerCase() || tn.includes(d.team.toLowerCase());
+          });
+        }
+        if(!matched) matched=cands[0];
+      } else if(cands.length>1){
+        matched=cands[0];
+      }
+
+      if(matched){
+        result[name]={
+          id:matched.id,
+          full:matched.fullName||`${matched.firstName||''} ${matched.lastName||''}`.trim(),
+          team:matched.currentTeam?.abbreviation||matched.currentTeam?.name||'?',
+          source:'api'
+        };
+      } else {
+        result[name]={id:null,full:name,team:'?',source:'notfound'};
+      }
+    }
+  }
+
+  cSet(CACHE_IDS,result);
+  return result;
+}
+
+async function fetchMonthlyStats(id){
+  const d=await jFetch(`${API}/people/${id}/stats?stats=byMonth&group=hitting&season=${SEASON}`);
+  const out={};
+  (d.stats?.[0]?.splits||[]).forEach(s=>{
+    const m=parseInt(s.month||0);
+    if(m) out[m]=(out[m]||0)+(s.stat?.homeRuns||0);
+  });
+  return out;
+}
+
+async function fetchAllStats(resolution, forceRefresh){
+  if(!forceRefresh){const c=cGet(CACHE_STATS,TTL_STATS);if(c)return c}
+  const ids=[...new Set(Object.values(resolution).filter(r=>r.id).map(r=>r.id))];
+  const out={};
+  let done=0;
+  const BATCH=10;
+  for(let i=0;i<ids.length;i+=BATCH){
+    await Promise.all(ids.slice(i,i+BATCH).map(async id=>{
+      try{out[id]=await fetchMonthlyStats(id)}catch{out[id]={}}
+      setDetail(`Fetching stats ${++done}/${ids.length}…`);
+    }));
+  }
+  cSet(CACHE_STATS,out);
+  return out;
+}
+
+// ═══════════════════════════════════════════════════════
+// SCORING  — top 10 recalculated independently each month
+// ═══════════════════════════════════════════════════════
+function calcPeriod(players, resolution, stats, monthNums){
+  // Get each player's HRs for THIS month only
+  const entries=players.map(name=>{
+    const id=resolution[name]?.id;
+    const hrs=id ? monthNums.reduce((s,m)=>s+(stats[id]?.[m]||0),0) : 0;
+    return {name,hrs};
+  });
+  // Sort by this month's HRs, take TOP 10
+  entries.sort((a,b)=>b.hrs-a.hrs);
+  const top10=new Set(entries.slice(0,TOP_N).map(e=>e.name));
+  const score=entries.slice(0,TOP_N).reduce((s,e)=>s+e.hrs,0);
+  return {score,entries,top10};
+}
+
+function calcStandings(resolution, stats){
+  return Object.entries(ROSTERS).map(([team,players])=>{
+    const periods=MONTHS.map(mo=>calcPeriod(players,resolution,stats,mo.months));
+    const total=periods.reduce((s,p)=>s+p.score,0);
+    return {team,periods,total};
+  }).sort((a,b)=>b.total-a.total||a.team.localeCompare(b.team));
+}
+
+// ═══════════════════════════════════════════════════════
+// MAIN
+// ═══════════════════════════════════════════════════════
+let gResolution={}, gStats={}, gStandings=[];
+
+function setDetail(msg){const e=document.getElementById('load-detail');if(e)e.textContent=msg}
+
+async function loadData(forceRefresh=false){
+  const btn=document.getElementById('refresh-btn');
+  btn.disabled=true; btn.textContent='↻ Loading…';
+
+  try{
+    gResolution=await resolveAllPlayers(forceRefresh);
+    gStats=await fetchAllStats(gResolution,forceRefresh);
+    gStandings=calcStandings(gResolution,gStats);
+
+    document.getElementById('last-updated').textContent=
+      `Updated ${new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}`;
+
+    renderStandings();
+    renderRegistry();
+    document.getElementById('reg-panel').style.display='';
+  }catch(err){
+    document.getElementById('standings-mount').innerHTML=
+      `<div class="error-box">⚠ ${err.message}<br><br><button onclick="loadData(true)" style="margin-top:10px;padding:8px 16px;background:#162030;border:1px solid #ef4444;color:#ef4444;border-radius:6px;cursor:pointer;">Try Again</button></div>`;
+  }finally{
+    btn.disabled=false; btn.textContent='↻ Refresh';
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER STANDINGS
+// ═══════════════════════════════════════════════════════
+function renderStandings(){
+  const mount=document.getElementById('standings-mount');
+  mount.innerHTML=`<table>
+    <thead><tr>
+      <th class="rank-cell">#</th>
+      <th>Team</th>
+      ${MONTHS.map(m=>`<th class="num">${m.col}<br><span style="font-weight:400;font-size:9px;color:#4a6070">${m.label}</span></th>`).join('')}
+      <th class="num">Season</th>
+    </tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>`;
+
+  const tbody=document.getElementById('tbody');
+  gStandings.forEach((row,i)=>{
+    const rank=i+1;
+    const rc=rank===1?'rank-1':rank===2?'rank-2':rank===3?'rank-3':'rank-rest';
+    const dr=document.createElement('tr');
+    dr.className='data-row';
+    dr.innerHTML=`
+      <td class="rank-cell"><span class="${rc}">${rank}</span></td>
+      <td class="team-cell">${row.team}<span class="expand-icon">›</span></td>
+      ${row.periods.map(p=>`<td class="num month-cell ${p.score>0?'nz':''}">${p.score||'—'}</td>`).join('')}
+      <td class="num total-cell">${row.total}</td>`;
+
+    const xr=document.createElement('tr');
+    xr.className='detail-row';
+    xr.style.display='none';
+    xr.innerHTML=`<td colspan="${MONTHS.length+3}"></td>`;
+
+    dr.addEventListener('click',()=>{
+      const open=dr.classList.toggle('open');
+      xr.style.display=open?'':'none';
+      if(open && !xr.querySelector('.detail-inner'))
+        buildDetail(xr.querySelector('td'),row);
+    });
+    tbody.appendChild(dr);
+    tbody.appendChild(xr);
   });
 }
 
-function renderTeamDetail(cell, row, pidMap, monthlyStats) {
-  const players = ROSTERS[row.team];
-
-  // Build per-player monthly HR table
-  const playerRows = players.map(name => {
-    const pid = pidMap[name];
-    const mHrs = MONTHS.map(mo =>
-      mo.months.reduce((s, m) => s + (monthlyStats[pid]?.[m] || 0), 0)
-    );
-    const total = mHrs.reduce((s, v) => s + v, 0);
-    return { name, mHrs, total };
+// ═══════════════════════════════════════════════════════
+// TEAM DETAIL — month tab view
+// ═══════════════════════════════════════════════════════
+function buildDetail(cell,row){
+  const players=ROSTERS[row.team];
+  // Per-player monthly HRs
+  const pdata=players.map(name=>{
+    const id=gResolution[name]?.id;
+    const mHrs=MONTHS.map(mo=>mo.months.reduce((s,m)=>s+(gStats[id]?.[m]||0),0));
+    return {name, mHrs, total:mHrs.reduce((s,v)=>s+v,0)};
   });
 
-  // For each month, determine which players are in top 10
-  const top10ByMonth = MONTHS.map((mo, mi) => {
-    const sorted = [...playerRows].sort((a, b) => b.mHrs[mi] - a.mHrs[mi]);
-    return new Set(sorted.slice(0, TOP_N).map(p => p.name));
+  const inner=document.createElement('div');
+  inner.className='detail-inner';
+
+  // Build tab bar
+  const tabs=document.createElement('div');
+  tabs.className='mtabs';
+  const content=document.createElement('div');
+
+  const tabDefs=[
+    {id:'all', label:'Season Overview'},
+    ...MONTHS.map(m=>({id:m.id, label:`${m.col}: ${m.label}`}))
+  ];
+
+  let activeTab='all';
+
+  function showTab(id){
+    activeTab=id;
+    tabs.querySelectorAll('.mtab').forEach(b=>b.classList.toggle('active',b.dataset.id==id));
+    content.innerHTML='';
+    if(id==='all'){
+      content.appendChild(buildSeasonTable(pdata, row.periods));
+    } else {
+      const mi=MONTHS.findIndex(m=>m.id===id);
+      content.appendChild(buildMonthView(pdata, mi, row.periods[mi]));
+    }
+  }
+
+  tabDefs.forEach(t=>{
+    const btn=document.createElement('button');
+    btn.className=`mtab ${t.id==='all'?'active':''}`;
+    btn.textContent=t.label;
+    btn.dataset.id=t.id;
+    btn.onclick=()=>showTab(t.id);
+    tabs.appendChild(btn);
   });
 
-  let html = `<div class="detail-inner">`;
+  inner.appendChild(tabs);
+  inner.appendChild(content);
+  cell.appendChild(inner);
+  showTab('all');
+}
 
-  // Season overview table
-  html += `<table class="season-tbl">
-    <thead><tr>
-      <th style="text-align:left">Player</th>
-      ${MONTHS.map(m => `<th>${m.col}</th>`).join('')}
-      <th>Total</th>
-      ${MONTHS.map((m,i) => `<th style="font-size:9px">${m.label}<br>Counts?</th>`).join('')}
-    </tr></thead><tbody>`;
+// Month view: sorted by that month's HRs, top 10 highlighted
+function buildMonthView(pdata, mi, period){
+  const mo=MONTHS[mi];
+  const sorted=[...pdata].map(p=>({name:p.name,hrs:p.mHrs[mi]}))
+    .sort((a,b)=>b.hrs-a.hrs);
 
-  // Sort players by season total desc
-  const sorted = [...playerRows].sort((a, b) => b.total - a.total);
+  const wrap=document.createElement('div');
 
-  sorted.forEach(p => {
-    // A player "counts" in a month if they're in the top 10 for that month
-    const countMonths = MONTHS.map((mo, mi) => top10ByMonth[mi].has(p.name));
-    const countsAny = countMonths.some(Boolean);
-    html += `<tr class="${countsAny ? 'counting-row' : ''}">
-      <td class="p-name">${p.name}</td>
-      ${p.mHrs.map(h => `<td>${h > 0 ? h : '—'}</td>`).join('')}
-      <td><strong>${p.total}</strong></td>
-      ${countMonths.map((c,mi) => {
-        if (p.mHrs[mi] === 0) return `<td class="dot-no">—</td>`;
-        return `<td class="${c ? 'dot-yes' : 'dot-no'}">${c ? '★' : '✗'}</td>`;
-      }).join('')}
-    </tr>`;
+  // Score header
+  wrap.innerHTML=`<div class="msh">
+    <div>
+      <div class="msh-label">${mo.label} — Top 10 HR Total</div>
+      <div class="msh-note">Players ranked by HRs hit in ${mo.label} only. Top 10 count.</div>
+    </div>
+    <div class="msh-score">${period.score} HRs</div>
+  </div>`;
+
+  const grid=document.createElement('div');
+  grid.className='player-grid';
+
+  sorted.forEach((p,i)=>{
+    const counting=i<TOP_N;
+    const card=document.createElement('div');
+    card.className=`pc ${counting?'counting':''}`;
+    card.innerHTML=`
+      <div class="pc-rank">${i+1}</div>
+      <div class="pc-name">${p.name}</div>
+      <div class="pc-right">
+        ${counting?'<span class="top10-tag">TOP 10</span>':''}
+        <span class="pc-hr">${p.hrs||'0'}</span>
+      </div>`;
+    grid.appendChild(card);
+  });
+  wrap.appendChild(grid);
+  return wrap;
+}
+
+// Season overview: table of all months with ★ for counting months
+function buildSeasonTable(pdata, periods){
+  const sorted=[...pdata].sort((a,b)=>b.total-a.total);
+
+  // For each month, determine the top 10 names
+  const top10ByMonth=MONTHS.map((_,mi)=>{
+    const ranked=[...pdata].sort((a,b)=>b.mHrs[mi]-a.mHrs[mi]);
+    return new Set(ranked.slice(0,TOP_N).map(p=>p.name));
   });
 
-  // Month score summary row
-  html += `<tr style="background:rgba(245,197,24,0.08);font-weight:700">
-    <td class="p-name" style="color:var(--gold)">Top-10 Score</td>
-    ${row.periods.map(p => `<td style="color:var(--gold)">${p.score}</td>`).join('')}
-    <td style="color:var(--gold)">${row.total}</td>
-    ${MONTHS.map(() => `<td></td>`).join('')}
+  const wrap=document.createElement('div');
+  let html=`<table class="stbl"><thead><tr>
+    <th>Player</th>
+    ${MONTHS.map(m=>`<th>${m.col}<br>${m.label}</th>`).join('')}
+    <th>Season</th>
+  </tr></thead><tbody>`;
+
+  sorted.forEach(p=>{
+    html+=`<tr><td class="pn">${p.name}</td>`;
+    p.mHrs.forEach((h,mi)=>{
+      const counts=top10ByMonth[mi].has(p.name);
+      if(h===0) html+=`<td class="cell-zero">—</td>`;
+      else if(counts) html+=`<td><span class="cell-counts">${h} ★</span></td>`;
+      else html+=`<td>${h}</td>`;
+    });
+    html+=`<td><strong>${p.total||'—'}</strong></td></tr>`;
+  });
+
+  // Score row
+  html+=`<tr class="score-row"><td>Top-10 Score</td>
+    ${periods.map(p=>`<td>${p.score}</td>`).join('')}
+    <td>${periods.reduce((s,p)=>s+p.score,0)}</td>
   </tr>`;
 
-  html += `</tbody></table></div>`;
-  cell.innerHTML = html;
+  html+=`</tbody></table>`;
+  wrap.innerHTML=html;
+  return wrap;
 }
 
-// ═══════════════════════════════════════════
-// SORT
-// ═══════════════════════════════════════════
-let sortCol = 'total';
-let sortDir = -1;
+// ═══════════════════════════════════════════════════════
+// PLAYER REGISTRY PANEL
+// ═══════════════════════════════════════════════════════
+function renderRegistry(){
+  const grid=document.getElementById('reg-grid');
+  const uniqueNames=[...new Set(Object.values(ROSTERS).flat())].sort();
+  grid.innerHTML=uniqueNames.map(name=>{
+    const r=gResolution[name]||{};
+    const srcClass=r.source==='registry'?'src-registry':r.source==='api'?'src-api':'src-notfound';
+    const srcLabel=r.source==='registry'?'Hardcoded':r.source==='api'?'API Match':'Not Found';
+    return `<div class="reg-item">
+      <span class="reg-roster">${name}</span>
+      <span class="reg-full">${r.full||'—'}${r.team&&r.team!=='?'?` (${r.team})`:''}${r.id?` #${r.id}`:''}</span>
+      <span class="src-badge ${srcClass}">${srcLabel}</span>
+    </div>`;
+  }).join('');
+}
 
-document.addEventListener('click', e => {
-  const th = e.target.closest('thead th');
-  if (!th) return;
-  const mid = th.dataset.mid;
-  const col = mid ? `m${mid}` : th.textContent.trim().startsWith('#') ? 'rank' : th.textContent.trim().startsWith('T') ? 'team' : 'total';
-  // rebuild sort
-});
-
-// ═══════════════════════════════════════════
-// EVENTS
-// ═══════════════════════════════════════════
-document.getElementById('refresh-btn').addEventListener('click', () => loadData(true));
-
-// ── INIT ──
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+document.getElementById('refresh-btn').addEventListener('click',()=>loadData(true));
 loadData();
 </script>
 </body>
