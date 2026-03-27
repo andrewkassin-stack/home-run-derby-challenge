@@ -26,6 +26,7 @@
   --text-dim:    #aaaaaa;
   --accent:      #d10000;
   --col-hi:      #eef3fd;
+  --col-hi-alt:  #e2ecfb;
   --col-hi-text: #1a56db;
   --gold:        #c8900a;
   --silver:      #7a8390;
@@ -44,6 +45,7 @@
   --text-dim:    #3a4a5e;
   --accent:      #e31837;
   --col-hi:      rgba(26,86,219,0.18);
+  --col-hi-alt:  rgba(26,86,219,0.26);
   --col-hi-text: #7baaf7;
   --gold:        #ffd65b;
   --silver:      #b0b8c4;
@@ -196,6 +198,8 @@ table.standings tbody tr.data-row:hover { background: var(--row-hover); }
 /* Alternating rows */
 table.standings tbody tr.data-row.alt {
   background: var(--alt-bg);
+}
+table.standings tbody tr.data-row.alt td {
   border-top: 0.5px solid var(--border);
   border-bottom: 0.5px solid var(--border);
 }
@@ -242,6 +246,11 @@ td.num.sorted {
   background: var(--col-hi);
   color: var(--col-hi-text);
   font-weight: 700;
+}
+/* Alt rows get a slightly different blue — mirrors white/gray pattern */
+tr.data-row.alt td.num.sorted {
+  background: var(--col-hi-alt);
+  color: var(--col-hi-text);
 }
 
 /* ── DETAIL ROW ──────────────────────────────────────── */
