@@ -1,211 +1,218 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home Run Derby Challenge 2026</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@800;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface":                   "#0a1422",
+        "surface-dim":               "#060e1c",
+        "surface-container-lowest":  "#060e1c",
+        "surface-container-low":     "#131c2a",
+        "surface-container":         "#17202e",
+        "surface-container-high":    "#222a39",
+        "surface-container-highest": "#2c3545",
+        "on-surface":                "#dae3f7",
+        "primary-container":         "#e31837",
+        "on-primary-container":      "#ffffff",
+        "secondary":                 "#ffd65b",
+        "secondary-fixed":           "#ffe08b",
+        "outline-variant":           "#5d3f3e",
+        "tertiary-fixed":            "#d8e2ff",
+      },
+      fontFamily: {
+        "headline": ["Epilogue", "sans-serif"],
+        "body":     ["Inter",    "sans-serif"],
+      },
+      borderRadius: {
+        "DEFAULT": "0.125rem",
+        "sm":  "0.125rem",
+        "md":  "0.25rem",
+        "lg":  "0.375rem",
+        "xl":  "0.5rem",
+        "2xl": "0.75rem",
+        "full":"9999px",
+      },
+    }
+  }
+}
+</script>
 <style>
-:root {
-  --bg:#07101e; --surface:#0f1a2e; --surface2:#172238; --border:#1e3054;
-  --text:#e8edf5; --muted:#6878a0; --gold:#f5c518; --gold-dim:rgba(245,197,24,.12);
-  --red:#E31837; --red-dim:rgba(227,24,55,.12); --navy:#1B2D5E;
-  --green:#22c55e; --radius:10px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; }
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+  .bg-glow-red { background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(227,24,55,.14) 0%, transparent 70%); }
+  ::-webkit-scrollbar { display: none; }
+  .no-scroll { scrollbar-width: none; }
 
-/* HEADER */
-header{background:linear-gradient(160deg,#04090f 0%,#0a1628 50%,#0d1e3a 100%);border-bottom:3px solid var(--red);padding:18px 40px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;position:relative;overflow:hidden}
-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 120% at 50% -20%,rgba(227,24,55,.08) 0%,transparent 70%);pointer-events:none}
-.hdr-logo{height:72px;width:auto;border-radius:8px;flex-shrink:0;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
-.hdr-text h1{font-size:24px;font-weight:900;color:#fff;letter-spacing:-.3px;text-shadow:0 1px 4px rgba(0,0,0,.4)}
-.hdr-text h1 span.red{color:var(--red)}
-.hdr-text .sub{font-size:12px;color:var(--muted);margin-top:3px;letter-spacing:.02em}
-.hdr-divider{width:1px;height:40px;background:var(--border);flex-shrink:0}
-.hdr-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.live-pill{display:flex;align-items:center;gap:6px;background:rgba(227,24,55,.1);border:1px solid rgba(227,24,55,.35);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--red)}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 2s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-#last-updated{font-size:11px;color:var(--muted)}
-#refresh-btn{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--text);padding:7px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:all .15s}
-#refresh-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
-#refresh-btn:disabled{opacity:.5;cursor:not-allowed}
+  /* ESPN links */
+  .plink { color: inherit; text-decoration: none; border-bottom: 1px dotted rgba(255,214,91,.35); transition: color .15s, border-color .15s; }
+  .plink:hover { color: #ffd65b; border-bottom-color: #ffd65b; }
+  .counting .plink:hover { color: #fff; }
+  .espn-badge { font-size: 8px; font-weight: 800; padding: 1px 4px; border-radius: 3px; margin-left: 3px; background: rgba(227,24,55,.15); color: #ff6b47; white-space: nowrap; }
 
-/* MAIN */
-main{max-width:1400px;margin:0 auto;padding:28px 40px 60px}
+  /* Detail panel */
+  .detail-panel { display: none; }
+  .detail-panel.open { display: block; }
+  .chevron-open { transform: rotate(180deg); }
 
-/* RULES */
-.rules-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 22px;margin-bottom:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-.rule{display:flex;gap:10px;align-items:flex-start}
-.rule-ico{font-size:18px;line-height:1.3;flex-shrink:0}
-.rule-txt{font-size:12px;color:var(--muted);line-height:1.5}
-.rule-txt strong{color:var(--text);display:block;margin-bottom:2px}
-.rule-highlight{background:var(--red-dim);border:1px solid rgba(227,24,55,.25);border-radius:6px}
+  /* Registry panel */
+  .reg-body { display: none; }
+  .reg-body.open { display: block; }
 
-/* MONTH CHIPS */
-.month-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
-.mc{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--muted)}
-.mc b{color:var(--red);margin-right:4px}
+  /* Spinner */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spin { animation: spin .7s linear infinite; }
 
-/* SECTION HEADER */
-.sec-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-.sec-hdr h2{font-size:18px;font-weight:700}
-.badge-live{background:var(--red-dim);border:1px solid rgba(227,24,55,.4);color:var(--red);font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
+  /* Live ping */
+  @keyframes ping { 75%,100% { transform: scale(2); opacity: 0; } }
+  .live-ping { animation: ping 1.5s cubic-bezier(0,0,.2,1) infinite; }
 
-/* STANDINGS TABLE */
-.tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-table{width:100%;border-collapse:collapse}
-thead{background:var(--surface2)}
-th{padding:11px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap}
-th.num,td.num{text-align:right}
-td{padding:12px 14px;border-bottom:1px solid rgba(30,48,84,.7);font-size:13px;vertical-align:middle}
-tbody tr:last-child td{border-bottom:none}
-tbody tr.data-row{cursor:pointer;transition:background .12s}
-tbody tr.data-row:hover{background:rgba(255,255,255,.025)}
-tbody tr.data-row.open{background:rgba(227,24,55,.06)}
-.rank-cell{text-align:center;font-weight:700;width:44px}
-.rank-1{color:#FFD700}.rank-2{color:#b0b8c4}.rank-3{color:#cd7f32}.rank-rest{color:var(--muted);font-size:12px}
-.team-cell{font-weight:600;font-size:14px}
-.month-cell{color:var(--muted);font-weight:600;min-width:54px}
-.month-cell.nz{color:var(--text)}
-.total-cell{font-weight:800;font-size:17px;color:var(--gold);min-width:60px}
-.expand-icon{color:var(--muted);font-size:11px;margin-left:6px;transition:transform .2s;display:inline-block}
-tbody tr.data-row.open .expand-icon{transform:rotate(90deg)}
+  /* Left rank accent */
+  .rank-accent-gold   { border-left: 3px solid #ffd65b; }
+  .rank-accent-silver { border-left: 3px solid #b0b8c4; }
+  .rank-accent-bronze { border-left: 3px solid #cd7f32; }
 
-/* DETAIL ROW */
-tr.detail-row td{padding:0;background:rgba(4,9,15,.7)}
-.detail-inner{padding:16px 20px;border-top:1px solid var(--border)}
-
-/* MONTH TABS */
-.mtabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap}
-.mtab{padding:5px 14px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;background:var(--surface2);color:var(--muted);border:1px solid var(--border);transition:all .12s}
-.mtab.active{background:var(--red-dim);color:var(--red);border-color:rgba(227,24,55,.4)}
-
-/* MONTH SCORE HEADER */
-.msh{display:flex;align-items:center;justify-content:space-between;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 16px;margin-bottom:12px}
-.msh-label{font-size:12px;color:var(--muted);font-weight:600}
-.msh-score{font-size:20px;font-weight:800;color:var(--gold)}
-.msh-note{font-size:11px;color:var(--muted)}
-
-/* PLAYER GRID */
-.player-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:7px}
-.pc{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:9px 13px;display:flex;align-items:center;gap:10px;transition:border-color .12s}
-.pc.counting{border-color:var(--gold);background:var(--gold-dim)}
-.pc-rank{font-size:11px;font-weight:700;color:var(--muted);min-width:18px;text-align:center}
-.pc.counting .pc-rank{color:var(--gold)}
-.pc-name{font-size:12px;font-weight:500;color:var(--muted);flex:1}
-.pc.counting .pc-name{color:var(--gold);font-weight:600}
-.pc-right{display:flex;align-items:center;gap:5px;margin-left:auto}
-.pc-hr{font-size:18px;font-weight:800;color:var(--text)}
-.pc.counting .pc-hr{color:var(--gold)}
-.top10-tag{font-size:8px;background:var(--red);color:#fff;padding:1px 4px;border-radius:2px;font-weight:800}
-
-/* SEASON TABLE */
-.stbl{width:100%;border-collapse:collapse;font-size:12px}
-.stbl th{padding:7px 10px;background:var(--surface2);color:var(--muted);font-size:10px;letter-spacing:.04em;text-transform:uppercase;text-align:center;white-space:nowrap}
-.stbl th:first-child{text-align:left}
-.stbl td{padding:7px 10px;border-bottom:1px solid rgba(30,48,84,.5);text-align:center;color:var(--muted)}
-.stbl td.pn{text-align:left;color:var(--text);font-weight:500}
-.stbl tr.score-row td{background:rgba(245,197,24,.08);color:var(--gold);font-weight:700;border-top:1px solid rgba(245,197,24,.2)}
-.cell-counts{background:rgba(245,197,24,.12);color:var(--gold);font-weight:700;border-radius:3px;padding:1px 4px}
-.cell-zero{color:rgba(104,120,160,.35)}
-
-/* STATES */
-.loading-box{padding:60px;text-align:center}
-.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 14px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-label{color:var(--muted);font-size:13px}
-#load-detail{font-size:11px;color:var(--border);margin-top:6px}
-.error-box{background:rgba(227,24,55,.08);border:1px solid rgba(227,24,55,.3);border-radius:var(--radius);padding:20px;color:var(--red);text-align:center;font-size:13px}
-
-/* PLAYER REGISTRY PANEL */
-.reg-panel{margin-top:32px}
-.reg-summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;list-style:none;transition:color .15s}
-.reg-summary:hover{color:var(--text)}
-details[open] .reg-summary{border-radius:8px 8px 0 0;border-bottom-color:transparent}
-.reg-content{background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 8px 8px;padding:16px}
-.reg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px;margin-top:10px}
-.reg-item{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:5px;font-size:11px}
-.reg-roster{font-weight:700;color:var(--text);min-width:90px}
-.reg-full{color:var(--muted);flex:1}
-.src-badge{font-size:9px;font-weight:700;padding:2px 5px;border-radius:2px;white-space:nowrap}
-.src-registry{background:rgba(34,197,94,.15);color:var(--green)}
-.src-api{background:rgba(59,130,246,.15);color:#60a5fa}
-.src-notfound{background:rgba(227,24,55,.15);color:var(--red)}
-
-/* ESPN LINKS */
-.plink{color:inherit;text-decoration:none;border-bottom:1px dotted rgba(245,197,24,.4);transition:border-color .15s,color .15s}
-.plink:hover{color:var(--gold);border-bottom-color:var(--gold)}
-.pc.counting .plink:hover{color:#fff}
-.espn-badge{font-size:9px;background:rgba(227,24,55,.15);color:#ff6b47;padding:1px 5px;border-radius:2px;font-weight:700;margin-left:4px;white-space:nowrap}
-.espn-verified{color:var(--green);font-size:10px;margin-left:4px}
-
-/* RESPONSIVE */
-@media(max-width:800px){
-  header,main{padding:14px 16px}
-  .hdr-logo{height:52px}
-  .hdr-divider{display:none}
-  .month-cell{display:none}
-  .month-cell:last-of-type{display:table-cell}
-}
+  /* Season table */
+  .stbl { width:100%; border-collapse:collapse; font-size:11px; }
+  .stbl th { padding:6px 8px; background:#17202e; color:#6878a0; font-size:9px; letter-spacing:.05em; text-transform:uppercase; text-align:center; font-weight:700; white-space:nowrap; }
+  .stbl th:first-child { text-align:left; }
+  .stbl td { padding:6px 8px; border-bottom:1px solid rgba(255,255,255,.04); text-align:center; color:#6878a0; }
+  .stbl td.pn { text-align:left; color:#dae3f7; font-weight:500; }
+  .stbl tr.score-row td { background:rgba(255,214,91,.07); color:#ffd65b; font-weight:700; border-top:1px solid rgba(255,214,91,.15); }
+  .stbl .cell-counts { background:rgba(255,214,91,.12); color:#ffd65b; font-weight:700; border-radius:3px; padding:1px 4px; }
+  .stbl .cell-zero { color:rgba(104,120,160,.3); }
 </style>
 </head>
-<body>
+<body class="bg-surface text-on-surface font-body">
 
-<header>
-  <img src="Logo.jpeg" class="hdr-logo" alt="Home Run Derby Challenge">
-  <div class="hdr-divider"></div>
-  <div class="hdr-text">
-    <h1><span class="red">HOMERUN</span> CHALLENGE</h1>
-    <div class="sub">2026 MLB Season &nbsp;·&nbsp; 30 Teams &nbsp;·&nbsp; Live Standings</div>
-  </div>
-  <div class="hdr-right">
-    <div class="live-pill"><div class="live-dot"></div>LIVE</div>
-    <span id="last-updated">—</span>
-    <button id="refresh-btn">↻ Refresh</button>
+<!-- ═══ FIXED HEADER ═══ -->
+<header class="fixed top-0 w-full z-50 bg-gradient-to-r from-[#060e1c] via-[#0d1830] to-[#060e1c] border-b-[3px] border-primary-container shadow-[0_4px_24px_rgba(227,24,55,.18)] bg-glow-red">
+  <div class="flex items-center justify-between px-4 h-[72px]">
+    <div class="flex items-center gap-3">
+      <div class="h-12 w-12 rounded-xl bg-white flex items-center justify-center p-1 shadow-lg flex-shrink-0 overflow-hidden">
+        <img src="Logo.jpeg" alt="HRD Logo" class="h-full w-full object-contain">
+      </div>
+      <h1 class="text-lg font-headline font-black text-white uppercase tracking-tight leading-none">
+        <span class="text-primary-container">HOMERUN</span><br>CHALLENGE
+      </h1>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="flex flex-col items-end">
+        <div class="flex items-center gap-1.5">
+          <span class="relative flex h-2 w-2">
+            <span class="live-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span>
+          </span>
+          <span class="text-[10px] font-black uppercase tracking-widest text-primary-container">LIVE</span>
+        </div>
+        <span id="last-updated" class="text-[10px] text-slate-400 tabular-nums">—</span>
+      </div>
+      <button id="refresh-btn" class="p-2 rounded-xl bg-surface-container-highest text-on-surface active:scale-95 transition-transform disabled:opacity-40">
+        <span class="material-symbols-outlined text-[20px]">refresh</span>
+      </button>
+    </div>
   </div>
 </header>
 
-<main>
-  <div class="rules-card">
-    <div class="rule"><span class="rule-ico">👥</span><div class="rule-txt"><strong>30 Teams · 13 Players Each</strong>Click any row to expand the full roster breakdown</div></div>
-    <div class="rule rule-highlight"><span class="rule-ico">🏆</span><div class="rule-txt"><strong>Top 10 Per Month (Independent)</strong>Each month, the 10 players with the MOST HRs that month count. Your #11 player in April might be your #3 in May — the top 10 resets every month.</div></div>
-    <div class="rule"><span class="rule-ico">📅</span><div class="rule-txt"><strong>6 Scoring Periods</strong>M1 Mar/Apr · M2 May · M3 Jun · M4 Jul · M5 Aug · M6 Sep</div></div>
-    <div class="rule"><span class="rule-ico">📊</span><div class="rule-txt"><strong>Season Score</strong>Sum of your top-10 HR totals across all 6 months</div></div>
+<main class="pt-[72px] pb-20">
+
+  <!-- ═══ STATS STRIP ═══ -->
+  <div id="stats-strip" class="flex overflow-x-auto no-scroll gap-3 px-4 py-4 -mb-1">
+    <!-- populated by renderStatsStrip() -->
+    <div class="min-w-[150px] flex-shrink-0 bg-surface-container-low border-l-4 border-primary-container p-3 rounded-r-lg animate-pulse">
+      <div class="h-2 bg-surface-container-highest rounded w-20 mb-2"></div>
+      <div class="h-5 bg-surface-container-highest rounded w-24"></div>
+    </div>
+    <div class="min-w-[150px] flex-shrink-0 bg-surface-container-low border-l-4 border-primary-container p-3 rounded-r-lg animate-pulse">
+      <div class="h-2 bg-surface-container-highest rounded w-20 mb-2"></div>
+      <div class="h-5 bg-surface-container-highest rounded w-24"></div>
+    </div>
+    <div class="min-w-[150px] flex-shrink-0 bg-surface-container-low border-l-4 border-primary-container p-3 rounded-r-lg animate-pulse">
+      <div class="h-2 bg-surface-container-highest rounded w-20 mb-2"></div>
+      <div class="h-5 bg-surface-container-highest rounded w-24"></div>
+    </div>
   </div>
 
-  <div class="month-chips">
-    <span class="mc"><b>M1</b>Mar/Apr</span><span class="mc"><b>M2</b>May</span>
-    <span class="mc"><b>M3</b>Jun</span><span class="mc"><b>M4</b>Jul</span>
-    <span class="mc"><b>M5</b>Aug</span><span class="mc"><b>M6</b>Sep</span>
+  <!-- ═══ RULES STRIP ═══ -->
+  <div class="mx-4 mb-3 bg-surface-container-low rounded-xl p-3 flex flex-wrap gap-x-4 gap-y-1">
+    <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">📅 6 Periods: M1 Mar/Apr · M2 May · M3 Jun · M4 Jul · M5 Aug · M6 Sep</span>
+    <span class="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">🏆 Top 10 players per month count · Resets each month</span>
   </div>
 
-  <div class="sec-hdr"><h2>Standings</h2><span class="badge-live">Live</span></div>
+  <!-- ═══ STICKY MONTH NAV ═══ -->
+  <nav id="month-nav" class="sticky top-[72px] z-40 bg-surface/90 backdrop-blur-md py-2 px-4 border-b border-white/5">
+    <div class="flex gap-2 overflow-x-auto no-scroll">
+      <button data-period="" class="month-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-primary-container text-white text-[10px] font-black uppercase tracking-widest shadow-sm shadow-primary-container/30">ALL</button>
+      <button data-period="0" class="month-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-surface-container-high text-slate-400 text-[10px] font-black uppercase tracking-widest">M1 Mar/Apr</button>
+      <button data-period="1" class="month-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-surface-container-high text-slate-400 text-[10px] font-black uppercase tracking-widest">M2 May</button>
+      <button data-period="2" class="month-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-surface-container-high text-slate-400 text-[10px] font-black uppercase tracking-widest">M3 Jun</button>
+      <button data-period="3" class="month-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-surface-container-high text-slate-400 text-[10px] font-black uppercase tracking-widest">M4 Jul</button>
+      <button data-period="4" class="month-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-surface-container-high text-slate-400 text-[10px] font-black uppercase tracking-widest">M5 Aug</button>
+      <button data-period="5" class="month-btn flex-shrink-0 px-4 py-1.5 rounded-full bg-surface-container-high text-slate-400 text-[10px] font-black uppercase tracking-widest">M6 Sep</button>
+    </div>
+  </nav>
 
-  <div class="tbl-wrap">
-    <div id="standings-mount">
-      <div class="loading-box">
-        <div class="spinner"></div>
-        <div class="loading-label">Fetching live MLB stats…</div>
-        <div id="load-detail"></div>
+  <!-- ═══ STANDINGS ═══ -->
+  <div id="standings-mount" class="px-4 pt-4 space-y-2">
+    <div class="flex flex-col items-center justify-center py-16">
+      <div class="w-8 h-8 border-2 border-surface-container-high border-t-primary-container rounded-full spin mb-4"></div>
+      <p class="text-slate-400 text-sm">Fetching live MLB stats…</p>
+      <p id="load-detail" class="text-slate-600 text-xs mt-1"></p>
+    </div>
+  </div>
+
+  <!-- ═══ PLAYER REGISTRY ═══ -->
+  <div id="reg-panel" class="px-4 pt-6 pb-2" style="display:none">
+    <div class="bg-surface-container-highest rounded-xl overflow-hidden">
+      <button id="reg-toggle" class="w-full flex justify-between items-center p-4">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-secondary text-[20px]">manage_search</span>
+          <h2 class="font-headline font-black uppercase text-sm tracking-widest text-white">Player Registry</h2>
+        </div>
+        <span id="reg-chevron" class="material-symbols-outlined text-slate-400 transition-transform">expand_more</span>
+      </button>
+      <div id="reg-body" class="reg-body px-4 pb-4">
+        <div class="flex flex-wrap gap-2 mb-3">
+          <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-[8px] font-black uppercase border border-emerald-500/20">Hardcoded</span><span class="text-[10px] text-slate-500">Pre-verified ID</span>
+          <span class="px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 text-[8px] font-black uppercase border border-blue-500/20">API</span><span class="text-[10px] text-slate-500">Matched via MLB API</span>
+          <span class="px-2 py-0.5 rounded-full bg-primary-container/10 text-primary-container text-[8px] font-black uppercase border border-primary-container/20">Not Found</span><span class="text-[10px] text-slate-500">Stats = 0</span>
+        </div>
+        <div id="reg-grid" class="grid grid-cols-1 gap-1.5"></div>
       </div>
     </div>
   </div>
 
-  <div class="reg-panel" id="reg-panel" style="display:none">
-    <details>
-      <summary class="reg-summary">🔍 Player Registry — Click to verify all player matches</summary>
-      <div class="reg-content">
-        <div style="font-size:11px;color:var(--muted);margin-bottom:8px">
-          <span style="background:rgba(34,197,94,.15);color:#22c55e;padding:2px 6px;border-radius:2px;font-weight:700;margin-right:8px">Hardcoded</span> Pre-verified MLB player ID &nbsp;
-          <span style="background:rgba(59,130,246,.15);color:#60a5fa;padding:2px 6px;border-radius:2px;font-weight:700;margin-right:8px">API Match</span> Matched via MLB Stats API &nbsp;
-          <span style="background:rgba(239,68,68,.15);color:#ef4444;padding:2px 6px;border-radius:2px;font-weight:700">Not Found</span> Could not resolve — stats will be 0
-        </div>
-        <div class="reg-grid" id="reg-grid"></div>
-      </div>
-    </details>
-  </div>
 </main>
+
+<!-- ═══ BOTTOM NAV ═══ -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface-container-low/90 backdrop-blur-xl border-t border-white/5">
+  <div class="flex justify-around items-center px-2 pb-safe pt-2 h-16">
+    <button onclick="window.scrollTo({top:0,behavior:'smooth'})" class="flex flex-col items-center justify-center bg-primary-container text-white rounded-xl px-4 py-1.5 active:scale-90 transition-transform">
+      <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24">leaderboard</span>
+      <span class="font-body font-semibold text-[10px] uppercase tracking-wider mt-0.5">Standings</span>
+    </button>
+    <button onclick="loadData(true)" class="flex flex-col items-center justify-center text-slate-400 px-4 py-1.5 active:scale-90 transition-transform">
+      <span class="material-symbols-outlined text-[20px]">sensors</span>
+      <span class="font-body font-semibold text-[10px] uppercase tracking-wider mt-0.5">Refresh</span>
+    </button>
+    <button class="flex flex-col items-center justify-center text-slate-400 px-4 py-1.5">
+      <span class="material-symbols-outlined text-[20px]">sports_baseball</span>
+      <span class="font-body font-semibold text-[10px] uppercase tracking-wider mt-0.5">Rules</span>
+    </button>
+    <button onclick="openRegistry()" class="flex flex-col items-center justify-center text-slate-400 px-4 py-1.5 active:scale-90 transition-transform">
+      <span class="material-symbols-outlined text-[20px]">app_registration</span>
+      <span class="font-body font-semibold text-[10px] uppercase tracking-wider mt-0.5">Registry</span>
+    </button>
+  </div>
+</nav>
 
 <script>
 // ═══════════════════════════════════════════════════════
@@ -269,11 +276,8 @@ const ROSTERS = {
 
 // ═══════════════════════════════════════════════════════
 // PLAYER REGISTRY — hardcoded MLB IDs for known players
-// These are pre-verified so the right player is always used.
-// For players NOT listed here, the app falls back to MLB API search.
 // ═══════════════════════════════════════════════════════
 const PLAYER_REGISTRY = {
-  // --- Power Tier 1 ---
   "Ohtani":      {id:660271, full:"Shohei Ohtani",        team:"LAD"},
   "Judge":       {id:592450, full:"Aaron Judge",           team:"NYY"},
   "Soto":        {id:665742, full:"Juan Soto",             team:"NYM"},
@@ -284,17 +288,16 @@ const PLAYER_REGISTRY = {
   "Acuna":       {id:660670, full:"Ronald Acuña Jr.",      team:"ATL"},
   "Guerrero":    {id:665489, full:"Vladimir Guerrero Jr.", team:"TOR"},
   "Tucker":      {id:663656, full:"Kyle Tucker",           team:"CHC"},
-  // --- Established Stars ---
   "Machado":     {id:592518, full:"Manny Machado",         team:"SD"},
   "Harper":      {id:547180, full:"Bryce Harper",          team:"PHI"},
   "Olson":       {id:641355, full:"Matt Olson",            team:"ATL"},
   "Henderson":   {id:683002, full:"Gunnar Henderson",      team:"BAL"},
-  "Rodriguez":   {id:677594, full:"Julio Rodríguez",       team:"SEA"},  // NOT Grayson Rodriguez
+  "Rodriguez":   {id:677594, full:"Julio Rodríguez",       team:"SEA"},
   "Caminero":    {id:701538, full:"Junior Caminero",       team:"TB"},
   "Pasquantino": {id:680757, full:"Vinnie Pasquantino",    team:"KC"},
   "Schwarber":   {id:656941, full:"Kyle Schwarber",        team:"PHI"},
-  "Marte":       {id:641820, full:"Ketel Marte",           team:"ARI"},  // NOT Starling Marte
-  "Ramirez":     {id:608566, full:"José Ramírez",          team:"CLE"},  // NOT Elias Díaz etc.
+  "Marte":       {id:641820, full:"Ketel Marte",           team:"ARI"},
+  "Ramirez":     {id:608566, full:"José Ramírez",          team:"CLE"},
   "Alvarez":     {id:670541, full:"Yordan Alvarez",        team:"HOU"},
   "Seager":      {id:608369, full:"Corey Seager",          team:"TEX"},
   "Trout":       {id:545361, full:"Mike Trout",            team:"LAA"},
@@ -309,20 +312,19 @@ const PLAYER_REGISTRY = {
   "Raleigh":     {id:663728, full:"Cal Raleigh",           team:"SEA"},
   "Suzuki":      {id:673548, full:"Seiya Suzuki",          team:"CHC"},
   "Story":       {id:596115, full:"Trevor Story",          team:"BOS"},
-  "Suarez":      {id:553993, full:"Eugenio Suárez",        team:"ARI"},  // NOT Robert Suarez (pitcher)
-  "Lowe":        {id:664040, full:"Brandon Lowe",           team:"TB"},
+  "Suarez":      {id:553993, full:"Eugenio Suárez",        team:"ARI"},
+  "Lowe":        {id:664040, full:"Brandon Lowe",          team:"TB"},
   "Rooker":      {id:667670, full:"Brent Rooker",          team:"OAK"},
-  "Walker":      {id:572816, full:"Christian Walker",      team:"ARI"},  // NOT Jordan Walker
+  "Walker":      {id:572816, full:"Christian Walker",      team:"ARI"},
   "De La Cruz":  {id:682829, full:"Elly De La Cruz",       team:"CIN"},
-  "Cruz":        {id:665862, full:"Oneil Cruz",            team:"PIT"},  // NOT Nelson Cruz (retired)
-  "Hernandez":   {id:606192, full:"Teoscar Hernández",     team:"LAD"}, // NOT Kiké Hernández etc.
+  "Cruz":        {id:665862, full:"Oneil Cruz",            team:"PIT"},
+  "Hernandez":   {id:606192, full:"Teoscar Hernández",     team:"LAD"},
   "Buxton":      {id:621439, full:"Byron Buxton",          team:"MIN"},
   "Stowers":     {id:669065, full:"Kyle Stowers",          team:"BAL"},
   "Chourio":     {id:694192, full:"Jackson Chourio",       team:"MIL"},
   "Jones":       {id:666134, full:"Nolan Jones",           team:"COL"},
 };
 
-// Disambiguation rules for players resolved via API (not in registry)
 const DISAMBIG = {
   "Chisholm":      {first:"Jazz"},
   "Carroll":       {first:"Corbin",    team:"ARI"},
@@ -367,18 +369,13 @@ async function jFetch(url){const r=await fetch(url);if(!r.ok)throw new Error(`HT
 
 async function resolveAllPlayers(forceRefresh){
   if(!forceRefresh){const c=cGet(CACHE_IDS,TTL_IDS);if(c)return c}
-
   const result={};
   const uniqueNames=[...new Set(Object.values(ROSTERS).flat())];
   const needApi=[];
-
-  // Step 1: Use hardcoded registry
   for(const name of uniqueNames){
     if(PLAYER_REGISTRY[name]) result[name]={...PLAYER_REGISTRY[name],source:'registry'};
     else needApi.push(name);
   }
-
-  // Step 2: API lookup for remaining
   if(needApi.length){
     setDetail(`Looking up ${needApi.length} players via MLB API…`);
     let people=[];
@@ -386,61 +383,32 @@ async function resolveAllPlayers(forceRefresh){
       const data=await jFetch(`${API}/sports/1/players?season=${SEASON}&fields=people,id,firstName,lastName,fullName,currentTeam`);
       people=data.people||[];
     }catch(e){console.warn('Player list fetch failed',e)}
-
-    // Build last-name map; also build fullName map for multi-word last names
     const byLast={};
     people.forEach(p=>{
       const last=(p.lastName||'').toLowerCase().trim();
       if(!byLast[last])byLast[last]=[];
       byLast[last].push(p);
-      // Also index by full last name for compound names
       const parts=(p.fullName||'').split(' ');
       if(parts.length>2){
         const compound=parts.slice(1).join(' ').toLowerCase();
-        if(compound!==last){
-          if(!byLast[compound])byLast[compound]=[];
-          byLast[compound].push(p);
-        }
+        if(compound!==last){if(!byLast[compound])byLast[compound]=[];byLast[compound].push(p);}
       }
     });
-
     for(const name of needApi){
       const key=name.toLowerCase().trim();
       const cands=byLast[key]||[];
       const d=DISAMBIG[name];
       let matched=null;
-
-      if(cands.length===1){
-        matched=cands[0];
-      } else if(cands.length>1 && d){
-        // Try first name
+      if(cands.length===1){matched=cands[0];}
+      else if(cands.length>1 && d){
         if(d.first) matched=cands.find(p=>(p.firstName||'').toLowerCase().startsWith(d.first.toLowerCase()));
-        // Try team name (since abbreviation might not be in response)
-        if(!matched && d.team){
-          matched=cands.find(p=>{
-            const tn=(p.currentTeam?.name||'').toLowerCase();
-            const ta=(p.currentTeam?.abbreviation||'').toLowerCase();
-            return ta===d.team.toLowerCase() || tn.includes(d.team.toLowerCase());
-          });
-        }
+        if(!matched && d.team){matched=cands.find(p=>{const tn=(p.currentTeam?.name||'').toLowerCase();const ta=(p.currentTeam?.abbreviation||'').toLowerCase();return ta===d.team.toLowerCase()||tn.includes(d.team.toLowerCase());});}
         if(!matched) matched=cands[0];
-      } else if(cands.length>1){
-        matched=cands[0];
-      }
-
-      if(matched){
-        result[name]={
-          id:matched.id,
-          full:matched.fullName||`${matched.firstName||''} ${matched.lastName||''}`.trim(),
-          team:matched.currentTeam?.abbreviation||matched.currentTeam?.name||'?',
-          source:'api'
-        };
-      } else {
-        result[name]={id:null,full:name,team:'?',source:'notfound'};
-      }
+      } else if(cands.length>1){matched=cands[0];}
+      if(matched){result[name]={id:matched.id,full:matched.fullName||`${matched.firstName||''} ${matched.lastName||''}`.trim(),team:matched.currentTeam?.abbreviation||matched.currentTeam?.name||'?',source:'api'};}
+      else{result[name]={id:null,full:name,team:'?',source:'notfound'};}
     }
   }
-
   cSet(CACHE_IDS,result);
   return result;
 }
@@ -448,10 +416,7 @@ async function resolveAllPlayers(forceRefresh){
 async function fetchMonthlyStats(id){
   const d=await jFetch(`${API}/people/${id}/stats?stats=byMonth&group=hitting&season=${SEASON}`);
   const out={};
-  (d.stats?.[0]?.splits||[]).forEach(s=>{
-    const m=parseInt(s.month||0);
-    if(m) out[m]=(out[m]||0)+(s.stat?.homeRuns||0);
-  });
+  (d.stats?.[0]?.splits||[]).forEach(s=>{const m=parseInt(s.month||0);if(m)out[m]=(out[m]||0)+(s.stat?.homeRuns||0);});
   return out;
 }
 
@@ -472,214 +437,235 @@ async function fetchAllStats(resolution, forceRefresh){
 }
 
 // ═══════════════════════════════════════════════════════
-// ESPN — resolve IDs & build profile links for verification
+// ESPN
 // ═══════════════════════════════════════════════════════
-function normName(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
+function normName(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim();}
 
-async function resolveESPN(resolution) {
-  const cached = cGet(CACHE_ESPN, TTL_ESPN);
-  if (cached) return cached;
-
-  // fullNameLower → { espnId, espnName, espnUrl }
-  const espnMap = {};
-
-  // Step 1: Try bulk fetch (all active MLB athletes in one call)
-  try {
+async function resolveESPN(resolution){
+  const cached=cGet(CACHE_ESPN,TTL_ESPN);
+  if(cached) return cached;
+  const espnMap={};
+  try{
     setDetail('Loading ESPN player data…');
-    const data = await jFetch(`${ESPN_API}/athletes?limit=1000&active=true`);
-    const items = data.items || data.athletes || [];
-    items.forEach(p => {
-      const raw = p.fullName || p.displayName || '';
-      if (!raw) return;
-      const key = normName(raw);
-      const slug = key.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-      espnMap[key] = { espnId: String(p.id), espnName: raw, espnUrl: `https://www.espn.com/mlb/player/_/id/${p.id}/${slug}` };
+    const data=await jFetch(`${ESPN_API}/athletes?limit=1000&active=true`);
+    const items=data.items||data.athletes||[];
+    items.forEach(p=>{
+      const raw=p.fullName||p.displayName||'';
+      if(!raw) return;
+      const key=normName(raw);
+      const slug=key.replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+      espnMap[key]={espnId:String(p.id),espnName:raw,espnUrl:`https://www.espn.com/mlb/player/_/id/${p.id}/${slug}`};
     });
-  } catch(e) { console.warn('ESPN bulk fetch failed:', e.message); }
-
-  // Step 2: For any player not found in bulk, try individual search
-  const needed = Object.values(resolution).filter(r => r.id && !espnMap[normName(r.full)]);
-  if (needed.length) {
+  }catch(e){console.warn('ESPN bulk fetch failed:',e.message);}
+  const needed=Object.values(resolution).filter(r=>r.id&&!espnMap[normName(r.full)]);
+  if(needed.length){
     setDetail(`ESPN: searching ${needed.length} remaining players…`);
-    const BATCH = 8;
-    for (let i = 0; i < needed.length; i += BATCH) {
-      await Promise.all(needed.slice(i, i + BATCH).map(async res => {
-        try {
-          const q = encodeURIComponent(res.full);
-          const data = await jFetch(`${ESPN_API}/athletes?search=${q}&limit=10`);
-          const items = data.items || data.athletes || [];
-          // Prefer exact full name match, fall back to first result
-          const match = items.find(p => normName(p.fullName||p.displayName) === normName(res.full))
-                     || items.find(p => normName(p.displayName||'').includes(normName(res.full.split(' ').pop())))
-                     || items[0];
-          if (match) {
-            const raw = match.fullName || match.displayName || '';
-            const slug = normName(raw).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-            espnMap[normName(res.full)] = { espnId: String(match.id), espnName: raw, espnUrl: `https://www.espn.com/mlb/player/_/id/${match.id}/${slug}` };
+    const BATCH=8;
+    for(let i=0;i<needed.length;i+=BATCH){
+      await Promise.all(needed.slice(i,i+BATCH).map(async res=>{
+        try{
+          const q=encodeURIComponent(res.full);
+          const data=await jFetch(`${ESPN_API}/athletes?search=${q}&limit=10`);
+          const items=data.items||data.athletes||[];
+          const match=items.find(p=>normName(p.fullName||p.displayName)===normName(res.full))
+                    ||items.find(p=>normName(p.displayName||'').includes(normName(res.full.split(' ').pop())))
+                    ||items[0];
+          if(match){
+            const raw=match.fullName||match.displayName||'';
+            const slug=normName(raw).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+            espnMap[normName(res.full)]={espnId:String(match.id),espnName:raw,espnUrl:`https://www.espn.com/mlb/player/_/id/${match.id}/${slug}`};
           }
-        } catch {}
+        }catch{}
       }));
     }
   }
-
-  cSet(CACHE_ESPN, espnMap);
+  cSet(CACHE_ESPN,espnMap);
   return espnMap;
 }
 
-// Build a clickable ESPN link for a roster name, or plain text if not found
-function playerLink(rosterName, cssClass='') {
-  const res = gResolution[rosterName] || {};
-  const espn = gESPN[normName(res.full)] || {};
-  const displayName = espn.espnName || res.full || rosterName;
-  if (espn.espnUrl) {
-    return `<a href="${espn.espnUrl}" target="_blank" rel="noopener" class="plink ${cssClass}" title="View ${displayName} on ESPN">${displayName}</a>`;
-  }
+function playerLink(rosterName,cssClass=''){
+  const res=gResolution[rosterName]||{};
+  const espn=gESPN[normName(res.full)]||{};
+  const displayName=espn.espnName||res.full||rosterName;
+  if(espn.espnUrl) return `<a href="${espn.espnUrl}" target="_blank" rel="noopener" class="plink ${cssClass}" title="View on ESPN">${displayName}</a>`;
   return `<span class="${cssClass}">${displayName}</span>`;
 }
 
 // ═══════════════════════════════════════════════════════
-// SCORING  — top 10 recalculated independently each month
+// SCORING
 // ═══════════════════════════════════════════════════════
-function calcPeriod(players, resolution, stats, monthNums){
-  // Get each player's HRs for THIS month only
-  const entries=players.map(name=>{
-    const id=resolution[name]?.id;
-    const hrs=id ? monthNums.reduce((s,m)=>s+(stats[id]?.[m]||0),0) : 0;
-    return {name,hrs};
-  });
-  // Sort by this month's HRs, take TOP 10
+function calcPeriod(players,resolution,stats,monthNums){
+  const entries=players.map(name=>{const id=resolution[name]?.id;const hrs=id?monthNums.reduce((s,m)=>s+(stats[id]?.[m]||0),0):0;return{name,hrs};});
   entries.sort((a,b)=>b.hrs-a.hrs);
   const top10=new Set(entries.slice(0,TOP_N).map(e=>e.name));
   const score=entries.slice(0,TOP_N).reduce((s,e)=>s+e.hrs,0);
-  return {score,entries,top10};
+  return{score,entries,top10};
 }
 
-function calcStandings(resolution, stats){
+function calcStandings(resolution,stats){
   return Object.entries(ROSTERS).map(([team,players])=>{
     const periods=MONTHS.map(mo=>calcPeriod(players,resolution,stats,mo.months));
     const total=periods.reduce((s,p)=>s+p.score,0);
-    return {team,periods,total};
+    return{team,periods,total};
   }).sort((a,b)=>b.total-a.total||a.team.localeCompare(b.team));
 }
 
 // ═══════════════════════════════════════════════════════
-// MAIN
+// GLOBALS & HELPERS
 // ═══════════════════════════════════════════════════════
-let gResolution={}, gStats={}, gStandings=[], gESPN={};
+let gResolution={}, gStats={}, gStandings=[], gESPN={}, gSelectedPeriod=null;
 
-function setDetail(msg){const e=document.getElementById('load-detail');if(e)e.textContent=msg}
+function setDetail(msg){const e=document.getElementById('load-detail');if(e)e.textContent=msg;}
 
-async function loadData(forceRefresh=false){
-  const btn=document.getElementById('refresh-btn');
-  btn.disabled=true; btn.textContent='↻ Loading…';
-
-  try{
-    gResolution=await resolveAllPlayers(forceRefresh);
-    gStats=await fetchAllStats(gResolution,forceRefresh);
-    gESPN=await resolveESPN(gResolution);
-    gStandings=calcStandings(gResolution,gStats);
-
-    document.getElementById('last-updated').textContent=
-      `Updated ${new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}`;
-
-    renderStandings();
-    renderRegistry();
-    document.getElementById('reg-panel').style.display='';
-  }catch(err){
-    document.getElementById('standings-mount').innerHTML=
-      `<div class="error-box">⚠ ${err.message}<br><br><button onclick="loadData(true)" style="margin-top:10px;padding:8px 16px;background:#162030;border:1px solid #ef4444;color:#ef4444;border-radius:6px;cursor:pointer;">Try Again</button></div>`;
-  }finally{
-    btn.disabled=false; btn.textContent='↻ Refresh';
-  }
+function initials(name){
+  const res=gResolution[name]||{};
+  const full=res.full||name;
+  const parts=full.split(' ').filter(w=>w.length>0);
+  if(parts.length===1) return parts[0][0]||'?';
+  return (parts[0][0]+(parts[parts.length-1][0]||'')).toUpperCase();
 }
 
 // ═══════════════════════════════════════════════════════
-// RENDER STANDINGS
+// RENDER — STATS STRIP
+// ═══════════════════════════════════════════════════════
+function renderStatsStrip(){
+  if(!gStandings.length) return;
+  const leader=gStandings[0];
+  const m1Leader=[...gStandings].sort((a,b)=>b.periods[0].score-a.periods[0].score)[0];
+  const totalHRs=Object.values(gStats).reduce((sum,md)=>sum+Object.values(md).reduce((s,v)=>s+v,0),0);
+  const strip=document.getElementById('stats-strip');
+  strip.innerHTML=`
+    <div class="min-w-[150px] flex-shrink-0 bg-surface-container-low border-l-4 border-primary-container p-3 rounded-r-lg">
+      <p class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">Season Leader</p>
+      <div class="flex items-baseline justify-between gap-2">
+        <span class="text-sm font-bold text-on-surface truncate">${leader.team}</span>
+        <span class="text-xl font-black text-secondary tabular-nums font-headline">${leader.total} <span class="text-[9px] uppercase font-bold text-slate-500">HR</span></span>
+      </div>
+    </div>
+    <div class="min-w-[150px] flex-shrink-0 bg-surface-container-low border-l-4 border-primary-container p-3 rounded-r-lg">
+      <p class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">Mar/Apr Leader</p>
+      <div class="flex items-baseline justify-between gap-2">
+        <span class="text-sm font-bold text-on-surface truncate">${m1Leader.team}</span>
+        <span class="text-xl font-black text-secondary tabular-nums font-headline">${m1Leader.periods[0].score} <span class="text-[9px] uppercase font-bold text-slate-500">HR</span></span>
+      </div>
+    </div>
+    <div class="min-w-[150px] flex-shrink-0 bg-surface-container-low border-l-4 border-primary-container p-3 rounded-r-lg">
+      <p class="text-[10px] font-semibold uppercase tracking-wider text-slate-400 mb-1">Total HRs Tracked</p>
+      <div class="flex items-baseline justify-between gap-2">
+        <span class="text-sm font-bold text-on-surface">All Rosters</span>
+        <span class="text-xl font-black text-secondary tabular-nums font-headline">${totalHRs}</span>
+      </div>
+    </div>`;
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDER — STANDINGS LEADERBOARD
 // ═══════════════════════════════════════════════════════
 function renderStandings(){
   const mount=document.getElementById('standings-mount');
-  mount.innerHTML=`<table>
-    <thead><tr>
-      <th class="rank-cell">#</th>
-      <th>Team</th>
-      ${MONTHS.map(m=>`<th class="num">${m.col}<br><span style="font-weight:400;font-size:9px;color:#4a6070">${m.label}</span></th>`).join('')}
-      <th class="num">Season</th>
-    </tr></thead>
-    <tbody id="tbody"></tbody>
-  </table>`;
+  const displayData=gSelectedPeriod===null
+    ? [...gStandings]
+    : [...gStandings].sort((a,b)=>b.periods[gSelectedPeriod].score-a.periods[gSelectedPeriod].score||a.team.localeCompare(b.team));
 
-  const tbody=document.getElementById('tbody');
-  gStandings.forEach((row,i)=>{
+  mount.innerHTML='';
+  const container=document.createElement('div');
+  container.className='space-y-2';
+
+  displayData.forEach((row,i)=>{
     const rank=i+1;
-    const rc=rank===1?'rank-1':rank===2?'rank-2':rank===3?'rank-3':'rank-rest';
-    const dr=document.createElement('tr');
-    dr.className='data-row';
-    dr.innerHTML=`
-      <td class="rank-cell"><span class="${rc}">${rank}</span></td>
-      <td class="team-cell">${row.team}<span class="expand-icon">›</span></td>
-      ${row.periods.map(p=>`<td class="num month-cell ${p.score>0?'nz':''}">${p.score||'—'}</td>`).join('')}
-      <td class="num total-cell">${row.total}</td>`;
+    const score=gSelectedPeriod===null?row.total:row.periods[gSelectedPeriod].score;
+    const rankColor=rank===1?'text-secondary':rank===2?'text-slate-300':rank===3?'text-[#cd7f32]':'text-slate-500';
+    const accentClass=rank===1?'rank-accent-gold':rank===2?'rank-accent-silver':rank===3?'rank-accent-bronze':'';
 
-    const xr=document.createElement('tr');
-    xr.className='detail-row';
-    xr.style.display='none';
-    xr.innerHTML=`<td colspan="${MONTHS.length+3}"></td>`;
+    const wrapper=document.createElement('div');
+    wrapper.className='group';
 
-    dr.addEventListener('click',()=>{
-      const open=dr.classList.toggle('open');
-      xr.style.display=open?'':'none';
-      if(open && !xr.querySelector('.detail-inner'))
-        buildDetail(xr.querySelector('td'),row);
+    const card=document.createElement('div');
+    card.className=`relative flex items-center bg-surface-container-low border border-outline-variant/15 rounded-xl p-4 gap-4 cursor-pointer active:bg-surface-container transition-colors overflow-hidden ${accentClass}`;
+
+    // Ghost watermark
+    const ghost=rank<=3?`<span class="absolute right-14 top-1/2 -translate-y-1/2 font-headline font-black text-6xl ${rankColor} opacity-[0.06] pointer-events-none select-none">${rank}</span>`:'';
+
+    card.innerHTML=`
+      ${ghost}
+      <div class="flex-shrink-0 w-11 h-11 flex items-center justify-center relative">
+        <span class="font-headline font-black ${rank<=3?'text-2xl':'text-lg'} ${rankColor} tabular-nums">${rank<=3?'#'+rank:rank}</span>
+      </div>
+      <div class="flex-grow min-w-0">
+        <h3 class="font-headline font-black text-base tracking-tight text-white uppercase truncate leading-tight">${row.team}</h3>
+        ${gSelectedPeriod!==null?`<p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">${MONTHS[gSelectedPeriod].label} only</p>`:'<p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Season Total</p>'}
+      </div>
+      <div class="text-right flex-shrink-0">
+        <div class="text-2xl font-black text-secondary tabular-nums font-headline">${score||0}</div>
+        <div class="text-[9px] font-bold text-slate-500 uppercase tracking-tighter">HRS</div>
+      </div>
+      <span class="material-symbols-outlined text-slate-500 group-hover:text-slate-300 transition-all flex-shrink-0 expand-chevron">expand_more</span>`;
+
+    const detailPanel=document.createElement('div');
+    detailPanel.className='detail-panel bg-surface-container-lowest border-x border-b border-outline-variant/10 rounded-b-xl';
+
+    card.addEventListener('click',()=>{
+      const isOpen=detailPanel.classList.contains('open');
+      document.querySelectorAll('.detail-panel.open').forEach(p=>{
+        p.classList.remove('open');
+        p.previousElementSibling?.querySelector('.expand-chevron')?.classList.remove('chevron-open');
+      });
+      if(!isOpen){
+        detailPanel.classList.add('open');
+        card.querySelector('.expand-chevron').classList.add('chevron-open');
+        if(!detailPanel.dataset.built){
+          buildDetail(detailPanel,row);
+          detailPanel.dataset.built='1';
+        }
+      }
     });
-    tbody.appendChild(dr);
-    tbody.appendChild(xr);
+
+    wrapper.appendChild(card);
+    wrapper.appendChild(detailPanel);
+    container.appendChild(wrapper);
   });
+
+  mount.appendChild(container);
 }
 
 // ═══════════════════════════════════════════════════════
-// TEAM DETAIL — month tab view
+// TEAM DETAIL — tab view
 // ═══════════════════════════════════════════════════════
 function buildDetail(cell,row){
   const players=ROSTERS[row.team];
-  // Per-player monthly HRs
   const pdata=players.map(name=>{
     const id=gResolution[name]?.id;
     const mHrs=MONTHS.map(mo=>mo.months.reduce((s,m)=>s+(gStats[id]?.[m]||0),0));
-    return {name, mHrs, total:mHrs.reduce((s,v)=>s+v,0)};
+    return{name,mHrs,total:mHrs.reduce((s,v)=>s+v,0)};
   });
 
   const inner=document.createElement('div');
-  inner.className='detail-inner';
+  inner.className='p-4';
 
-  // Build tab bar
   const tabs=document.createElement('div');
-  tabs.className='mtabs';
+  tabs.className='flex gap-2 overflow-x-auto no-scroll pb-3';
+
   const content=document.createElement('div');
 
   const tabDefs=[
-    {id:'all', label:'Season Overview'},
-    ...MONTHS.map(m=>({id:m.id, label:`${m.col}: ${m.label}`}))
+    {id:'all',label:'Season'},
+    ...MONTHS.map(m=>({id:m.id,label:m.col}))
   ];
 
-  let activeTab='all';
-
   function showTab(id){
-    activeTab=id;
-    tabs.querySelectorAll('.mtab').forEach(b=>b.classList.toggle('active',b.dataset.id==id));
+    tabs.querySelectorAll('button').forEach(b=>{
+      const active=b.dataset.id==id;
+      b.className=`flex-shrink-0 px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest transition-colors ${active?'bg-primary-container text-white':'bg-surface-container-high text-slate-400'}`;
+    });
     content.innerHTML='';
-    if(id==='all'){
-      content.appendChild(buildSeasonTable(pdata, row.periods));
-    } else {
-      const mi=MONTHS.findIndex(m=>m.id===id);
-      content.appendChild(buildMonthView(pdata, mi, row.periods[mi]));
-    }
+    if(id==='all'){content.appendChild(buildSeasonTable(pdata,row.periods));}
+    else{const mi=MONTHS.findIndex(m=>m.id===id);content.appendChild(buildMonthView(pdata,mi,row.periods[mi]));}
   }
 
   tabDefs.forEach(t=>{
     const btn=document.createElement('button');
-    btn.className=`mtab ${t.id==='all'?'active':''}`;
-    btn.textContent=t.label;
     btn.dataset.id=t.id;
+    btn.textContent=t.label;
     btn.onclick=()=>showTab(t.id);
     tabs.appendChild(btn);
   });
@@ -690,108 +676,190 @@ function buildDetail(cell,row){
   showTab('all');
 }
 
-// Month view: sorted by that month's HRs, top 10 highlighted
-function buildMonthView(pdata, mi, period){
+// ═══════════════════════════════════════════════════════
+// MONTH VIEW
+// ═══════════════════════════════════════════════════════
+function buildMonthView(pdata,mi,period){
   const mo=MONTHS[mi];
-  const sorted=[...pdata].map(p=>({name:p.name,hrs:p.mHrs[mi]}))
-    .sort((a,b)=>b.hrs-a.hrs);
-
+  const sorted=[...pdata].map(p=>({name:p.name,hrs:p.mHrs[mi]})).sort((a,b)=>b.hrs-a.hrs);
   const wrap=document.createElement('div');
 
-  // Score header
-  wrap.innerHTML=`<div class="msh">
+  const hdr=document.createElement('div');
+  hdr.className='flex items-center justify-between bg-surface-container rounded-lg p-3 mb-3';
+  hdr.innerHTML=`
     <div>
-      <div class="msh-label">${mo.label} — Top 10 HR Total</div>
-      <div class="msh-note">Players ranked by HRs hit in ${mo.label} only. Top 10 count.</div>
+      <div class="text-[10px] font-black uppercase tracking-widest text-slate-400">${mo.label} — Top 10</div>
+      <div class="text-[9px] text-slate-600 mt-0.5">Top 10 players by HRs this period</div>
     </div>
-    <div class="msh-score">${period.score} HRs</div>
-  </div>`;
+    <div class="text-right">
+      <div class="text-2xl font-black text-secondary tabular-nums font-headline">${period.score}</div>
+      <div class="text-[9px] uppercase tracking-wider text-slate-500 font-bold">HRS</div>
+    </div>`;
+  wrap.appendChild(hdr);
 
   const grid=document.createElement('div');
-  grid.className='player-grid';
+  grid.className='grid grid-cols-2 gap-2';
 
   sorted.forEach((p,i)=>{
     const counting=i<TOP_N;
+    const ini=initials(p.name);
     const card=document.createElement('div');
-    card.className=`pc ${counting?'counting':''}`;
+    card.className=`counting flex items-center gap-2 bg-surface-container rounded-lg p-2 ${counting?'counting':''}`;
     card.innerHTML=`
-      <div class="pc-rank">${i+1}</div>
-      <div class="pc-name">${playerLink(p.name)}</div>
-      <div class="pc-right">
-        ${counting?'<span class="top10-tag">TOP 10</span>':''}
-        <span class="pc-hr">${p.hrs||'0'}</span>
-      </div>`;
+      <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-black ${counting?'bg-secondary/15 border border-secondary/40 text-secondary':'bg-surface-container-highest text-slate-500'}">
+        ${ini}
+      </div>
+      <div class="flex-grow min-w-0">
+        <div class="text-[10px] font-semibold truncate leading-tight ${counting?'text-secondary':'text-slate-500'}">${playerLink(p.name)}</div>
+        <div class="text-[8px] uppercase tracking-wider font-bold ${counting?'text-primary-container':'text-slate-700'}">${counting?'TOP 10':'#'+(i+1)}</div>
+      </div>
+      <div class="text-lg font-black tabular-nums flex-shrink-0 font-headline ${counting?'text-secondary':'text-slate-600'}">${p.hrs||0}</div>`;
     grid.appendChild(card);
   });
+
   wrap.appendChild(grid);
   return wrap;
 }
 
-// Season overview: table of all months with ★ for counting months
-function buildSeasonTable(pdata, periods){
+// ═══════════════════════════════════════════════════════
+// SEASON TABLE
+// ═══════════════════════════════════════════════════════
+function buildSeasonTable(pdata,periods){
   const sorted=[...pdata].sort((a,b)=>b.total-a.total);
-
-  // For each month, determine the top 10 names
   const top10ByMonth=MONTHS.map((_,mi)=>{
     const ranked=[...pdata].sort((a,b)=>b.mHrs[mi]-a.mHrs[mi]);
     return new Set(ranked.slice(0,TOP_N).map(p=>p.name));
   });
-
   const wrap=document.createElement('div');
+  wrap.className='overflow-x-auto';
   let html=`<table class="stbl"><thead><tr>
     <th>Player</th>
-    ${MONTHS.map(m=>`<th>${m.col}<br>${m.label}</th>`).join('')}
-    <th>Season</th>
+    ${MONTHS.map(m=>`<th>${m.col}</th>`).join('')}
+    <th>Total</th>
   </tr></thead><tbody>`;
-
   sorted.forEach(p=>{
     html+=`<tr><td class="pn">${playerLink(p.name)}</td>`;
     p.mHrs.forEach((h,mi)=>{
       const counts=top10ByMonth[mi].has(p.name);
       if(h===0) html+=`<td class="cell-zero">—</td>`;
-      else if(counts) html+=`<td><span class="cell-counts">${h} ★</span></td>`;
+      else if(counts) html+=`<td><span class="cell-counts">${h}★</span></td>`;
       else html+=`<td>${h}</td>`;
     });
-    html+=`<td><strong>${p.total||'—'}</strong></td></tr>`;
+    html+=`<td><strong class="text-secondary tabular-nums">${p.total||'—'}</strong></td></tr>`;
   });
-
-  // Score row
-  html+=`<tr class="score-row"><td>Top-10 Score</td>
-    ${periods.map(p=>`<td>${p.score}</td>`).join('')}
-    <td>${periods.reduce((s,p)=>s+p.score,0)}</td>
-  </tr>`;
-
+  html+=`<tr class="score-row"><td>Top-10 Score</td>${periods.map(p=>`<td class="tabular-nums">${p.score}</td>`).join('')}<td class="tabular-nums">${periods.reduce((s,p)=>s+p.score,0)}</td></tr>`;
   html+=`</tbody></table>`;
   wrap.innerHTML=html;
   return wrap;
 }
 
 // ═══════════════════════════════════════════════════════
-// PLAYER REGISTRY PANEL
+// PLAYER REGISTRY
 // ═══════════════════════════════════════════════════════
 function renderRegistry(){
   const grid=document.getElementById('reg-grid');
   const uniqueNames=[...new Set(Object.values(ROSTERS).flat())].sort();
   grid.innerHTML=uniqueNames.map(name=>{
     const r=gResolution[name]||{};
-    const srcClass=r.source==='registry'?'src-registry':r.source==='api'?'src-api':'src-notfound';
-    const srcLabel=r.source==='registry'?'Hardcoded':r.source==='api'?'API Match':'Not Found';
     const espn=gESPN[normName(r.full)]||{};
+    const parts=(r.full||name).split(' ');
+    const last=parts[parts.length-1].toUpperCase();
+    const first=parts[0]?.[0]||'?';
+    const shortName=parts.length>1?`${last}, ${first}.`:last;
+    const badgeCls=r.source==='registry'
+      ?'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+      :r.source==='api'
+      ?'bg-blue-500/10 text-blue-400 border border-blue-500/20'
+      :'bg-primary-container/10 text-primary-container border border-primary-container/20';
+    const badgeLabel=r.source==='registry'?'Hardcoded':r.source==='api'?'API':'Not Found';
     const nameDisplay=espn.espnUrl
-      ? `<a href="${espn.espnUrl}" target="_blank" rel="noopener" class="plink" title="View on ESPN">${espn.espnName||r.full}</a><span class="espn-badge">ESPN</span>`
-      : (r.full||'—');
-    return `<div class="reg-item">
-      <span class="reg-roster">${name}</span>
-      <span class="reg-full">${nameDisplay}${r.team&&r.team!=='?'?` (${r.team})`:''}${r.id?` #${r.id}`:''}</span>
-      <span class="src-badge ${srcClass}">${srcLabel}</span>
+      ?`<a href="${espn.espnUrl}" target="_blank" rel="noopener" class="plink">${espn.espnName||r.full}</a><span class="espn-badge">ESPN</span>`
+      :(r.full||'—');
+    return `<div class="flex items-center justify-between bg-surface-container p-2.5 rounded-lg">
+      <div class="flex items-baseline gap-2 min-w-0 flex-1 mr-2">
+        <span class="text-xs font-black text-white uppercase tracking-tight flex-shrink-0">${shortName}</span>
+        <span class="text-[10px] text-slate-400 truncate">${nameDisplay}${r.team&&r.team!=='?'?' ('+r.team+')':''}</span>
+      </div>
+      <span class="px-2 py-0.5 rounded-full text-[8px] font-black uppercase flex-shrink-0 ${badgeCls}">${badgeLabel}</span>
     </div>`;
   }).join('');
 }
 
 // ═══════════════════════════════════════════════════════
+// LOAD DATA
+// ═══════════════════════════════════════════════════════
+async function loadData(forceRefresh=false){
+  const btn=document.getElementById('refresh-btn');
+  btn.disabled=true;
+
+  document.getElementById('standings-mount').innerHTML=`
+    <div class="flex flex-col items-center justify-center py-16">
+      <div class="w-8 h-8 border-2 border-surface-container-high border-t-primary-container rounded-full spin mb-4"></div>
+      <p class="text-slate-400 text-sm">Fetching live MLB stats…</p>
+      <p id="load-detail" class="text-slate-600 text-xs mt-1"></p>
+    </div>`;
+
+  try{
+    gResolution=await resolveAllPlayers(forceRefresh);
+    gStats=await fetchAllStats(gResolution,forceRefresh);
+    gESPN=await resolveESPN(gResolution);
+    gStandings=calcStandings(gResolution,gStats);
+
+    document.getElementById('last-updated').textContent=
+      new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+
+    renderStatsStrip();
+    renderStandings();
+    renderRegistry();
+    document.getElementById('reg-panel').style.display='';
+  }catch(err){
+    document.getElementById('standings-mount').innerHTML=`
+      <div class="mx-4 bg-primary-container/10 border border-primary-container/30 rounded-xl p-6 text-center">
+        <p class="text-primary-container font-bold mb-3">⚠ ${err.message}</p>
+        <button onclick="loadData(true)" class="px-4 py-2 bg-primary-container text-white rounded-lg text-sm font-black uppercase tracking-widest">Try Again</button>
+      </div>`;
+  }finally{
+    btn.disabled=false;
+  }
+}
+
+// ═══════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════
+function openRegistry(){
+  const panel=document.getElementById('reg-panel');
+  const body=document.getElementById('reg-body');
+  const chevron=document.getElementById('reg-chevron');
+  panel.style.display='';
+  body.classList.add('open');
+  chevron.classList.add('chevron-open');
+  panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// Month nav
+document.querySelectorAll('.month-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const val=btn.dataset.period;
+    gSelectedPeriod=val===''?null:parseInt(val);
+    document.querySelectorAll('.month-btn').forEach(b=>{
+      const active=b===btn;
+      b.className=`month-btn flex-shrink-0 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest transition-colors ${active?'bg-primary-container text-white shadow-sm shadow-primary-container/30':'bg-surface-container-high text-slate-400'}`;
+    });
+    if(gStandings.length) renderStandings();
+  });
+});
+
+// Registry toggle
+document.getElementById('reg-toggle').addEventListener('click',()=>{
+  const body=document.getElementById('reg-body');
+  const chevron=document.getElementById('reg-chevron');
+  body.classList.toggle('open');
+  chevron.classList.toggle('chevron-open');
+});
+
+// Refresh button
 document.getElementById('refresh-btn').addEventListener('click',()=>loadData(true));
+
 loadData();
 </script>
 </body>
