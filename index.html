@@ -154,7 +154,7 @@ a { color: inherit; text-decoration: none; }
 
 /* ── TABLE CONTAINER ─────────────────────────────────── */
 .table-section {
-  border-top: 2.25px solid #6D6E71;
+  /* border handled by ::before pseudo-element for full-width line */
 }
 .table-wrap { overflow-x: auto; }
 
@@ -170,7 +170,7 @@ table.standings thead th {
   letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--text);
   background: var(--bg);
-  border-bottom: 2.25px solid #6D6E71;
+  /* border-bottom handled by thead tr::after pseudo-element for full-width line */
   white-space: nowrap;
   text-align: left;
 }
@@ -215,7 +215,7 @@ table.standings td {
   padding: 9px 12px; white-space: nowrap;
 }
 .td-rank {
-  width: 64px; text-align: center;
+  width: 42px; text-align: center;
   font-size: 13px; font-weight: 700;
   color: var(--text);
 }
@@ -429,16 +429,7 @@ table.standings thead th.sorted.sortable {
   .month-nav { padding: 8px 16px; }
   .logo-img { height: 38px; }
   table.standings td, table.standings th { padding: 7px 8px; }
-  /* Restore tighter edge padding on mobile */
-  table.standings thead th:first-child,
-  table.standings tbody tr.data-row td:first-child { padding-left: 16px; }
-  table.standings thead th:last-child,
-  table.standings tbody tr.data-row td:last-child { padding-right: 16px; }
-  /* Restore sticky offsets — td-rank is narrower on mobile */
-  .td-rank { width: 42px; }
-  table.standings thead th.col-name,
-  table.standings tbody td.col-name { left: 42px; }
-  .detail-inner { padding: 12px; }
+  .detail-inner { padding: 12px 12px; }
   .toggle-label { display: none; }
 }
 
@@ -456,7 +447,7 @@ table.standings tbody td.td-rank {
 }
 table.standings thead th.col-name,
 table.standings tbody td.col-name {
-  left: 64px;
+  left: 42px;
   box-shadow: 1px 0 0 0 #6D6E71;
 }
 
@@ -465,7 +456,7 @@ table.standings thead th.td-rank,
 table.standings thead th.col-name {
   background: var(--bg);
   z-index: 10;
-  border-bottom: 2.25px solid #6D6E71;
+  /* border-bottom via thead tr::after pseudo-element */
 }
 table.standings tbody tr.data-row td.td-rank,
 table.standings tbody tr.data-row td.col-name {
@@ -480,21 +471,40 @@ table.standings tbody tr.data-row:hover td.col-name {
   background: var(--row-hover);
 }
 
-/* ── FULL-WIDTH EDGE PADDING ─────────────────────────── */
-/* First cell gets left inset, last cell gets right inset  */
-/* so content doesn't touch screen edges when table is     */
-/* full-viewport-width (table-section outside page-inner) */
-table.standings thead th:first-child,
-table.standings tbody tr.data-row td:first-child {
-  padding-left: 32px;
+/* ── FULL-WIDTH HEADER LINES ─────────────────────────── */
+/* The top and bottom border of the header row extend      */
+/* beyond .page-inner's max-width out to screen edges.    */
+.table-section {
+  position: relative;
 }
-table.standings thead th:last-child,
-table.standings tbody tr.data-row td:last-child {
-  padding-right: 32px;
+/* Top line: above RK/NAME/TOTAL header */
+.table-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 2.25px;
+  background: #6D6E71;
+  /* Break out of page-inner's max-width/padding */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  pointer-events: none;
 }
-.detail-inner {
-  padding-left: 32px;
-  padding-right: 32px;
+/* Bottom line: below header row, above player data */
+table.standings thead tr {
+  position: relative;
+}
+table.standings thead tr::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 2.25px;
+  background: #6D6E71;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  pointer-events: none;
+  z-index: 15;
 }
 </style>
 </head>
@@ -522,12 +532,10 @@ table.standings tbody tr.data-row td:last-child {
     </div>
   </header>
 
-</div><!-- /page-inner -->
-
-<!-- TABLE — full-width so border lines span the screen -->
-<div class="table-section">
-  <div class="table-wrap">
-    <table class="standings">
+  <!-- TABLE -->
+  <div class="table-section">
+    <div class="table-wrap">
+      <table class="standings">
         <thead>
           <tr>
             <th class="td-rank">RK</th>
@@ -551,8 +559,10 @@ table.standings tbody tr.data-row td:last-child {
           </td></tr>
         </tbody>
       </table>
+    </div>
   </div>
-</div><!-- /table-section -->
+
+</div><!-- /page-inner -->
 
 <!-- INFO MODAL -->
 <div class="modal-overlay" id="info-modal" onclick="if(event.target===this)this.classList.remove('open')">
