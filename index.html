@@ -428,7 +428,8 @@ table.roster .player-col {
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 24px; max-width: 400px; width: 90%;
+  padding: 24px; max-width: 460px; width: 92%;
+  max-height: 88vh; overflow-y: auto;
 }
 .modal h2 {
   font-size: 14px; font-weight: 800;
@@ -585,9 +586,57 @@ table.standings tbody tr.data-row:hover td.col-name {
 <div class="modal-overlay" id="info-modal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal">
     <h2>How It Works</h2>
-    <p>6 scoring periods run through the MLB season: Mar/Apr, Jun, Jul, Aug, Sep, and Oct.</p>
-    <p>Each month, the <strong>top 10 home run hitters</strong> from each team's 13-player roster count toward that team's score. Scoring resets every month.</p>
-    <p>Your season total is the sum of all 6 monthly scores. Click any team name to see their full roster breakdown.</p>
+
+    <p><strong>Scoring Periods</strong><br>
+    6 monthly periods run through the MLB season: Mar/Apr · May · Jun · Jul · Aug · Sep.</p>
+
+    <p><strong>Monthly Scoring</strong><br>
+    Each month, the <strong>top 10 home run hitters</strong> from each team's 13-player roster count toward that team's monthly total. Scoring resets every month.</p>
+
+    <p><strong>Points</strong><br>
+    Finish in the <strong>top 5</strong> each month to earn points toward the season title:</p>
+
+    <table style="width:100%;border-collapse:collapse;font-size:12px;margin:4px 0 10px">
+      <tr>
+        <td style="padding:3px 0;color:var(--gold);font-weight:700">🥇 1st place</td>
+        <td style="padding:3px 0;text-align:right;font-weight:700;color:var(--gold)">5 pts</td>
+      </tr>
+      <tr>
+        <td style="padding:3px 0;color:var(--silver);font-weight:700">🥈 2nd place</td>
+        <td style="padding:3px 0;text-align:right;font-weight:700;color:var(--silver)">4 pts</td>
+      </tr>
+      <tr>
+        <td style="padding:3px 0;color:var(--bronze);font-weight:700">🥉 3rd place</td>
+        <td style="padding:3px 0;text-align:right;font-weight:700;color:var(--bronze)">3 pts</td>
+      </tr>
+      <tr>
+        <td style="padding:3px 0;color:var(--text-muted)">4th place</td>
+        <td style="padding:3px 0;text-align:right;color:var(--text-muted)">2 pts</td>
+      </tr>
+      <tr>
+        <td style="padding:3px 0;color:var(--text-muted)">5th place</td>
+        <td style="padding:3px 0;text-align:right;color:var(--text-muted)">1 pt</td>
+      </tr>
+      <tr>
+        <td style="padding:3px 0;color:var(--text-dim)">6th and below</td>
+        <td style="padding:3px 0;text-align:right;color:var(--text-dim)">0 pts</td>
+      </tr>
+    </table>
+
+    <p><strong>Winner</strong><br>
+    The team with the most points at the end of the season wins.</p>
+
+    <p><strong>1st Half / Full Season Totals</strong><br>
+    Sum of the full 13-man roster (all players, not just top 10) — used for separate payout milestones.</p>
+
+    <p><strong>Tiebreakers</strong><br>
+    <em>Monthly &amp; Yearly standings:</em><br>
+    1. Full 13-man roster HR total for that period<br>
+    2. If still tied — full roster RBIs for that period</p>
+
+    <p><em>1st Half &amp; Full Season HR payouts:</em><br>
+    No tiebreaker — split the payout.</p>
+
     <button class="modal-close" onclick="document.getElementById('info-modal').classList.remove('open')">Got it</button>
   </div>
 </div>
