@@ -310,6 +310,13 @@ table.roster td.num { text-align: right; font-variant-numeric: tabular-nums; }
 table.roster tr:last-child td { border-bottom: none; }
 table.roster tr.not-counting td { color: var(--text-muted); }
 .star { color: var(--gold); font-size: 9px; margin-left: 2px; }
+.team-logo-sm {
+  width: 18px; height: 18px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
 .plink {
   color: inherit;
   border-bottom: 1px dotted rgba(109,110,113,0.4);
@@ -951,33 +958,19 @@ function buildDetailInner(container,row){
     const mHrs=MONTHS.map(mo=>mo.months.reduce((s,m)=>s+(gStats[id]?.[m]||0),0));
     return{name,mHrs,total:mHrs.reduce((s,v)=>s+v,0)};
   });
+  container.appendChild(buildSeasonRoster(pdata,row.periods));
+}
 
-  const tabs=document.createElement('div');
-  tabs.className='detail-tabs';
-  const content=document.createElement('div');
-
-  const tabDefs=[{id:'all',label:'Season'},...MONTHS.map(m=>({id:m.id,label:m.col}))];
-
-  function showTab(id){
-    tabs.querySelectorAll('.dtab').forEach(b=>b.classList.toggle('active',b.dataset.id==id));
-    content.innerHTML='';
-    if(id==='all') content.appendChild(buildSeasonRoster(pdata,row.periods));
-    else{
-      const mi=MONTHS.findIndex(m=>m.id===id);
-      content.appendChild(buildMonthRoster(pdata,mi,row.periods[mi]));
-    }
-  }
-
-  tabDefs.forEach(t=>{
-    const btn=document.createElement('button');
-    btn.className='dtab'; btn.dataset.id=t.id; btn.textContent=t.label;
-    btn.onclick=()=>showTab(t.id);
-    tabs.appendChild(btn);
-  });
-
-  container.appendChild(tabs);
-  container.appendChild(content);
-  showTab('all');
+function playerCell(rosterName){
+  const res=gResolution[rosterName]||{};
+  const espn=gESPN[normName(res.full)]||{};
+  const displayName=espn.espnName||res.full||rosterName;
+  const team=(res.team||'').toLowerCase();
+  const logo=team&&team!=='?'
+    ?`<img src="https://a.espncdn.com/i/teamlogos/mlb/500/${team}.png" class="team-logo-sm" alt="${res.team||''}" onerror="this.style.display='none'">`
+    :'';
+  if(espn.espnUrl) return `${logo}<a href="${espn.espnUrl}" target="_blank" rel="noopener" class="plink">${displayName}</a>`;
+  return `${logo}${displayName}`;
 }
 
 function buildSeasonRoster(pdata,periods){
@@ -994,7 +987,7 @@ function buildSeasonRoster(pdata,periods){
   sorted.forEach(p=>{
     const counting=p.mHrs.some((h,mi)=>h>0&&top10ByMonth[mi].has(p.name));
     html+=`<tr class="${counting?'counting':'not-counting'}">
-      <td>${playerLink(p.name)}</td>
+      <td>${playerCell(p.name)}</td>
       ${p.mHrs.map((h,mi)=>{
         const counts=h>0&&top10ByMonth[mi].has(p.name);
         return `<td class="num">${h?`${h}${counts?'<span class="star">★</span>':''}`:'<span style="color:#ccc">—</span>'}</td>`;
