@@ -206,9 +206,9 @@ details[open] .reg-summary{border-radius:8px 8px 0 0;border-bottom-color:transpa
 const SEASON = 2026;
 const ESPN_API = 'https://site.api.espn.com/apis/site/v2/sports/baseball/mlb';
 const TOP_N  = 10;
-const CACHE_IDS   = `hrd_${SEASON}_res_v6`;
-const CACHE_STATS = `hrd_${SEASON}_stats_v6`;
-const CACHE_ESPN  = `hrd_${SEASON}_espn_v6`;
+const CACHE_IDS   = `hrd_${SEASON}_res_v7`;
+const CACHE_STATS = `hrd_${SEASON}_stats_v7`;
+const CACHE_ESPN  = `hrd_${SEASON}_espn_v7`;
 const TTL_IDS     = 7  * 24 * 60 * 60 * 1000;
 const TTL_STATS   = 30 * 60 * 1000;
 const TTL_ESPN    = 7  * 24 * 60 * 60 * 1000;
@@ -274,7 +274,7 @@ const PLAYER_REGISTRY = {
   "Tatis":       {id:665487, full:"Fernando Tatis Jr.",    team:"SD"},
   "Witt":        {id:677951, full:"Bobby Witt Jr.",        team:"KC"},
   "Acuna":       {id:660670, full:"Ronald Acuña Jr.",      team:"ATL"},
-  "Guerrero":    {id:665489, full:"Vlad Guerrero Jr.",     team:"TOR"},
+  "Guerrero":    {id:665489, full:"Vladimir Guerrero Jr.", team:"TOR"},
   "Tucker":      {id:663656, full:"Kyle Tucker",           team:"CHC"},
   // --- Established Stars ---
   "Machado":     {id:592518, full:"Manny Machado",         team:"SD"},
@@ -309,6 +309,8 @@ const PLAYER_REGISTRY = {
   "Cruz":        {id:665862, full:"Oneil Cruz",            team:"PIT"},  // NOT Nelson Cruz (retired)
   "Hernandez":   {id:606192, full:"Teoscar Hernández",     team:"LAD"}, // NOT Kiké Hernández etc.
   "Buxton":      {id:621439, full:"Byron Buxton",          team:"MIN"},
+  "Stowers":     {id:669065, full:"Kyle Stowers",          team:"BAL"},
+  "Chourio":     {id:694192, full:"Jackson Chourio",       team:"MIL"},
 };
 
 // Disambiguation rules for players resolved via API (not in registry)
