@@ -310,14 +310,20 @@ table.roster td.num { text-align: right; font-variant-numeric: tabular-nums; }
 table.roster tr:last-child td { border-bottom: none; }
 table.roster tr.not-counting td { color: var(--text-muted); }
 
-/* Sticky player column in roster + divider */
-table.roster th:first-child,
-table.roster td:first-child {
+/* Roster: spacer col (matches RK width) + sticky player col with divider */
+table.roster .spacer-col {
+  width: 60px; min-width: 60px; max-width: 60px;
+  padding: 0; border: none;
+  position: sticky; left: 0; z-index: 2;
+  background: var(--bg);
+}
+table.roster .player-col {
   position: sticky;
-  left: 0;
+  left: 60px;
   background: var(--bg);
   z-index: 3;
   box-shadow: 1px 0 0 0 var(--border);
+  min-width: 150px;
 }
 .star { color: var(--gold); font-size: 9px; margin-left: 2px; }
 .team-logo-sm {
@@ -989,14 +995,16 @@ function buildSeasonRoster(pdata,periods){
   });
   const wrap=document.createElement('div');
   let html=`<table class="roster"><thead><tr>
-    <th>Player</th>
+    <th class="spacer-col"></th>
+    <th class="player-col">Player</th>
     ${MONTHS.map(m=>`<th class="num">${m.col}</th>`).join('')}
     <th class="num">Total</th>
   </tr></thead><tbody>`;
   sorted.forEach(p=>{
     const counting=p.mHrs.some((h,mi)=>h>0&&top10ByMonth[mi].has(p.name));
     html+=`<tr class="${counting?'counting':'not-counting'}">
-      <td>${playerCell(p.name)}</td>
+      <td class="spacer-col"></td>
+      <td class="player-col">${playerCell(p.name)}</td>
       ${p.mHrs.map((h,mi)=>{
         const counts=h>0&&top10ByMonth[mi].has(p.name);
         return `<td class="num">${h?`${h}`:'<span style="color:#ccc">—</span>'}</td>`;
@@ -1005,7 +1013,8 @@ function buildSeasonRoster(pdata,periods){
     </tr>`;
   });
   html+=`<tr style="border-top:2px solid #6D6E71">
-    <td style="font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#6D6E71">Score</td>
+    <td class="spacer-col"></td>
+    <td class="player-col" style="font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#6D6E71">Score</td>
     ${periods.map(p=>`<td class="num" style="font-weight:700;color:var(--col-hi-text)">${p.score||'—'}</td>`).join('')}
     <td class="num" style="font-weight:800">${periods.reduce((s,p)=>s+p.score,0)}</td>
   </tr></tbody></table>`;
