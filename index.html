@@ -533,7 +533,7 @@ table.standings tbody tr.data-row:hover td.col-name {
   <!-- HEADER -->
   <header class="header">
     <div class="header-left">
-      <img id="logo-img" src="logo-light.svg" alt="Home Run Challenge" class="logo-img">
+      <img id="logo-img" src="Logo.jpeg" alt="Home Run Challenge" class="logo-img">
       <button class="info-btn" onclick="document.getElementById('info-modal').classList.add('open')" title="How it works">i</button>
     </div>
     <div class="header-right">
@@ -637,6 +637,9 @@ table.standings tbody tr.data-row:hover td.col-name {
     <p><em>1st Half &amp; Full Season HR payouts:</em><br>
     No tiebreaker — split the payout.</p>
 
+    <p style="margin-top:14px"><strong>💰 Payouts</strong><br>
+    <em style="color:var(--text-muted)">Payout structure coming soon — details will be posted here.</em></p>
+
     <button class="modal-close" onclick="document.getElementById('info-modal').classList.remove('open')">Got it</button>
   </div>
 </div>
@@ -649,7 +652,7 @@ const themeCb = document.getElementById('theme-toggle-cb');
 
 function applyTheme(dark) {
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  document.getElementById('logo-img').src = dark ? 'logo-dark.svg' : 'logo-light.svg';
+  document.getElementById('logo-img').src = 'Logo.jpeg'; // single logo for both themes
   localStorage.setItem('hrd_theme', dark ? 'dark' : 'light');
   themeCb.checked = dark;
 }
@@ -675,8 +678,11 @@ const CACHE_IDS   = `hrd_${SEASON}_res_v8`;
 const CACHE_STATS = `hrd_${SEASON}_stats_v8`;
 const CACHE_ESPN  = `hrd_${SEASON}_espn_v8`;
 const TTL_IDS     = 7  * 24 * 60 * 60 * 1000;
-const TTL_STATS   = 30 * 60 * 1000;
+const TTL_STATS   = 3  * 60 * 60 * 1000;  // 3 hrs → max 4 live refreshes per 12pm–12am window
 const TTL_ESPN    = 7  * 24 * 60 * 60 * 1000;
+
+// Live updates only between 12:00pm and 12:00am
+function inUpdateWindow(){ return new Date().getHours() >= 12; }
 const API = 'https://statsapi.mlb.com/api/v1';
 
 const MONTHS = [
@@ -1239,6 +1245,15 @@ function buildMonthRoster(pdata,mi,period){
 // LOAD DATA
 // ═══════════════════════════════════════════════════════
 async function loadData(forceRefresh=false){
+  // Block live API calls outside the 12pm–12am window; serve cached data instead
+  if(forceRefresh && !inUpdateWindow()){
+    const note=document.createElement('div');
+    note.style.cssText='position:fixed;top:72px;left:50%;transform:translateX(-50%);z-index:9999;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;color:var(--text-muted);box-shadow:0 4px 16px rgba(0,0,0,.15)';
+    note.textContent='⏰ Live updates active 12 pm – 12 am only';
+    document.body.appendChild(note);
+    setTimeout(()=>note.remove(),3000);
+    forceRefresh=false;
+  }
   const btn=document.getElementById('refresh-btn');
   btn.disabled=true;
   document.getElementById('standings-body').innerHTML=`
