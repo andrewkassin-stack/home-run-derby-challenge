@@ -490,20 +490,21 @@ table.standings tbody tr.data-row:hover td.col-name {
   width: 100vw;
   pointer-events: none;
 }
-/* Bottom line: below header row, above player data.      */
-/* Can't use thead::after — clipped by table-wrap overflow */
-/* Instead: ::after on .table-section, top set by JS       */
-.table-section::after {
+/* Bottom line: below header row, above player data */
+table.standings thead tr {
+  position: relative;
+}
+table.standings thead tr::after {
   content: '';
   position: absolute;
-  top: var(--thead-h, 34px);
+  bottom: 0;
   height: 2.25px;
   background: #6D6E71;
   left: 50%;
   transform: translateX(-50%);
   width: 100vw;
   pointer-events: none;
-  z-index: 1;
+  z-index: 15;
 }
 </style>
 </head>
@@ -597,19 +598,6 @@ function applyTheme(dark) {
 themeCb.addEventListener('change', function() {
   applyTheme(this.checked);
 });
-
-// ── FULL-WIDTH HEADER LINES ─────────────────────────────
-// Measures thead height and sets --thead-h CSS var so
-// .table-section::after lands exactly at the header bottom
-function fixHeaderLines() {
-  const thead = document.querySelector('table.standings thead');
-  const section = document.querySelector('.table-section');
-  if (thead && section) {
-    section.style.setProperty('--thead-h', thead.getBoundingClientRect().height + 'px');
-  }
-}
-requestAnimationFrame(fixHeaderLines);
-window.addEventListener('resize', fixHeaderLines);
 
 // ═══════════════════════════════════════════════════════
 // CONFIG
@@ -1115,7 +1103,6 @@ async function loadData(forceRefresh=false){
     gESPN=await resolveESPN(gResolution);
     gStandings=calcStandings(gResolution,gStats);
     renderStandings();
-    requestAnimationFrame(fixHeaderLines);
   }catch(err){
     document.getElementById('standings-body').innerHTML=`
       <tr><td colspan="9">
