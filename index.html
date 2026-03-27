@@ -999,7 +999,7 @@ function buildSeasonRoster(pdata,periods){
       <td>${playerCell(p.name)}</td>
       ${p.mHrs.map((h,mi)=>{
         const counts=h>0&&top10ByMonth[mi].has(p.name);
-        return `<td class="num">${h?`${h}${counts?'<span class="star">★</span>':''}`:'<span style="color:#ccc">—</span>'}</td>`;
+        return `<td class="num">${h?`${h}`:'<span style="color:#ccc">—</span>'}</td>`;
       }).join('')}
       <td class="num" style="font-weight:700">${p.total||'<span style="color:#ccc">—</span>'}</td>
     </tr>`;
