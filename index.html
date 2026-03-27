@@ -260,10 +260,10 @@ tr.data-row.alt td.num.sorted {
 /* ── DETAIL ROW ──────────────────────────────────────── */
 tr.detail-row td {
   padding: 0 !important;
-  background: var(--detail-bg);
+  background: var(--bg);
   cursor: default;
 }
-tr.detail-row:hover { background: var(--detail-bg) !important; }
+tr.detail-row:hover { background: var(--bg) !important; }
 .detail-inner {
   padding: 0;
   border-top: 1px solid var(--border);
@@ -309,6 +309,16 @@ table.roster td {
 table.roster td.num { text-align: right; font-variant-numeric: tabular-nums; }
 table.roster tr:last-child td { border-bottom: none; }
 table.roster tr.not-counting td { color: var(--text-muted); }
+
+/* Sticky player column in roster + divider */
+table.roster th:first-child,
+table.roster td:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--bg);
+  z-index: 3;
+  box-shadow: 1px 0 0 0 var(--border);
+}
 .star { color: var(--gold); font-size: 9px; margin-left: 2px; }
 .team-logo-sm {
   width: 18px; height: 18px;
