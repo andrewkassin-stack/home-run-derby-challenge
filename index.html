@@ -6,24 +6,29 @@
 <title>Home Run Derby Challenge 2026</title>
 <style>
 :root {
-  --bg:#0d1520; --surface:#162030; --surface2:#1e2d42; --border:#263545;
-  --text:#e2e8f0; --muted:#6b8099; --gold:#f5c518; --gold-dim:rgba(245,197,24,.12);
-  --green:#22c55e; --red:#ef4444; --radius:10px;
+  --bg:#07101e; --surface:#0f1a2e; --surface2:#172238; --border:#1e3054;
+  --text:#e8edf5; --muted:#6878a0; --gold:#f5c518; --gold-dim:rgba(245,197,24,.12);
+  --red:#E31837; --red-dim:rgba(227,24,55,.12); --navy:#1B2D5E;
+  --green:#22c55e; --radius:10px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
 /* HEADER */
-header{background:linear-gradient(135deg,#091525,#0f2240);border-bottom:2px solid var(--gold);padding:20px 40px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.hdr-text h1{font-size:22px;font-weight:800;color:var(--gold)}
-.hdr-text .sub{font-size:12px;color:var(--muted);margin-top:2px}
+header{background:linear-gradient(160deg,#04090f 0%,#0a1628 50%,#0d1e3a 100%);border-bottom:3px solid var(--red);padding:18px 40px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 120% at 50% -20%,rgba(227,24,55,.08) 0%,transparent 70%);pointer-events:none}
+.hdr-logo{height:72px;width:auto;border-radius:8px;flex-shrink:0;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))}
+.hdr-text h1{font-size:24px;font-weight:900;color:#fff;letter-spacing:-.3px;text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.hdr-text h1 span.red{color:var(--red)}
+.hdr-text .sub{font-size:12px;color:var(--muted);margin-top:3px;letter-spacing:.02em}
+.hdr-divider{width:1px;height:40px;background:var(--border);flex-shrink:0}
 .hdr-right{margin-left:auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.live-pill{display:flex;align-items:center;gap:6px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--green)}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+.live-pill{display:flex;align-items:center;gap:6px;background:rgba(227,24,55,.1);border:1px solid rgba(227,24,55,.35);border-radius:20px;padding:4px 12px;font-size:11px;font-weight:700;color:var(--red)}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 #last-updated{font-size:11px;color:var(--muted)}
-#refresh-btn{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:7px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:background .15s}
-#refresh-btn:hover{background:var(--border)}
+#refresh-btn{background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--text);padding:7px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:600;transition:all .15s}
+#refresh-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
 #refresh-btn:disabled{opacity:.5;cursor:not-allowed}
 
 /* MAIN */
@@ -35,17 +40,17 @@ main{max-width:1400px;margin:0 auto;padding:28px 40px 60px}
 .rule-ico{font-size:18px;line-height:1.3;flex-shrink:0}
 .rule-txt{font-size:12px;color:var(--muted);line-height:1.5}
 .rule-txt strong{color:var(--text);display:block;margin-bottom:2px}
-.rule-highlight{background:var(--gold-dim);border:1px solid rgba(245,197,24,.3);border-radius:6px}
+.rule-highlight{background:var(--red-dim);border:1px solid rgba(227,24,55,.25);border-radius:6px}
 
 /* MONTH CHIPS */
 .month-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
 .mc{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:11px;color:var(--muted)}
-.mc b{color:var(--gold);margin-right:4px}
+.mc b{color:var(--red);margin-right:4px}
 
 /* SECTION HEADER */
 .sec-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
 .sec-hdr h2{font-size:18px;font-weight:700}
-.badge-live{background:var(--gold-dim);border:1px solid var(--gold);color:var(--gold);font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
+.badge-live{background:var(--red-dim);border:1px solid rgba(227,24,55,.4);color:var(--red);font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px}
 
 /* STANDINGS TABLE */
 .tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
@@ -53,11 +58,11 @@ table{width:100%;border-collapse:collapse}
 thead{background:var(--surface2)}
 th{padding:11px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap}
 th.num,td.num{text-align:right}
-td{padding:12px 14px;border-bottom:1px solid rgba(38,53,69,.6);font-size:13px;vertical-align:middle}
+td{padding:12px 14px;border-bottom:1px solid rgba(30,48,84,.7);font-size:13px;vertical-align:middle}
 tbody tr:last-child td{border-bottom:none}
 tbody tr.data-row{cursor:pointer;transition:background .12s}
-tbody tr.data-row:hover{background:rgba(255,255,255,.03)}
-tbody tr.data-row.open{background:var(--gold-dim)}
+tbody tr.data-row:hover{background:rgba(255,255,255,.025)}
+tbody tr.data-row.open{background:rgba(227,24,55,.06)}
 .rank-cell{text-align:center;font-weight:700;width:44px}
 .rank-1{color:#FFD700}.rank-2{color:#b0b8c4}.rank-3{color:#cd7f32}.rank-rest{color:var(--muted);font-size:12px}
 .team-cell{font-weight:600;font-size:14px}
@@ -68,13 +73,13 @@ tbody tr.data-row.open{background:var(--gold-dim)}
 tbody tr.data-row.open .expand-icon{transform:rotate(90deg)}
 
 /* DETAIL ROW */
-tr.detail-row td{padding:0;background:rgba(9,21,37,.7)}
+tr.detail-row td{padding:0;background:rgba(4,9,15,.7)}
 .detail-inner{padding:16px 20px;border-top:1px solid var(--border)}
 
 /* MONTH TABS */
 .mtabs{display:flex;gap:4px;margin-bottom:14px;flex-wrap:wrap}
 .mtab{padding:5px 14px;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;background:var(--surface2);color:var(--muted);border:1px solid var(--border);transition:all .12s}
-.mtab.active{background:var(--gold-dim);color:var(--gold);border-color:var(--gold)}
+.mtab.active{background:var(--red-dim);color:var(--red);border-color:rgba(227,24,55,.4)}
 
 /* MONTH SCORE HEADER */
 .msh{display:flex;align-items:center;justify-content:space-between;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 16px;margin-bottom:12px}
@@ -93,25 +98,25 @@ tr.detail-row td{padding:0;background:rgba(9,21,37,.7)}
 .pc-right{display:flex;align-items:center;gap:5px;margin-left:auto}
 .pc-hr{font-size:18px;font-weight:800;color:var(--text)}
 .pc.counting .pc-hr{color:var(--gold)}
-.top10-tag{font-size:8px;background:var(--gold);color:var(--bg);padding:1px 4px;border-radius:2px;font-weight:800}
+.top10-tag{font-size:8px;background:var(--red);color:#fff;padding:1px 4px;border-radius:2px;font-weight:800}
 
 /* SEASON TABLE */
 .stbl{width:100%;border-collapse:collapse;font-size:12px}
 .stbl th{padding:7px 10px;background:var(--surface2);color:var(--muted);font-size:10px;letter-spacing:.04em;text-transform:uppercase;text-align:center;white-space:nowrap}
 .stbl th:first-child{text-align:left}
-.stbl td{padding:7px 10px;border-bottom:1px solid rgba(38,53,69,.5);text-align:center;color:var(--muted)}
+.stbl td{padding:7px 10px;border-bottom:1px solid rgba(30,48,84,.5);text-align:center;color:var(--muted)}
 .stbl td.pn{text-align:left;color:var(--text);font-weight:500}
 .stbl tr.score-row td{background:rgba(245,197,24,.08);color:var(--gold);font-weight:700;border-top:1px solid rgba(245,197,24,.2)}
 .cell-counts{background:rgba(245,197,24,.12);color:var(--gold);font-weight:700;border-radius:3px;padding:1px 4px}
-.cell-zero{color:rgba(107,128,153,.4)}
+.cell-zero{color:rgba(104,120,160,.35)}
 
 /* STATES */
 .loading-box{padding:60px;text-align:center}
-.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 14px}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--red);border-radius:50%;animation:spin .75s linear infinite;margin:0 auto 14px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-label{color:var(--muted);font-size:13px}
-#load-detail{font-size:11px;color:rgba(38,53,69,1);margin-top:6px}
-.error-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.3);border-radius:var(--radius);padding:20px;color:var(--red);text-align:center;font-size:13px}
+#load-detail{font-size:11px;color:var(--border);margin-top:6px}
+.error-box{background:rgba(227,24,55,.08);border:1px solid rgba(227,24,55,.3);border-radius:var(--radius);padding:20px;color:var(--red);text-align:center;font-size:13px}
 
 /* PLAYER REGISTRY PANEL */
 .reg-panel{margin-top:32px}
@@ -126,18 +131,20 @@ details[open] .reg-summary{border-radius:8px 8px 0 0;border-bottom-color:transpa
 .src-badge{font-size:9px;font-weight:700;padding:2px 5px;border-radius:2px;white-space:nowrap}
 .src-registry{background:rgba(34,197,94,.15);color:var(--green)}
 .src-api{background:rgba(59,130,246,.15);color:#60a5fa}
-.src-notfound{background:rgba(239,68,68,.15);color:var(--red)}
+.src-notfound{background:rgba(227,24,55,.15);color:var(--red)}
 
 /* ESPN LINKS */
 .plink{color:inherit;text-decoration:none;border-bottom:1px dotted rgba(245,197,24,.4);transition:border-color .15s,color .15s}
 .plink:hover{color:var(--gold);border-bottom-color:var(--gold)}
 .pc.counting .plink:hover{color:#fff}
-.espn-badge{font-size:9px;background:rgba(255,55,0,.15);color:#ff6b47;padding:1px 5px;border-radius:2px;font-weight:700;margin-left:4px;white-space:nowrap}
+.espn-badge{font-size:9px;background:rgba(227,24,55,.15);color:#ff6b47;padding:1px 5px;border-radius:2px;font-weight:700;margin-left:4px;white-space:nowrap}
 .espn-verified{color:var(--green);font-size:10px;margin-left:4px}
 
 /* RESPONSIVE */
 @media(max-width:800px){
   header,main{padding:14px 16px}
+  .hdr-logo{height:52px}
+  .hdr-divider{display:none}
   .month-cell{display:none}
   .month-cell:last-of-type{display:table-cell}
 }
@@ -146,10 +153,11 @@ details[open] .reg-summary{border-radius:8px 8px 0 0;border-bottom-color:transpa
 <body>
 
 <header>
-  <div style="font-size:32px">⚾</div>
+  <img src="Logo.jpeg" class="hdr-logo" alt="Home Run Derby Challenge">
+  <div class="hdr-divider"></div>
   <div class="hdr-text">
-    <h1>Home Run Derby Challenge</h1>
-    <div class="sub">2026 MLB Season · 30 Teams · Live Standings</div>
+    <h1><span class="red">HOMERUN</span> CHALLENGE</h1>
+    <div class="sub">2026 MLB Season &nbsp;·&nbsp; 30 Teams &nbsp;·&nbsp; Live Standings</div>
   </div>
   <div class="hdr-right">
     <div class="live-pill"><div class="live-dot"></div>LIVE</div>
