@@ -473,14 +473,15 @@ table.standings tbody tr.data-row:hover td.col-name {
             <th class="col-name">NAME</th>
             <th class="num sorted sortable" id="th-total" onclick="setSort('total')">TOTAL<span class="sort-arrow" id="arrow-total">▼</span></th>
             <th class="num sortable" id="th-m1" onclick="setSort(0)">MAR/APR<span class="sort-arrow" id="arrow-m1"></span></th>
-            <th class="num sortable" id="th-m2" onclick="setSort(1)">JUN<span class="sort-arrow" id="arrow-m2"></span></th>
-            <th class="num sortable" id="th-m3" onclick="setSort(2)">JUL<span class="sort-arrow" id="arrow-m3"></span></th>
-            <th class="num sortable" id="th-m4" onclick="setSort(3)">AUG<span class="sort-arrow" id="arrow-m4"></span></th>
-            <th class="num sortable" id="th-m5" onclick="setSort(4)">SEP<span class="sort-arrow" id="arrow-m5"></span></th>
+            <th class="num sortable" id="th-m2" onclick="setSort(1)">MAY<span class="sort-arrow" id="arrow-m2"></span></th>
+            <th class="num sortable" id="th-m3" onclick="setSort(2)">JUN<span class="sort-arrow" id="arrow-m3"></span></th>
+            <th class="num sortable" id="th-m4" onclick="setSort(3)">JUL<span class="sort-arrow" id="arrow-m4"></span></th>
+            <th class="num sortable" id="th-m5" onclick="setSort(4)">AUG<span class="sort-arrow" id="arrow-m5"></span></th>
+            <th class="num sortable" id="th-m6" onclick="setSort(5)">SEP<span class="sort-arrow" id="arrow-m6"></span></th>
           </tr>
         </thead>
         <tbody id="standings-body">
-          <tr><td colspan="8">
+          <tr><td colspan="9">
             <div class="loading">
               <div class="spinner"></div>
               <p>Fetching live MLB stats…</p>
@@ -545,10 +546,11 @@ const API = 'https://statsapi.mlb.com/api/v1';
 
 const MONTHS = [
   {id:1, label:'Mar/Apr', col:'MAR/APR', months:[3,4]},
-  {id:2, label:'Jun',     col:'JUN',     months:[6]},
-  {id:3, label:'Jul',     col:'JUL',     months:[7]},
-  {id:4, label:'Aug',     col:'AUG',     months:[8]},
-  {id:5, label:'Sep', col:'SEP', months:[9]},
+  {id:2, label:'May',     col:'MAY',     months:[5]},
+  {id:3, label:'Jun',     col:'JUN',     months:[6]},
+  {id:4, label:'Jul',     col:'JUL',     months:[7]},
+  {id:5, label:'Aug',     col:'AUG',     months:[8]},
+  {id:6, label:'Sep',     col:'SEP',     months:[9]},
 ];
 
 // ═══════════════════════════════════════════════════════
@@ -861,7 +863,7 @@ function renderStandings(){
 
   // Update header highlight + arrows
   document.querySelectorAll('table.standings thead th').forEach(th=>th.classList.remove('sorted'));
-  const arrowIds=['arrow-total','arrow-m1','arrow-m2','arrow-m3','arrow-m4','arrow-m5'];
+  const arrowIds=['arrow-total','arrow-m1','arrow-m2','arrow-m3','arrow-m4','arrow-m5','arrow-m6'];
   arrowIds.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='';});
   const activeThId=gSortCol==='total'?'th-total':`th-m${gSortCol+1}`;
   const activeArrowId=gSortCol==='total'?'arrow-total':`arrow-m${gSortCol+1}`;
@@ -1029,7 +1031,7 @@ async function loadData(forceRefresh=false){
   const btn=document.getElementById('refresh-btn');
   btn.disabled=true;
   document.getElementById('standings-body').innerHTML=`
-    <tr><td colspan="8">
+    <tr><td colspan="9">
       <div class="loading">
         <div class="spinner"></div>
         <p>Fetching live MLB stats…</p>
@@ -1044,7 +1046,7 @@ async function loadData(forceRefresh=false){
     renderStandings();
   }catch(err){
     document.getElementById('standings-body').innerHTML=`
-      <tr><td colspan="8">
+      <tr><td colspan="9">
         <div class="error-box">
           <p>⚠ ${err.message}</p>
           <button onclick="loadData(true)">Try Again</button>
