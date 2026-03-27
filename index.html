@@ -214,9 +214,9 @@ details[open] .reg-summary{border-radius:8px 8px 0 0;border-bottom-color:transpa
 const SEASON = 2026;
 const ESPN_API = 'https://site.api.espn.com/apis/site/v2/sports/baseball/mlb';
 const TOP_N  = 10;
-const CACHE_IDS   = `hrd_${SEASON}_res_v7`;
-const CACHE_STATS = `hrd_${SEASON}_stats_v7`;
-const CACHE_ESPN  = `hrd_${SEASON}_espn_v7`;
+const CACHE_IDS   = `hrd_${SEASON}_res_v8`;
+const CACHE_STATS = `hrd_${SEASON}_stats_v8`;
+const CACHE_ESPN  = `hrd_${SEASON}_espn_v8`;
 const TTL_IDS     = 7  * 24 * 60 * 60 * 1000;
 const TTL_STATS   = 30 * 60 * 1000;
 const TTL_ESPN    = 7  * 24 * 60 * 60 * 1000;
@@ -319,6 +319,7 @@ const PLAYER_REGISTRY = {
   "Buxton":      {id:621439, full:"Byron Buxton",          team:"MIN"},
   "Stowers":     {id:669065, full:"Kyle Stowers",          team:"BAL"},
   "Chourio":     {id:694192, full:"Jackson Chourio",       team:"MIL"},
+  "Jones":       {id:666134, full:"Nolan Jones",           team:"COL"},
 };
 
 // Disambiguation rules for players resolved via API (not in registry)
