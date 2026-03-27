@@ -385,8 +385,9 @@ table.standings thead th.sorted.sortable {
 .sort-arrow {
   display: inline-block;
   margin-left: 4px;
-  font-size: 9px;
-  opacity: 0.6;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.75;
 }
 
 /* ── MOBILE ──────────────────────────────────────────── */
@@ -471,7 +472,7 @@ table.standings tbody tr.data-row:hover td.col-name {
           <tr>
             <th class="td-rank">RK</th>
             <th class="col-name">NAME</th>
-            <th class="num sorted sortable" id="th-total" onclick="setSort('total')">TOTAL<span class="sort-arrow" id="arrow-total">▼</span></th>
+            <th class="num sorted sortable" id="th-total" onclick="setSort('total')">TOTAL<span class="sort-arrow" id="arrow-total">v</span></th>
             <th class="num sortable" id="th-m1" onclick="setSort(0)">MAR/APR<span class="sort-arrow" id="arrow-m1"></span></th>
             <th class="num sortable" id="th-m2" onclick="setSort(1)">MAY<span class="sort-arrow" id="arrow-m2"></span></th>
             <th class="num sortable" id="th-m3" onclick="setSort(2)">JUN<span class="sort-arrow" id="arrow-m3"></span></th>
@@ -869,7 +870,7 @@ function renderStandings(){
   const activeArrowId=gSortCol==='total'?'arrow-total':`arrow-m${gSortCol+1}`;
   document.getElementById(activeThId)?.classList.add('sorted');
   const arrow=document.getElementById(activeArrowId);
-  if(arrow) arrow.textContent=gSortDir==='desc'?' ▼':' ▲';
+  if(arrow) arrow.textContent=gSortDir==='desc'?' v':' ^';
 
   const sorted=getSorted();
   sorted.forEach((row,i)=>{
