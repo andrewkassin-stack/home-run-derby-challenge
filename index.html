@@ -382,12 +382,19 @@ table.standings thead th.sorted.sortable {
   background: var(--col-hi);
   color: var(--col-hi-text);
 }
+.th-sortable {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
 .sort-arrow {
-  display: inline-block;
-  margin-left: 3px;
+  display: block;
   font-size: 10px;
   font-weight: 400;
+  line-height: 1;
+  min-height: 12px;
   opacity: 0.8;
+  margin-top: 2px;
 }
 
 /* ── MOBILE ──────────────────────────────────────────── */
@@ -472,13 +479,13 @@ table.standings tbody tr.data-row:hover td.col-name {
           <tr>
             <th class="td-rank">RK</th>
             <th class="col-name">NAME</th>
-            <th class="num sorted sortable" id="th-total" onclick="setSort('total')">TOTAL<span class="sort-arrow" id="arrow-total">⌄</span></th>
-            <th class="num sortable" id="th-m1" onclick="setSort(0)">MAR/APR<span class="sort-arrow" id="arrow-m1"></span></th>
-            <th class="num sortable" id="th-m2" onclick="setSort(1)">MAY<span class="sort-arrow" id="arrow-m2"></span></th>
-            <th class="num sortable" id="th-m3" onclick="setSort(2)">JUN<span class="sort-arrow" id="arrow-m3"></span></th>
-            <th class="num sortable" id="th-m4" onclick="setSort(3)">JUL<span class="sort-arrow" id="arrow-m4"></span></th>
-            <th class="num sortable" id="th-m5" onclick="setSort(4)">AUG<span class="sort-arrow" id="arrow-m5"></span></th>
-            <th class="num sortable" id="th-m6" onclick="setSort(5)">SEP<span class="sort-arrow" id="arrow-m6"></span></th>
+            <th class="num sorted sortable" id="th-total" onclick="setSort('total')"><span class="th-sortable">TOTAL<span class="sort-arrow" id="arrow-total">⌄</span></span></th>
+            <th class="num sortable" id="th-m1" onclick="setSort(0)"><span class="th-sortable">MAR/APR<span class="sort-arrow" id="arrow-m1"></span></span></th>
+            <th class="num sortable" id="th-m2" onclick="setSort(1)"><span class="th-sortable">MAY<span class="sort-arrow" id="arrow-m2"></span></span></th>
+            <th class="num sortable" id="th-m3" onclick="setSort(2)"><span class="th-sortable">JUN<span class="sort-arrow" id="arrow-m3"></span></span></th>
+            <th class="num sortable" id="th-m4" onclick="setSort(3)"><span class="th-sortable">JUL<span class="sort-arrow" id="arrow-m4"></span></span></th>
+            <th class="num sortable" id="th-m5" onclick="setSort(4)"><span class="th-sortable">AUG<span class="sort-arrow" id="arrow-m5"></span></span></th>
+            <th class="num sortable" id="th-m6" onclick="setSort(5)"><span class="th-sortable">SEP<span class="sort-arrow" id="arrow-m6"></span></span></th>
           </tr>
         </thead>
         <tbody id="standings-body">
