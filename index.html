@@ -270,6 +270,19 @@ tr.detail-row:hover { background: var(--bg) !important; }
   border-bottom: 1px solid var(--border);
 }
 
+/* ── FOCUS MODE (when a team is expanded) ───────────── */
+/* Dim other team rows so the open roster pops */
+table.standings.has-open tbody tr.data-row:not(.expanded-row) {
+  opacity: 0.18;
+  transition: opacity 0.2s;
+}
+table.standings.has-open tbody tr.data-row:not(.expanded-row):hover {
+  opacity: 0.5;
+}
+table.standings:not(.has-open) tbody tr.data-row {
+  transition: opacity 0.2s;
+}
+
 /* ── INLINE PLAYER ROWS (expanded roster) ───────────── */
 tr.player-row td {
   padding: 5px 12px;
@@ -454,6 +467,12 @@ table.standings thead th.sorted.sortable {
   line-height: 1;
   opacity: 0.8;
   width: 10px;
+  transition: transform 0.15s;
+}
+/* Rotate the same ^ character 180° for descending — identical size both ways */
+.sort-arrow.down {
+  transform: rotate(180deg);
+  display: inline-block;
 }
 
 /* ── MOBILE ──────────────────────────────────────────── */
@@ -538,7 +557,7 @@ table.standings tbody tr.data-row:hover td.col-name {
           <tr>
             <th class="td-rank">RK</th>
             <th class="col-name">NAME</th>
-            <th class="num sorted sortable" id="th-total" onclick="setSort('total')"><span class="th-sortable">TOTAL<span class="sort-arrow" id="arrow-total">⌄</span></span></th>
+            <th class="num sorted sortable" id="th-total" onclick="setSort('total')"><span class="th-sortable">TOTAL<span class="sort-arrow down" id="arrow-total">^</span></span></th>
             <th class="num sortable" id="th-m1" onclick="setSort(0)"><span class="th-sortable">MAR/APR<span class="sort-arrow" id="arrow-m1"></span></span></th>
             <th class="num sortable" id="th-m2" onclick="setSort(1)"><span class="th-sortable">MAY<span class="sort-arrow" id="arrow-m2"></span></span></th>
             <th class="num sortable" id="th-m3" onclick="setSort(2)"><span class="th-sortable">JUN<span class="sort-arrow" id="arrow-m3"></span></span></th>
@@ -957,12 +976,19 @@ function renderStandings(){
   // Update header highlight + arrows
   document.querySelectorAll('table.standings thead th').forEach(th=>th.classList.remove('sorted'));
   const arrowIds=['arrow-total','arrow-m1','arrow-m2','arrow-m3','arrow-m4','arrow-m5','arrow-m6'];
-  arrowIds.forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='';});
+  arrowIds.forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.textContent='';el.classList.remove('down');}
+  });
   const activeThId=gSortCol==='total'?'th-total':`th-m${gSortCol+1}`;
   const activeArrowId=gSortCol==='total'?'arrow-total':`arrow-m${gSortCol+1}`;
   document.getElementById(activeThId)?.classList.add('sorted');
   const arrow=document.getElementById(activeArrowId);
-  if(arrow) arrow.textContent=gSortDir==='desc'?' ⌄':' ⌃';
+  if(arrow){
+    arrow.textContent='^';
+    // desc = highest first = arrow points down (rotate 180°)
+    if(gSortDir==='desc') arrow.classList.add('down');
+  }
 
   const sorted=getSorted();
   sorted.forEach((row,i)=>{
@@ -1012,20 +1038,20 @@ function renderStandings(){
       pdata.forEach(p=>{
         const counting=p.mHrs.some((h,mi)=>h>0&&top10ByMonth[mi].has(p.name));
         const ptr=document.createElement('tr');
-        ptr.className=`player-row${counting?'':' faded'}`;
+        ptr.className='player-row';
         ptr.dataset.parentTeam=row.team;
 
         const totalActive=gSortCol==='total';
         const mCells=p.mHrs.map((h,mi)=>{
           const counts=h>0&&top10ByMonth[mi].has(p.name);
           const sorted=gSortCol===mi;
-          return `<td class="num${sorted?' sorted':''}${!h?' zero':''}">${h?(counts?`<b>${h}</b>`:h):'—'}</td>`;
+          return `<td class="num${sorted?' sorted':''}">${counts?`<b>${h}</b>`:h}</td>`;
         }).join('');
 
         ptr.innerHTML=`
           <td class="td-rank">${playerLogoCell(p.name)}</td>
           <td class="col-name">${playerNameCell(p.name)}</td>
-          <td class="num${totalActive?' sorted':''}${!p.total?' zero':''}" style="font-weight:${counting?700:400}">${p.total||'—'}</td>
+          <td class="num${totalActive?' sorted':''}" style="font-weight:${counting?700:400}">${p.total}</td>
           ${mCells}`;
         body.appendChild(ptr);
       });
@@ -1050,6 +1076,7 @@ function renderStandings(){
 
 function toggleDetail(row){
   gOpenTeam=gOpenTeam===row.team?null:row.team;
+  document.querySelector('table.standings')?.classList.toggle('has-open',!!gOpenTeam);
   renderStandings();
   if(gOpenTeam){
     setTimeout(()=>{
