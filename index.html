@@ -967,8 +967,9 @@ function playerCell(rosterName){
   const logo=team&&team!=='?'
     ?`<img src="https://a.espncdn.com/i/teamlogos/mlb/500/${team}.png" class="team-logo-sm" alt="${res.team||''}" onerror="this.style.display='none'">`
     :'';
-  if(espn.espnUrl) return `${logo}<a href="${espn.espnUrl}" target="_blank" rel="noopener" class="plink">${displayName}</a>`;
-  return `${logo}${displayName}`;
+  const abbr=res.team&&res.team!=='?'?` <span style="font-size:10px;color:#888;font-weight:500">${res.team}</span>`:'';
+  if(espn.espnUrl) return `${logo}<a href="${espn.espnUrl}" target="_blank" rel="noopener" class="plink">${displayName}</a>${abbr}`;
+  return `${logo}${displayName}${abbr}`;
 }
 
 function buildSeasonRoster(pdata,periods){
