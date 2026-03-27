@@ -270,6 +270,40 @@ tr.detail-row:hover { background: var(--bg) !important; }
   border-bottom: 1px solid var(--border);
 }
 
+/* ── INLINE PLAYER ROWS (expanded roster) ───────────── */
+tr.player-row td {
+  padding: 5px 12px;
+  font-size: 13px;
+  background: var(--bg-2);
+  border-top: 0.5px solid var(--border);
+  border-bottom: none;
+}
+tr.player-row td.td-rank {
+  text-align: center;
+  background: var(--bg-2);
+}
+tr.player-row td.col-name {
+  background: var(--bg-2);
+}
+tr.player-row:hover td,
+tr.player-row:hover td.td-rank,
+tr.player-row:hover td.col-name { background: var(--row-hover); }
+tr.player-row.faded td { opacity: 0.38; }
+tr.player-row.faded:hover td { opacity: 0.7; }
+
+/* Score row — sits below last player row */
+tr.score-row td {
+  padding: 5px 12px;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--text-muted);
+  border-top: 2.25px solid #6D6E71;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+tr.score-row td.td-rank,
+tr.score-row td.col-name { background: var(--bg); }
+
 .detail-tabs {
   display: flex; gap: 4px; margin-bottom: 12px;
   overflow-x: auto; scrollbar-width: none;
@@ -963,16 +997,53 @@ function renderStandings(){
     body.appendChild(tr);
 
     if(isOpen){
-      const dtr=document.createElement('tr');
-      dtr.className='detail-row';
-      const dtd=document.createElement('td');
-      dtd.colSpan=9;
-      const inner=document.createElement('div');
-      inner.className='detail-inner';
-      buildDetailInner(inner,row);
-      dtd.appendChild(inner);
-      dtr.appendChild(dtd);
-      body.appendChild(dtr);
+      // Build player data
+      const players=ROSTERS[row.team]||[];
+      const pdata=players.map(name=>{
+        const id=gResolution[name]?.id;
+        const mHrs=MONTHS.map(mo=>mo.months.reduce((s,m)=>s+(gStats[id]?.[m]||0),0));
+        return{name,mHrs,total:mHrs.reduce((s,v)=>s+v,0)};
+      }).sort((a,b)=>b.total-a.total);
+
+      const top10ByMonth=MONTHS.map((_,mi)=>
+        new Set([...pdata].sort((a,b)=>b.mHrs[mi]-a.mHrs[mi]).slice(0,TOP_N).map(p=>p.name))
+      );
+
+      pdata.forEach(p=>{
+        const counting=p.mHrs.some((h,mi)=>h>0&&top10ByMonth[mi].has(p.name));
+        const ptr=document.createElement('tr');
+        ptr.className=`player-row${counting?'':' faded'}`;
+        ptr.dataset.parentTeam=row.team;
+
+        const totalActive=gSortCol==='total';
+        const mCells=p.mHrs.map((h,mi)=>{
+          const counts=h>0&&top10ByMonth[mi].has(p.name);
+          const sorted=gSortCol===mi;
+          return `<td class="num${sorted?' sorted':''}${!h?' zero':''}">${h?(counts?`<b>${h}</b>`:h):'—'}</td>`;
+        }).join('');
+
+        ptr.innerHTML=`
+          <td class="td-rank">${playerLogoCell(p.name)}</td>
+          <td class="col-name">${playerNameCell(p.name)}</td>
+          <td class="num${totalActive?' sorted':''}${!p.total?' zero':''}" style="font-weight:${counting?700:400}">${p.total||'—'}</td>
+          ${mCells}`;
+        body.appendChild(ptr);
+      });
+
+      // Score row
+      const sptr=document.createElement('tr');
+      sptr.className='score-row';
+      sptr.dataset.parentTeam=row.team;
+      const totalActive=gSortCol==='total';
+      sptr.innerHTML=`
+        <td class="td-rank"></td>
+        <td class="col-name">Score</td>
+        <td class="num${totalActive?' sorted':''}" style="font-weight:800">${row.periods.reduce((s,p)=>s+p.score,0)||'—'}</td>
+        ${row.periods.map((p,mi)=>{
+          const sorted=gSortCol===mi;
+          return `<td class="num${sorted?' sorted':''}" style="font-weight:700;color:var(--col-hi-text)">${p.score||'—'}</td>`;
+        }).join('')}`;
+      body.appendChild(sptr);
     }
   });
 }
@@ -1012,6 +1083,21 @@ function playerCell(rosterName){
   const abbr=res.team&&res.team!=='?'?` <span style="font-size:10px;color:#888;font-weight:500">${res.team}</span>`:'';
   if(espn.espnUrl) return `${logo}<a href="${espn.espnUrl}" target="_blank" rel="noopener" class="plink">${displayName}</a>${abbr}`;
   return `${logo}${displayName}${abbr}`;
+}
+// Logo only (for td-rank cell in player rows)
+function playerLogoCell(rosterName){
+  const res=gResolution[rosterName]||{};
+  const team=(res.team||'').toLowerCase();
+  if(!team||team==='?') return '';
+  return `<img src="https://a.espncdn.com/i/teamlogos/mlb/500/${team}.png" class="team-logo-sm" alt="${res.team||''}" onerror="this.style.display='none'">`;
+}
+// Name/link only, no logo (for col-name cell in player rows)
+function playerNameCell(rosterName){
+  const res=gResolution[rosterName]||{};
+  const espn=gESPN[normName(res.full)]||{};
+  const displayName=espn.espnName||res.full||rosterName;
+  if(espn.espnUrl) return `<a href="${espn.espnUrl}" target="_blank" rel="noopener" class="plink">${displayName}</a>`;
+  return displayName;
 }
 
 function buildSeasonRoster(pdata,periods){
