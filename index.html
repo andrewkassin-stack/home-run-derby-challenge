@@ -215,7 +215,7 @@ table.standings td {
   padding: 9px 12px; white-space: nowrap;
 }
 .td-rank {
-  width: 42px; text-align: center;
+  width: 64px; text-align: center;
   font-size: 13px; font-weight: 700;
   color: var(--text);
 }
@@ -429,7 +429,16 @@ table.standings thead th.sorted.sortable {
   .month-nav { padding: 8px 16px; }
   .logo-img { height: 38px; }
   table.standings td, table.standings th { padding: 7px 8px; }
-  .detail-inner { padding: 12px 12px; }
+  /* Restore tighter edge padding on mobile */
+  table.standings thead th:first-child,
+  table.standings tbody tr.data-row td:first-child { padding-left: 16px; }
+  table.standings thead th:last-child,
+  table.standings tbody tr.data-row td:last-child { padding-right: 16px; }
+  /* Restore sticky offsets — td-rank is narrower on mobile */
+  .td-rank { width: 42px; }
+  table.standings thead th.col-name,
+  table.standings tbody td.col-name { left: 42px; }
+  .detail-inner { padding: 12px; }
   .toggle-label { display: none; }
 }
 
@@ -447,7 +456,7 @@ table.standings tbody td.td-rank {
 }
 table.standings thead th.col-name,
 table.standings tbody td.col-name {
-  left: 42px;
+  left: 64px;
   box-shadow: 1px 0 0 0 #6D6E71;
 }
 
@@ -469,6 +478,23 @@ table.standings tbody tr.data-row.alt td.col-name {
 table.standings tbody tr.data-row:hover td.td-rank,
 table.standings tbody tr.data-row:hover td.col-name {
   background: var(--row-hover);
+}
+
+/* ── FULL-WIDTH EDGE PADDING ─────────────────────────── */
+/* First cell gets left inset, last cell gets right inset  */
+/* so content doesn't touch screen edges when table is     */
+/* full-viewport-width (table-section outside page-inner) */
+table.standings thead th:first-child,
+table.standings tbody tr.data-row td:first-child {
+  padding-left: 32px;
+}
+table.standings thead th:last-child,
+table.standings tbody tr.data-row td:last-child {
+  padding-right: 32px;
+}
+.detail-inner {
+  padding-left: 32px;
+  padding-right: 32px;
 }
 </style>
 </head>
@@ -496,10 +522,12 @@ table.standings tbody tr.data-row:hover td.col-name {
     </div>
   </header>
 
-  <!-- TABLE -->
-  <div class="table-section">
-    <div class="table-wrap">
-      <table class="standings">
+</div><!-- /page-inner -->
+
+<!-- TABLE — full-width so border lines span the screen -->
+<div class="table-section">
+  <div class="table-wrap">
+    <table class="standings">
         <thead>
           <tr>
             <th class="td-rank">RK</th>
@@ -523,10 +551,8 @@ table.standings tbody tr.data-row:hover td.col-name {
           </td></tr>
         </tbody>
       </table>
-    </div>
   </div>
-
-</div><!-- /page-inner -->
+</div><!-- /table-section -->
 
 <!-- INFO MODAL -->
 <div class="modal-overlay" id="info-modal" onclick="if(event.target===this)this.classList.remove('open')">
