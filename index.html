@@ -674,9 +674,9 @@ themeCb.addEventListener('change', function() {
 const SEASON = 2026;
 const ESPN_API = 'https://site.api.espn.com/apis/site/v2/sports/baseball/mlb';
 const TOP_N  = 10;
-const CACHE_IDS   = `hrd_${SEASON}_res_v8`;
-const CACHE_STATS = `hrd_${SEASON}_stats_v8`;
-const CACHE_ESPN  = `hrd_${SEASON}_espn_v8`;
+const CACHE_IDS   = `hrd_${SEASON}_res_v9`;
+const CACHE_STATS = `hrd_${SEASON}_stats_v9`;
+const CACHE_ESPN  = `hrd_${SEASON}_espn_v9`;
 const TTL_IDS     = 7  * 24 * 60 * 60 * 1000;
 const TTL_STATS   = 3  * 60 * 60 * 1000;  // 3 hrs → max 4 live refreshes per 12pm–12am window
 const TTL_ESPN    = 7  * 24 * 60 * 60 * 1000;
@@ -737,7 +737,7 @@ const PLAYER_REGISTRY = {
   "Ohtani":      {id:660271, full:"Shohei Ohtani",        team:"LAD"},
   "Judge":       {id:592450, full:"Aaron Judge",           team:"NYY"},
   "Soto":        {id:665742, full:"Juan Soto",             team:"NYM"},
-  "Alonso":      {id:624413, full:"Pete Alonso",           team:"NYM"},
+  "Alonso":      {id:624413, full:"Pete Alonso",           team:"BAL"},
   "Devers":      {id:646240, full:"Rafael Devers",         team:"BOS"},
   "Tatis":       {id:665487, full:"Fernando Tatis Jr.",    team:"SD"},
   "Witt":        {id:677951, full:"Bobby Witt Jr.",        team:"KC"},
