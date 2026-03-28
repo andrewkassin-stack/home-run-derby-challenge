@@ -379,6 +379,11 @@ table.roster .player-col {
   vertical-align: middle;
   margin-right: 6px;
   flex-shrink: 0;
+  border-radius: 3px;
+}
+[data-theme="dark"] .team-logo-sm {
+  background: rgba(255,255,255,0.9);
+  padding: 1px;
 }
 .plink {
   color: inherit;
@@ -685,6 +690,11 @@ const TTL_ESPN    = 7  * 24 * 60 * 60 * 1000;
 function inUpdateWindow(){ return new Date().getHours() >= 12; }
 const API = 'https://statsapi.mlb.com/api/v1';
 
+// ESPN CDN uses different abbreviations for some teams
+// (e.g. Sacramento Athletics moved from OAK but ESPN CDN still uses oak)
+const LOGO_ABBR = { ath:'oak', sac:'oak' };
+function logoUrl(team){ const t=(team||'').toLowerCase(); return `https://a.espncdn.com/i/teamlogos/mlb/500/${LOGO_ABBR[t]||t}.png`; }
+
 const MONTHS = [
   {id:1, label:'Mar/Apr', col:'MAR/APR', months:[3,4]},
   {id:2, label:'May',     col:'MAY',     months:[5]},
@@ -850,7 +860,14 @@ function cSet(k,d){try{localStorage.setItem(k,JSON.stringify({ts:Date.now(),d}))
 async function jFetch(url){const r=await fetch(url);if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.json()}
 
 async function resolveAllPlayers(forceRefresh){
-  if(!forceRefresh){const c=cGet(CACHE_IDS,TTL_IDS);if(c)return c}
+  if(!forceRefresh){
+    const c=cGet(CACHE_IDS,TTL_IDS);
+    if(c){
+      // Validate cached teams match current PLAYER_REGISTRY; if not, rebuild
+      const stale=Object.entries(PLAYER_REGISTRY).some(([k,v])=>c[k]&&c[k].team!==v.team);
+      if(!stale) return c;
+    }
+  }
   const result={};
   const uniqueNames=[...new Set(Object.values(ROSTERS).flat())];
   const needApi=[];
@@ -1160,7 +1177,7 @@ function playerCell(rosterName){
   const displayName=espn.espnName||res.full||rosterName;
   const team=(res.team||'').toLowerCase();
   const logo=team&&team!=='?'
-    ?`<img src="https://a.espncdn.com/i/teamlogos/mlb/500/${team}.png" class="team-logo-sm" alt="${res.team||''}" onerror="this.style.display='none'">`
+    ?`<img src="${logoUrl(team)}" class="team-logo-sm" alt="${res.team||''}" onerror="this.style.display='none'">`
     :'';
   const abbr=res.team&&res.team!=='?'?` <span style="font-size:10px;color:#888;font-weight:500">${res.team}</span>`:'';
   if(espn.espnUrl) return `${logo}<a href="${espn.espnUrl}" target="_blank" rel="noopener" class="plink">${displayName}</a>${abbr}`;
@@ -1171,7 +1188,7 @@ function playerLogoCell(rosterName){
   const res=gResolution[rosterName]||{};
   const team=(res.team||'').toLowerCase();
   if(!team||team==='?') return '';
-  return `<img src="https://a.espncdn.com/i/teamlogos/mlb/500/${team}.png" class="team-logo-sm" alt="${res.team||''}" onerror="this.style.display='none'">`;
+  return `<img src="${logoUrl(team)}" class="team-logo-sm" alt="${res.team||''}" onerror="this.style.display='none'">`;
 }
 // Name/link only, no logo (for col-name cell in player rows)
 function playerNameCell(rosterName){
