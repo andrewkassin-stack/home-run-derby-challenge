@@ -1175,20 +1175,23 @@ function playerCell(rosterName){
   const res=gResolution[rosterName]||{};
   const espn=gESPN[normName(res.full)]||{};
   const displayName=espn.espnName||res.full||rosterName;
-  const team=(res.team||'').toLowerCase();
+  // Always use PLAYER_REGISTRY for the team so logo is never stale from cache
+  const teamRaw=(PLAYER_REGISTRY[rosterName]?.team||res.team||'');
+  const team=teamRaw.toLowerCase();
   const logo=team&&team!=='?'
-    ?`<img src="${logoUrl(team)}" class="team-logo-sm" alt="${res.team||''}" onerror="this.style.display='none'">`
+    ?`<img src="${logoUrl(team)}" class="team-logo-sm" alt="${teamRaw}" onerror="this.style.display='none'">`
     :'';
-  const abbr=res.team&&res.team!=='?'?` <span style="font-size:10px;color:#888;font-weight:500">${res.team}</span>`:'';
+  const abbr=teamRaw&&teamRaw!=='?'?` <span style="font-size:10px;color:#888;font-weight:500">${teamRaw}</span>`:'';
   if(espn.espnUrl) return `${logo}<a href="${espn.espnUrl}" target="_blank" rel="noopener" class="plink">${displayName}</a>${abbr}`;
   return `${logo}${displayName}${abbr}`;
 }
 // Logo only (for td-rank cell in player rows)
 function playerLogoCell(rosterName){
-  const res=gResolution[rosterName]||{};
-  const team=(res.team||'').toLowerCase();
+  // Always use PLAYER_REGISTRY for the team so logo is never stale from cache
+  const teamRaw=(PLAYER_REGISTRY[rosterName]?.team||(gResolution[rosterName]||{}).team||'');
+  const team=teamRaw.toLowerCase();
   if(!team||team==='?') return '';
-  return `<img src="${logoUrl(team)}" class="team-logo-sm" alt="${res.team||''}" onerror="this.style.display='none'">`;
+  return `<img src="${logoUrl(team)}" class="team-logo-sm" alt="${teamRaw}" onerror="this.style.display='none'">`;
 }
 // Name/link only, no logo (for col-name cell in player rows)
 function playerNameCell(rosterName){
