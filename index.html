@@ -68,6 +68,21 @@ body {
 button { font-family: inherit; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
 
+/* ── PAGE TITLE ──────────────────────────────────────── */
+.page-title-wrap {
+  text-align: center;
+  padding: 4px 0 20px;
+}
+.page-title {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  line-height: 1.2;
+}
+[data-theme="light"] .page-title { color: #1a1a1a; }
+[data-theme="dark"]  .page-title { color: #ffffff; }
+
 /* ── PAGE WRAPPER ─────────────────────────────────────── */
 .page-inner {
   max-width: 1100px;
@@ -539,10 +554,7 @@ table.standings tbody tr.data-row:hover td.col-name {
   <header class="header">
     <div class="header-left">
       <img id="logo-img" src="Logo.jpeg" alt="Home Run Challenge" class="logo-img">
-      <div>
-        <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);line-height:1.2">Home Run Derby Challenge 2026</div>
-        <button class="info-btn" onclick="document.getElementById('info-modal').classList.add('open')" title="How it works" style="margin-top:4px">i</button>
-      </div>
+      <button class="info-btn" onclick="document.getElementById('info-modal').classList.add('open')" title="How it works">i</button>
     </div>
     <div class="header-right">
       <div class="toggle-wrap">
@@ -557,6 +569,11 @@ table.standings tbody tr.data-row:hover td.col-name {
       <button class="refresh-btn" id="refresh-btn" title="Refresh stats" onclick="loadData(true)">↻</button>
     </div>
   </header>
+
+  <!-- PAGE TITLE -->
+  <div class="page-title-wrap">
+    <h1 class="page-title">Home Run Derby Challenge 2026</h1>
+  </div>
 
   <!-- TABLE -->
   <div class="table-section">
