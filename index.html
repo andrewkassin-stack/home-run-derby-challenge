@@ -718,7 +718,8 @@ function logoUrl(team){ const t=(team||'').toLowerCase(); return `https://a.espn
 // Hardcoded logo overrides — these take absolute priority over registry/cache.
 // Use roster key → ESPN team abbreviation (lowercase).
 const LOGO_FORCE = {
-  'Alonso': 'bal',   // Pete Alonso — Baltimore Orioles
+  'Alonso':  'bal',  // Pete Alonso — Baltimore Orioles
+  'Stowers': 'mia',  // Kyle Stowers — Miami Marlins
 };
 
 const MONTHS = [
@@ -812,7 +813,7 @@ const PLAYER_REGISTRY = {
   "Cruz":        {id:665862, full:"Oneil Cruz",            team:"PIT"},
   "Hernandez":   {id:606192, full:"Teoscar Hernández",     team:"LAD"},
   "Buxton":      {id:621439, full:"Byron Buxton",          team:"MIN"},
-  "Stowers":     {id:669065, full:"Kyle Stowers",          team:"BAL"},
+  "Stowers":     {id:669065, full:"Kyle Stowers",          team:"MIA"},
   "Chourio":     {id:694192, full:"Jackson Chourio",       team:"MIL"},
   "Jones":       {id:666134, full:"Nolan Jones",           team:"COL"},
   // Previously DISAMBIG-only — added so logos always resolve
