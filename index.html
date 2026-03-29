@@ -318,6 +318,7 @@ tr.player-row:hover td.td-rank,
 tr.player-row:hover td.col-name { background: var(--row-hover); }
 tr.player-row.faded td { opacity: 0.38; }
 tr.player-row.faded:hover td { opacity: 0.7; }
+tr.player-row.boundary td { border-top: 2.5px solid var(--border); }
 
 /* Score row — sits below last player row */
 tr.score-row td {
@@ -1125,10 +1126,10 @@ function renderStandings(){
         new Set([...pdata].sort((a,b)=>b.mHrs[mi]-a.mHrs[mi]).slice(0,TOP_N).map(p=>p.name))
       );
 
-      pdata.forEach(p=>{
+      pdata.forEach((p,i)=>{
         const counting=top10ByMonth.some((s)=>s.has(p.name));
         const ptr=document.createElement('tr');
-        ptr.className='player-row';
+        ptr.className=`player-row${i===TOP_N?' boundary':''}`;
         ptr.dataset.parentTeam=row.team;
 
         const totalActive=gSortCol==='total';
