@@ -685,7 +685,7 @@ themeCb.addEventListener('change', function() {
 const SEASON = 2026;
 const ESPN_API = 'https://site.api.espn.com/apis/site/v2/sports/baseball/mlb';
 const TOP_N  = 10;
-const CACHE_IDS   = `hrd_${SEASON}_res_v9`;
+const CACHE_IDS   = `hrd_${SEASON}_res_v10`;
 const CACHE_STATS = `hrd_${SEASON}_stats_v9`;
 const CACHE_ESPN  = `hrd_${SEASON}_espn_v9`;
 const TTL_IDS     = 7  * 24 * 60 * 60 * 1000;
@@ -707,6 +707,7 @@ const LOGO_FORCE = {
   'Alonso':  'bal',  // Pete Alonso — Baltimore Orioles
   'Stowers': 'mia',  // Kyle Stowers — Miami Marlins
   'Devers':  'sf',   // Rafael Devers — San Francisco Giants
+  'Tucker':  'lad',  // Kyle Tucker — Los Angeles Dodgers
 };
 
 const MONTHS = [
@@ -767,7 +768,7 @@ const PLAYER_REGISTRY = {
   "Witt":        {id:677951, full:"Bobby Witt Jr.",        team:"KC"},
   "Acuna":       {id:660670, full:"Ronald Acuña Jr.",      team:"ATL"},
   "Guerrero":    {id:665489, full:"Vladimir Guerrero Jr.", team:"TOR"},
-  "Tucker":      {id:663656, full:"Kyle Tucker",           team:"CHC"},
+  "Tucker":      {id:663656, full:"Kyle Tucker",           team:"LAD"},
   "Machado":     {id:592518, full:"Manny Machado",         team:"SD"},
   "Harper":      {id:547180, full:"Bryce Harper",          team:"PHI"},
   "Olson":       {id:641355, full:"Matt Olson",            team:"ATL"},
