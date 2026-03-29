@@ -618,52 +618,37 @@ table.standings tbody tr.data-row:hover td.col-name {
     <p><strong>Monthly Scoring</strong><br>
     Each month, the <strong>top 10 home run hitters</strong> from each team's 13-player roster count toward that team's monthly total. Scoring resets every month.</p>
 
-    <p><strong>Points</strong><br>
-    Finish in the <strong>top 5</strong> each month to earn points toward the season title:</p>
-
-    <table style="width:100%;border-collapse:collapse;font-size:12px;margin:4px 0 10px">
-      <tr>
-        <td style="padding:3px 0;color:var(--gold);font-weight:700">🥇 1st place</td>
-        <td style="padding:3px 0;text-align:right;font-weight:700;color:var(--gold)">5 pts</td>
-      </tr>
-      <tr>
-        <td style="padding:3px 0;color:var(--silver);font-weight:700">🥈 2nd place</td>
-        <td style="padding:3px 0;text-align:right;font-weight:700;color:var(--silver)">4 pts</td>
-      </tr>
-      <tr>
-        <td style="padding:3px 0;color:var(--bronze);font-weight:700">🥉 3rd place</td>
-        <td style="padding:3px 0;text-align:right;font-weight:700;color:var(--bronze)">3 pts</td>
-      </tr>
-      <tr>
-        <td style="padding:3px 0;color:var(--text-muted)">4th place</td>
-        <td style="padding:3px 0;text-align:right;color:var(--text-muted)">2 pts</td>
-      </tr>
-      <tr>
-        <td style="padding:3px 0;color:var(--text-muted)">5th place</td>
-        <td style="padding:3px 0;text-align:right;color:var(--text-muted)">1 pt</td>
-      </tr>
-      <tr>
-        <td style="padding:3px 0;color:var(--text-dim)">6th and below</td>
-        <td style="padding:3px 0;text-align:right;color:var(--text-dim)">0 pts</td>
-      </tr>
-    </table>
-
-    <p><strong>Winner</strong><br>
-    The team with the most points at the end of the season wins.</p>
-
-    <p><strong>1st Half / Full Season Totals</strong><br>
-    Sum of the full 13-man roster (all players, not just top 10) — used for separate payout milestones.</p>
-
     <p><strong>Tiebreakers</strong><br>
     <em>Monthly &amp; Yearly standings:</em><br>
     1. Full 13-man roster HR total for that period<br>
     2. If still tied — full roster RBIs for that period</p>
 
-    <p><em>1st Half &amp; Full Season HR payouts:</em><br>
+    <p><em>All-Star Break &amp; Full Season HR payouts:</em><br>
     No tiebreaker — split the payout.</p>
 
-    <p style="margin-top:14px"><strong>💰 Payouts</strong><br>
-    <em style="color:var(--text-muted)">Payout structure coming soon — details will be posted here.</em></p>
+    <p style="margin-top:14px"><strong>💰 Payouts</strong></p>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;margin:4px 0 10px">
+      <tr>
+        <td style="padding:5px 0;color:var(--gold);font-weight:700">🥇 Standings — 1st place</td>
+        <td style="padding:5px 0;text-align:right;font-weight:700;color:var(--gold)">$895</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 0;color:var(--silver);font-weight:700">🥈 Standings — 2nd place</td>
+        <td style="padding:5px 0;text-align:right;font-weight:700;color:var(--silver)">$50</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 0;color:var(--text-muted)">📅 Monthly winner (top 10 roster) × 6</td>
+        <td style="padding:5px 0;text-align:right;color:var(--text-muted)">$30 each</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 0;color:var(--text-muted)">⭐ All-Star Break leader (13-man roster)</td>
+        <td style="padding:5px 0;text-align:right;color:var(--text-muted)">$150</td>
+      </tr>
+      <tr>
+        <td style="padding:5px 0;color:var(--text-muted)">🏆 Full Season leader (13-man roster)</td>
+        <td style="padding:5px 0;text-align:right;color:var(--text-muted)">$225</td>
+      </tr>
+    </table>
 
     <button class="modal-close" onclick="document.getElementById('info-modal').classList.remove('open')">Got it</button>
   </div>
@@ -1141,7 +1126,7 @@ function renderStandings(){
       );
 
       pdata.forEach(p=>{
-        const counting=p.mHrs.some((h,mi)=>h>0&&top10ByMonth[mi].has(p.name));
+        const counting=top10ByMonth.some((s)=>s.has(p.name));
         const ptr=document.createElement('tr');
         ptr.className='player-row';
         ptr.dataset.parentTeam=row.team;
