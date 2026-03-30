@@ -554,7 +554,7 @@ table.standings tbody tr.data-row:hover td.col-name {
   <!-- HEADER -->
   <header class="header">
     <div class="header-left">
-      <img id="logo-img" src="Logo.jpeg" alt="Home Run Challenge" class="logo-img">
+      <img id="logo-img" src="logo-light.svg" alt="Home Run Challenge" class="logo-img">
       <button class="info-btn" onclick="document.getElementById('info-modal').classList.add('open')" title="How it works">i</button>
     </div>
     <div class="header-right">
@@ -663,7 +663,7 @@ const themeCb = document.getElementById('theme-toggle-cb');
 
 function applyTheme(dark) {
   document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-  document.getElementById('logo-img').src = 'Logo.jpeg'; // single logo for both themes
+  document.getElementById('logo-img').src = dark ? 'logo-dark.svg' : 'logo-light.svg';
   localStorage.setItem('hrd_theme', dark ? 'dark' : 'light');
   themeCb.checked = dark;
 }
