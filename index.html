@@ -701,20 +701,10 @@ const TTL_ESPN    = 7  * 24 * 60 * 60 * 1000;
 function inUpdateWindow(){ return new Date().getHours() >= 12; }
 const API = 'https://statsapi.mlb.com/api/v1';
 
-// ESPN CDN uses different abbreviations for some teams
-// (e.g. Sacramento Athletics moved from OAK but ESPN CDN still uses oak)
-const LOGO_ABBR = { ath:'oak', sac:'oak' };
+// Populated from data.json at startup — do not edit here
+let LOGO_ABBR = {};
+let LOGO_FORCE = {};
 function logoUrl(team){ const t=(team||'').toLowerCase(); return `https://a.espncdn.com/i/teamlogos/mlb/500/${LOGO_ABBR[t]||t}.png`; }
-
-// Hardcoded logo overrides — these take absolute priority over registry/cache.
-// Use roster key → ESPN team abbreviation (lowercase).
-const LOGO_FORCE = {
-  'Alonso':  'bal',  // Pete Alonso — Baltimore Orioles
-  'Stowers': 'mia',  // Kyle Stowers — Miami Marlins
-  'Devers':  'sf',   // Rafael Devers — San Francisco Giants
-  'Tucker':  'lad',  // Kyle Tucker — Los Angeles Dodgers
-  'Suarez':  'cin',  // Eugenio Suárez — Cincinnati Reds
-};
 
 const MONTHS = [
   {id:1, label:'Mar/Apr', col:'MAR/APR', months:[3,4]},
@@ -726,9 +716,9 @@ const MONTHS = [
 ];
 
 // ═══════════════════════════════════════════════════════
-// ROSTERS
+// ROSTERS  (populated from data.json)
 // ═══════════════════════════════════════════════════════
-const ROSTERS = {
+let ROSTERS = {
   "Team Stein":        ["Ohtani","Suarez","Caminero","Devers","Busch","Wood","Olson","Tatis","Witt","Wallner","Acuna","Chourio","Henderson"],
   "Team Rose":         ["Judge","Caminero","Alonso","Buxton","Springer","Pasquantino","Langeliers","Marte","Machado","Tatis","De La Cruz","Cruz","Acuna"],
   "Team Garland":      ["Ohtani","Caminero","Kurtz","Devers","Busch","Pasquantino","Wood","Marte","Walker","Tatis","Acuna","Steer","Burleson"],
@@ -762,9 +752,9 @@ const ROSTERS = {
 };
 
 // ═══════════════════════════════════════════════════════
-// PLAYER REGISTRY
+// PLAYER REGISTRY  (populated from data.json)
 // ═══════════════════════════════════════════════════════
-const PLAYER_REGISTRY = {
+let PLAYER_REGISTRY = {
   "Ohtani":      {id:660271, full:"Shohei Ohtani",        team:"LAD"},
   "Judge":       {id:592450, full:"Aaron Judge",           team:"NYY"},
   "Soto":        {id:665742, full:"Juan Soto",             team:"NYM"},
@@ -838,7 +828,8 @@ const PLAYER_REGISTRY = {
   "Barger":      {id:680718, full:"Addison Barger",        team:"TOR"},
 };
 
-const DISAMBIG = {
+// (populated from data.json)
+let DISAMBIG = {
   "Chisholm":      {first:"Jazz"},
   "Carroll":       {first:"Corbin",    team:"ARI"},
   "Langford":      {first:"Wyatt",     team:"TEX"},
@@ -868,6 +859,20 @@ const DISAMBIG = {
   "Montgomery":    {first:"Colton"},
   "Barger":        {first:"Addison", team:"TOR"},
 };
+
+// ═══════════════════════════════════════════════════════
+// CONFIG LOADER — fetches data.json and populates all data
+// ═══════════════════════════════════════════════════════
+async function loadConfig(){
+  const res = await fetch('data.json?v=' + Date.now()); // cache-bust so updates land immediately
+  if(!res.ok) throw new Error('Failed to load data.json');
+  const cfg = await res.json();
+  LOGO_ABBR      = cfg.logoAbbr      || {};
+  LOGO_FORCE     = cfg.logoForce     || {};
+  ROSTERS        = cfg.rosters       || {};
+  PLAYER_REGISTRY= cfg.playerRegistry|| {};
+  DISAMBIG       = cfg.disambig      || {};
+}
 
 // ═══════════════════════════════════════════════════════
 // CACHE
@@ -1331,7 +1336,11 @@ async function loadData(forceRefresh=false){
   }
 }
 
-loadData();
+// Load config from data.json, then fetch live stats
+loadConfig().then(() => loadData()).catch(err => {
+  document.getElementById('standings-body').innerHTML=`
+    <tr><td colspan="9"><div class="error-box"><p>⚠ Failed to load data.json: ${err.message}</p></div></td></tr>`;
+});
 
 // ── AUTO-REFRESH ─────────────────────────────────────────
 // Silently re-fetch stats every 20 minutes during game hours (12pm–12am).
