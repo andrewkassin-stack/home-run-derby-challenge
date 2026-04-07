@@ -1331,6 +1331,31 @@ async function loadData(forceRefresh=false){
 }
 
 loadData();
+
+// ── AUTO-REFRESH ─────────────────────────────────────────
+// Silently re-fetch stats every 20 minutes during game hours (12pm–12am).
+// Runs in the background without showing the loading overlay.
+const AUTO_REFRESH_MS = 20 * 60 * 1000; // 20 minutes
+
+async function backgroundRefresh(){
+  if(!inUpdateWindow()) return;      // only refresh during game hours
+  if(!gResolution) return;           // skip if initial load hasn't finished
+  try{
+    gStats = await fetchAllStats(gResolution, true); // force fresh stats
+    gStandings = calcStandings(gResolution, gStats);
+    renderStandings();
+    // Small non-intrusive toast so users know the data just updated
+    const toast = document.createElement('div');
+    toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:9999;background:var(--bg-2);border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:11px;font-weight:600;color:var(--text-muted);box-shadow:0 4px 16px rgba(0,0,0,.15);pointer-events:none';
+    toast.textContent = '↻ Stats refreshed';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2500);
+  }catch(e){
+    console.warn('Auto-refresh failed:', e);
+  }
+}
+
+setInterval(backgroundRefresh, AUTO_REFRESH_MS);
 </script>
 </body>
 </html>
